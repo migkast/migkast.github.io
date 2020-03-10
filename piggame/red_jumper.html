@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+
+
+<html>
+<meta charset="UTF-8">
+
+
+<head>
+
+    <title>Red Jumper</title>
+    <script type="text/javascript" src="red_jumper.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.15.0/TweenMax.min.js"></script>
+    <script src="jquery-collision.js"></script>
+    <link type="text/css" rel="stylesheet" href="stylesheet.css" />
+
+</head>
+
+
+
+
+<body>
+
+    <div id="startscreen">
+
+        <div id="porcoinicio"></div>
+        <div id="jaula"></div>
+        <div id="titulo">Turbo Pig</div>
+
+        <button onclick="start()" id="startbutton">Free the PIG!</button>
+
+    </div>
+
+
+    <script>
+        function start() {
+            $(document).ready(function () {
+                app.start();
+            })
+        }
+    </script>
+
+
+
+
+    <div id="game">
+
+        <div id="fundo"></div>
+
+        <div id="limite"></div>
+
+        <div id="bola"></div>
+
+        <div id="poste" class="obst"></div>
+
+        <div id="trave" class="obst"></div>
+
+    </div>
+
+
+
+
+
+    <!-- 
+
+class jump
+
+    fica red
+
+class drop
+
+    fica blue
+    
+    
+    
+
+eventlistener (seta cima)
+    
+    elevar bola durante 0,5s(meter class jump)
+    
+    e faze-la cair durante 0,5s ate posicção inicial(meter classe blue) -->
+
+
+
+
+
+</body>
+
+
+</html>

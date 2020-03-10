@@ -1,0 +1,111 @@
+#game {
+    width: 350px;
+    height: 450px;
+    margin-top: 50px;
+    margin-left: 150px;
+    max-width: 100%;
+    max-height: 100%;
+    background-color: black;
+    border: 2px;
+}
+#fundo {
+    width: 70000px;
+    height: 450px;
+    top: 50px;
+    left: 150px;
+    background-image: url(Imagens/background.png);
+    background-color: black;
+    border: 2px;
+    position: absolute;
+}
+#limite {
+    width: 350px;
+    height: 450px;
+    top: 0px;
+    left: 0px;
+    border-style: solid;
+    border-top-width: 50px;
+    border-bottom-width: 192px;
+    border-left-width: 150px;
+    border-right-width: 1000px;
+    position: absolute;
+    z-index: 1;
+}
+#startscreen {
+    width: 350px;
+    height: 450px;
+    top: 50px;
+    left: 150px;
+    background-image: url(Imagens/background.png);
+    background-color: black;
+    border: 2px;
+    position: absolute;
+    z-index: 2;
+}
+#startbutton {
+    margin-top: 230px;
+    margin-left: 90px;
+    height: 40px;
+    width: 180px;
+    background-color: #87CEFA;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: white;
+    position: absolute;
+}
+#porcoinicio {
+    height: 51px;
+    width: 70px;
+    background-image: url(Imagens/pigr.gif);
+    top: 350px;
+    left: 30px;
+    position: absolute;
+}
+#jaula {
+    height: 84px;
+    width: 80px;
+    background-image: url(Imagens/Jaula.png);
+    top: 340px;
+    left: 29px;
+    position: absolute;
+}
+#titulo {
+    height: 100px;
+    width: 200px;
+    top: 75px;
+    left: 100px;
+    font-family: sans-serif;
+    font-size: 35px;
+    color: white;
+    position: absolute;
+}
+#bola {
+    height: 51px;
+    width: 70px;
+    background-image: url(Imagens/pigr.gif);
+    top: 400px;
+    left: 180px;
+    position: absolute;
+}
+#poste
+/*bruxa 400 180 porco normal*/
+
+{
+    height: 58px;
+    width: 70px;
+    background-image: url(Imagens/witch.png);
+    top: 200px;
+    left: 600px;
+    position: absolute;
+}
+#trave
+/*morcego*/
+
+{
+    height: 48px;
+    width: 80px;
+    background-image: url(Imagens/Bat.png);
+    top: 400px;
+    left: 600px;
+    position: absolute;
+}
