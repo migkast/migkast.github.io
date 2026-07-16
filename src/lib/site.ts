@@ -8,6 +8,17 @@ type ClientLogo = {
   tone?: 'natural' | 'mono' | 'blend';
 };
 type Channel = { name: string; asset?: string; kind: 'platform' | 'capability' };
+type CampaignMetricKey = 'spend' | 'purchases' | 'costPerPurchase' | 'platformRoas' | 'conversions' | 'conversionValue' | 'conversionValueCost';
+type CampaignEvidenceItem = {
+  id: string;
+  platform: 'Meta' | 'Google Ads';
+  scope: 'campaign' | 'account';
+  preview: string;
+  original: string;
+  width: number;
+  height: number;
+  metrics: readonly { key: CampaignMetricKey; value: string }[];
+};
 
 export const clients: readonly ClientLogo[] = [
   { name: 'Miele', website: 'https://www.miele.com/', asset: '/logos/miele.png', size: 'optical-xl', tone: 'mono' },
@@ -75,6 +86,82 @@ export const productCopy = {
     marvelBody: 'Creado para corregir fallos de seguimiento, mejorar la calidad de los eventos, unificar datos de marketing y ayudar a los equipos a decidir con más confianza.',
     seoTitle: 'La plataforma líder de visibilidad en IA creada para agencias',
     seoBody: 'Auditorías, seguimiento de competidores, análisis de citas, flujos de contenido e informes para la nueva era del descubrimiento de marcas.'
+  }
+} as const;
+
+export const campaignEvidence: readonly CampaignEvidenceItem[] = [
+  {
+    id: 'meta-scale', platform: 'Meta', scope: 'campaign',
+    preview: '/images/campaign-evidence/meta-scale-preview.webp',
+    original: '/images/campaign-evidence/meta-scale-full.png', width: 2466, height: 1033,
+    metrics: [
+      { key: 'spend', value: '€448,511.47' },
+      { key: 'purchases', value: '2,029' },
+      { key: 'costPerPurchase', value: '€221.05' }
+    ]
+  },
+  {
+    id: 'meta-commerce', platform: 'Meta', scope: 'campaign',
+    preview: '/images/campaign-evidence/meta-commerce-preview.webp',
+    original: '/images/campaign-evidence/meta-commerce-full.png', width: 1933, height: 339,
+    metrics: [
+      { key: 'spend', value: '€27,771.69' },
+      { key: 'purchases', value: '3,691' },
+      { key: 'costPerPurchase', value: '€7.52' },
+      { key: 'platformRoas', value: '13.60' }
+    ]
+  },
+  {
+    id: 'google-performance', platform: 'Google Ads', scope: 'account',
+    preview: '/images/campaign-evidence/google-performance-preview.webp',
+    original: '/images/campaign-evidence/google-performance-full.png', width: 2243, height: 973,
+    metrics: [
+      { key: 'spend', value: '€53,763.52' },
+      { key: 'conversions', value: '6,275.20' },
+      { key: 'conversionValue', value: '€593,682.67' },
+      { key: 'conversionValueCost', value: '11.04' }
+    ]
+  },
+  {
+    id: 'google-month', platform: 'Google Ads', scope: 'account',
+    preview: '/images/campaign-evidence/google-month-preview.webp',
+    original: '/images/campaign-evidence/google-month-full.png', width: 2265, height: 1255,
+    metrics: [
+      { key: 'spend', value: '€45,667.91' },
+      { key: 'conversions', value: '6,457.31' },
+      { key: 'conversionValue', value: '€426,986.14' },
+      { key: 'conversionValueCost', value: '9.35' }
+    ]
+  }
+] as const;
+
+export const campaignEvidenceCopy = {
+  en: {
+    eyebrow: 'Account evidence', title: 'The work is hands-on, not theoretical.',
+    body: 'Selected one-month snapshots from Meta and Google accounts I have managed. These are platform-reported results from individual accounts and campaigns, not promises of future performance.',
+    scope: { campaign: 'Selected campaign · One-month account snapshot', account: 'One-month account snapshot' },
+    metrics: { spend: 'Spend', purchases: 'Purchases', costPerPurchase: 'Cost per purchase', platformRoas: 'Platform ROAS', conversions: 'Conversions', conversionValue: 'Conversion value', conversionValueCost: 'Conversion value / cost' },
+    ctaTitle: 'Are your campaigns actually ready to scale?',
+    ctaLabel: 'Book a call',
+    view: 'View full size', close: 'Close', fit: 'Fit to screen', actual: '100%', dialogTitle: 'Campaign performance screenshot'
+  },
+  pt: {
+    eyebrow: 'Prova nas contas', title: 'O trabalho é prático, não teórico.',
+    body: 'Exemplos selecionados de períodos de um mês em contas de Meta e Google que geri. São resultados reportados pelas plataformas em contas e campanhas específicas, não promessas de desempenho futuro.',
+    scope: { campaign: 'Campanha selecionada · Exemplo de um mês', account: 'Exemplo de um mês na conta' },
+    metrics: { spend: 'Investimento', purchases: 'Compras', costPerPurchase: 'Custo por compra', platformRoas: 'ROAS da plataforma', conversions: 'Conversões', conversionValue: 'Valor de conversão', conversionValueCost: 'Valor de conversão / custo' },
+    ctaTitle: 'As suas campanhas estão realmente prontas para escalar?',
+    ctaLabel: 'Marcar uma chamada',
+    view: 'Ver em tamanho real', close: 'Fechar', fit: 'Ajustar ao ecrã', actual: '100%', dialogTitle: 'Captura de desempenho de campanhas'
+  },
+  es: {
+    eyebrow: 'Evidencia en las cuentas', title: 'El trabajo es práctico, no teórico.',
+    body: 'Ejemplos seleccionados de periodos de un mes en cuentas de Meta y Google que he gestionado. Son resultados reportados por las plataformas en cuentas y campañas concretas, no promesas de rendimiento futuro.',
+    scope: { campaign: 'Campaña seleccionada · Ejemplo de un mes', account: 'Ejemplo de un mes en la cuenta' },
+    metrics: { spend: 'Inversión', purchases: 'Compras', costPerPurchase: 'Coste por compra', platformRoas: 'ROAS de plataforma', conversions: 'Conversiones', conversionValue: 'Valor de conversión', conversionValueCost: 'Valor de conversión / coste' },
+    ctaTitle: '¿Tus campañas están realmente preparadas para escalar?',
+    ctaLabel: 'Reservar una llamada',
+    view: 'Ver a tamaño completo', close: 'Cerrar', fit: 'Ajustar a pantalla', actual: '100%', dialogTitle: 'Captura del rendimiento de campañas'
   }
 } as const;
 

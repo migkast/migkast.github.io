@@ -1,0 +1,136 @@
+---
+import { campaignEvidence, campaignEvidenceCopy, type Language } from '../lib/site';
+
+interface Props { lang: Language; }
+const { lang } = Astro.props;
+const t = campaignEvidenceCopy[lang];
+const platforms = ['Meta', 'Google Ads'] as const;
+const platformLogos = {
+  Meta: '/platforms/meta-color.svg',
+  'Google Ads': '/platforms/googleads-color.svg'
+} as const;
+---
+
+<section class="section campaign-evidence" aria-labelledby="campaign-evidence-title">
+  <p class="eyebrow">{t.eyebrow}</p>
+  <div class="campaign-evidence-intro">
+    <h2 id="campaign-evidence-title">{t.title}</h2>
+    <p class="lead">{t.body}</p>
+  </div>
+
+  <div class="campaign-evidence-groups" data-reveal>
+    {platforms.map((platform) => (
+      <section class="campaign-platform" aria-labelledby={`campaign-platform-${platform.toLowerCase().replace(' ', '-')}`}>
+        <h3 id={`campaign-platform-${platform.toLowerCase().replace(' ', '-')}`}>
+          <img src={platformLogos[platform]} alt="" aria-hidden="true" />
+          <span>{platform}</span>
+        </h3>
+        <div class="campaign-snapshots">
+          {campaignEvidence.filter((item) => item.platform === platform).map((item) => {
+            const context = t.scope[item.scope];
+            const alt = `${platform}. ${context}.`;
+            return (
+              <article class="campaign-snapshot">
+                <p class="campaign-context">{context}</p>
+                <dl class="campaign-metrics">
+                  {item.metrics.map((metric) => (
+                    <div>
+                      <dt>{t.metrics[metric.key]}</dt>
+                      <dd>{metric.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <a
+                  class="campaign-image-link"
+                  href={item.original}
+                  target="_blank"
+                  rel="noopener"
+                  data-campaign-open
+                  data-src={item.original}
+                  data-alt={alt}
+                  aria-label={`${t.view}: ${platform}`}
+                >
+                  <img
+                    src={item.preview}
+                    alt={alt}
+                    width={item.width}
+                    height={item.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span>{t.view} <span aria-hidden="true">↗</span></span>
+                </a>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <div class="campaign-evidence-cta" data-reveal>
+    <h3>{t.ctaTitle}</h3>
+    <a class="button" href={`/${lang}/contact/`}>{t.ctaLabel}</a>
+  </div>
+</section>
+
+<dialog class="campaign-lightbox" data-campaign-dialog aria-labelledby="campaign-lightbox-title">
+  <div class="campaign-lightbox-bar">
+    <strong id="campaign-lightbox-title">{t.dialogTitle}</strong>
+    <div class="campaign-lightbox-actions">
+      <button type="button" data-campaign-zoom="fit" aria-pressed="true">{t.fit}</button>
+      <button type="button" data-campaign-zoom="actual" aria-pressed="false">{t.actual}</button>
+      <button type="button" data-campaign-close>{t.close}</button>
+    </div>
+  </div>
+  <div class="campaign-lightbox-viewport" data-campaign-viewport>
+    <img class="campaign-lightbox-image" data-campaign-image data-zoom="fit" src="" alt="" />
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.querySelector('[data-campaign-dialog]');
+
+  if (dialog instanceof HTMLDialogElement && typeof dialog.showModal === 'function') {
+    const image = dialog.querySelector('[data-campaign-image]');
+    const viewport = dialog.querySelector('[data-campaign-viewport]');
+    const closeButton = dialog.querySelector('[data-campaign-close]');
+    const zoomButtons = dialog.querySelectorAll('[data-campaign-zoom]');
+    let opener: HTMLElement | null = null;
+
+    const setZoom = (mode: string) => {
+      if (!(image instanceof HTMLImageElement)) return;
+      image.dataset.zoom = mode;
+      zoomButtons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.getAttribute('data-campaign-zoom') === mode));
+      });
+      if (viewport instanceof HTMLElement) viewport.scrollTo({ top: 0, left: 0 });
+    };
+
+    document.querySelectorAll('[data-campaign-open]').forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (!(trigger instanceof HTMLElement) || !(image instanceof HTMLImageElement)) return;
+        opener = trigger;
+        image.src = trigger.dataset.src || '';
+        image.alt = trigger.dataset.alt || '';
+        setZoom('fit');
+        dialog.showModal();
+        document.body.classList.add('campaign-dialog-open');
+      });
+    });
+
+    closeButton?.addEventListener('click', () => dialog.close());
+    zoomButtons.forEach((button) => {
+      button.addEventListener('click', () => setZoom(button.getAttribute('data-campaign-zoom') || 'fit'));
+    });
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () => {
+      document.body.classList.remove('campaign-dialog-open');
+      if (opener instanceof HTMLElement) opener.focus();
+      opener = null;
+    });
+  }
+</script>

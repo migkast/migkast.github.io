@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import GrowthSystem from '../../components/GrowthSystem.astro';
 import FaqSection from '../../components/FaqSection.astro';
+import CampaignEvidence from '../../components/CampaignEvidence.astro';
 import { channels, clients, copy, languages, langFrom, productCopy, sectionLabels } from '../../lib/site';
 import { faqs } from '../../lib/faqs';
 
@@ -26,7 +27,7 @@ const capabilityChannels = channels.filter((channel) => channel.kind === 'capabi
           <p class="lead">{t.heroBody}</p>
           <div class="hero-actions">
             <a class="button" href={`/${lang}/contact/`}>{t.cta}</a>
-            <a class="button button-ghost" href="#method">{t.secondary}</a>
+            <a class="button button-ghost" href="#solution">{t.secondary}</a>
           </div>
           <p class="cta-note">{t.finalBody}</p>
         </div>
@@ -77,11 +78,27 @@ const capabilityChannels = channels.filter((channel) => channel.kind === 'capabi
       </div>
     </section>
 
+    <section id="channels" class="section section-dark">
+      <p class="eyebrow">{labels.channels}</p>
+      <h2>{t.channelsTitle}</h2>
+      <p class="lead">{t.channelsBody}</p>
+      <div class="channel-groups" data-reveal>
+        <div class="channel-list channel-platforms">
+          {platformChannels.map((channel) => <span>{channel.asset ? <img src={channel.asset} alt="" aria-hidden="true" /> : null}{channel.name}</span>)}
+        </div>
+        <div class="channel-list channel-capabilities">
+          {capabilityChannels.map((channel) => <span>{channel.name}</span>)}
+        </div>
+      </div>
+    </section>
+
+    <CampaignEvidence lang={lang} />
+
     <figure class="working-image" data-reveal>
       <img src="/images/bg.jpg" alt="Miguel Casteleiro discussing strategy in a working session" width="1064" height="709" loading="lazy" />
     </figure>
 
-    <section class="section section-dark solution-section">
+    <section id="solution" class="section section-dark solution-section">
       <p class="eyebrow">{labels.whatIDo}</p>
       <div class="solution-grid" data-reveal>
         <h2>{t.solutionTitle}</h2>
@@ -128,20 +145,6 @@ const capabilityChannels = channels.filter((channel) => channel.kind === 'capabi
       <p class="eyebrow">{labels.method}</p>
       <h2>{t.methodTitle}</h2>
       <ol class="method-list" data-reveal>{t.method.map((step) => <li>{step}</li>)}</ol>
-    </section>
-
-    <section id="channels" class="section section-dark">
-      <p class="eyebrow">{labels.channels}</p>
-      <h2>{t.channelsTitle}</h2>
-      <p class="lead">{t.channelsBody}</p>
-      <div class="channel-groups" data-reveal>
-        <div class="channel-list channel-platforms">
-          {platformChannels.map((channel) => <span>{channel.asset ? <img src={channel.asset} alt="" aria-hidden="true" /> : null}{channel.name}</span>)}
-        </div>
-        <div class="channel-list channel-capabilities">
-          {capabilityChannels.map((channel) => <span>{channel.name}</span>)}
-        </div>
-      </div>
     </section>
 
     <section class="section builder-section">
