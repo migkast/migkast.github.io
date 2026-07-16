@@ -1,0 +1,16 @@
+{
+  "name": "miguel-casteleiro-growth-advisory",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.0.7",
+    "typescript": "^5.9.2"
+  }
+}

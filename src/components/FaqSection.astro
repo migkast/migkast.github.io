@@ -1,0 +1,32 @@
+---
+import type { Language } from '../lib/site';
+import { faqLabels, type FaqItem } from '../lib/faqs';
+
+const { lang, items } = Astro.props as { lang: Language; items: readonly FaqItem[] };
+const labels = faqLabels[lang];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map(([question, answer]) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: answer }
+  }))
+};
+---
+<section id="faq" class="section faq-section" aria-labelledby="faq-title">
+  <div class="faq-heading">
+    <p class="eyebrow">{labels.eyebrow}</p>
+    <h2 id="faq-title">{labels.title}</h2>
+    <p class="lead">{labels.intro}</p>
+  </div>
+  <div class="faq-list">
+    {items.map(([question, answer], index) => (
+      <details class="faq-item">
+        <summary><span>0{index + 1}</span><strong>{question}</strong></summary>
+        <p>{answer}</p>
+      </details>
+    ))}
+  </div>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</section>

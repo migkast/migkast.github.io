@@ -1,0 +1,63 @@
+---
+import { copy, type Language } from '../lib/site';
+const { lang } = Astro.props as { lang: Language };
+const t = copy[lang];
+const [name,email,company,website,revenue,concern] = t.fields;
+---
+<div class="booking-shell">
+  <form id="context-form" class="context-form" data-sending={t.sending} data-error={t.formError}>
+    <input type="hidden" name="_subject" value="New growth conversation from miguelcasteleiro.com" />
+    <input type="hidden" name="_template" value="table" />
+    <input type="hidden" name="_captcha" value="false" />
+    <label class="honeypot" aria-hidden="true">Leave empty<input name="_honey" tabindex="-1" autocomplete="off" /></label>
+    <div class="form-grid">
+      <label>{name}<input name="name" autocomplete="name" required /></label>
+      <label>{email}<input name="email" type="email" autocomplete="email" required /></label>
+      <label>{company}<input name="company" autocomplete="organization" required /></label>
+      <label>{website}<input name="website" type="url" placeholder="https://" required /></label>
+      <label>{revenue}<select name="revenue" required><option value="">{t.select}</option>{t.revenueOptions.map((option) => <option>{option}</option>)}</select></label>
+    </div>
+    <input type="hidden" name="language" value={lang} />
+    <label>{concern}<textarea name="concern" rows="4" required></textarea></label>
+    <p class="form-privacy">{t.privacy}</p>
+    <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+    <button class="button" type="submit">{t.submit}</button>
+  </form>
+  <div id="calendar-step" class="calendar-step" hidden tabindex="-1">
+    <p>{t.manual}</p>
+    <div class="calendar-frame-wrap">
+      <iframe title="Google Calendar appointment booking" src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1eHVQ7w6FXLMQuYyFH-6xk8WTgE_A95sP-YdbwKqAikb32T0jvF7jHxD0dItqDlCpzrNbPtxji?gv=true" loading="lazy"></iframe>
+    </div>
+    <a class="text-link" href="https://calendar.app.google/amaAcv7UiBYxSFVr9" target="_blank" rel="noreferrer">{t.fallback} ↗</a>
+  </div>
+</div>
+<script>
+  const form = document.querySelector<HTMLFormElement>('#context-form');
+  const calendar = document.querySelector<HTMLElement>('#calendar-step');
+  const status = document.querySelector<HTMLElement>('#form-status');
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    submit?.setAttribute('disabled', '');
+    if (status) status.textContent = form.dataset.sending || 'Sending...';
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/migkast@gmail.com', {
+        method: 'POST', headers: { 'Accept': 'application/json' }, body: formData
+      });
+      if (!response.ok) throw new Error('Form delivery failed');
+      try {
+        sessionStorage.setItem('growth-conversation-context', JSON.stringify(data));
+      } catch {
+        // Form delivery should still complete when browser storage is unavailable.
+      }
+      form.setAttribute('hidden', '');
+      calendar?.removeAttribute('hidden');
+      calendar?.focus();
+    } catch {
+      if (status) status.textContent = form.dataset.error || 'Something went wrong. Please email migkast@gmail.com or try again.';
+      submit?.removeAttribute('disabled');
+    }
+  });
+</script>

@@ -1,0 +1,112 @@
+---
+import '../styles/global.css';
+import { copy, type Language } from '../lib/site';
+
+interface Props { lang: Language; title?: string; description?: string; path?: string; noindex?: boolean; }
+const { lang, title, description, path = '', noindex = false } = Astro.props;
+const t = copy[lang];
+const defaultTitles = {
+  en: 'Miguel Casteleiro | E-commerce Growth Advisor',
+  pt: 'Miguel Casteleiro | Consultor de Crescimento para E-commerce',
+  es: 'Miguel Casteleiro | Consultor de Crecimiento para E-commerce'
+};
+const pageTitle = title ? `${title} | Miguel Casteleiro` : defaultTitles[lang];
+const pageDescription = description || t.heroBody;
+const canonical = new URL(`/${lang}/${path}`, Astro.site);
+const routeKey = path.replace(/\/$/, '');
+const routeGroups: Record<string, Record<Language, string>> = {
+  approach: { en: 'approach', pt: 'abordagem', es: 'enfoque' },
+  abordagem: { en: 'approach', pt: 'abordagem', es: 'enfoque' },
+  enfoque: { en: 'approach', pt: 'abordagem', es: 'enfoque' },
+  experience: { en: 'experience', pt: 'experiencia', es: 'experiencia' },
+  experiencia: { en: 'experience', pt: 'experiencia', es: 'experiencia' },
+  insights: { en: 'insights', pt: 'insights', es: 'ideas' },
+  ideas: { en: 'insights', pt: 'insights', es: 'ideas' },
+  about: { en: 'about', pt: 'sobre', es: 'sobre-mi' },
+  sobre: { en: 'about', pt: 'sobre', es: 'sobre-mi' },
+  'sobre-mi': { en: 'about', pt: 'sobre', es: 'sobre-mi' },
+  contact: { en: 'contact', pt: 'contact', es: 'contact' }
+};
+const equivalentRoutes = routeGroups[routeKey];
+const alternates = equivalentRoutes
+  ? { en: `/en/${equivalentRoutes.en}/`, pt: `/pt/${equivalentRoutes.pt}/`, es: `/es/${equivalentRoutes.es}/` }
+  : { en: '/en/', pt: '/pt/', es: '/es/' };
+const personId = 'https://miguelcasteleiro.com/#person';
+const websiteId = 'https://miguelcasteleiro.com/#website';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person', '@id': personId, name: 'Miguel Casteleiro',
+      url: 'https://miguelcasteleiro.com/', image: 'https://miguelcasteleiro.com/images/miguel-headshot.jpg',
+      jobTitle: 'E-commerce Growth Advisor',
+      description: 'Growth advisor and Fractional Head of Growth for established e-commerce companies.',
+      sameAs: ['https://www.linkedin.com/in/mcasteleiro/', 'https://www.seoforgpt.io/'],
+      knowsLanguage: ['English', 'Portuguese', 'Spanish'],
+      knowsAbout: ['E-commerce growth strategy', 'Fractional Head of Growth', 'Performance marketing', 'Meta Ads', 'Google Ads', 'Marketing attribution', 'Conversion rate optimization', 'Lifecycle marketing', 'Agency evaluation', 'Growth team leadership']
+    },
+    {
+      '@type': 'WebSite', '@id': websiteId, url: 'https://miguelcasteleiro.com/',
+      name: 'Miguel Casteleiro Growth Advisory', publisher: { '@id': personId }, inLanguage: ['en', 'pt', 'es']
+    },
+    {
+      '@type': 'WebPage', '@id': `${canonical.href}#webpage`, url: canonical.href,
+      name: pageTitle, description: pageDescription, inLanguage: lang,
+      isPartOf: { '@id': websiteId }, about: { '@id': personId }, author: { '@id': personId }
+    }
+  ]
+};
+const skipLabel = { en: 'Skip to content', pt: 'Saltar para o conteúdo', es: 'Saltar al contenido' }[lang];
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={pageDescription} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
+    <meta name="theme-color" content="#f4f0e8" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={new URL(alternates.en, Astro.site)} />
+    <link rel="alternate" hreflang="pt" href={new URL(alternates.pt, Astro.site)} />
+    <link rel="alternate" hreflang="es" href={new URL(alternates.es, Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(alternates.en, Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={t.locale} />
+    <meta property="og:image" content="https://miguelcasteleiro.com/images/miguel-headshot.jpg" />
+    <meta property="og:image:alt" content="Miguel Casteleiro, e-commerce growth advisor" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content="https://miguelcasteleiro.com/images/miguel-headshot.jpg" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{skipLabel}</a>
+    <slot />
+    <script is:inline>
+      const reveal = () => {
+        const elements = document.querySelectorAll('[data-reveal]');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          elements.forEach((element) => element.setAttribute('data-visible', 'true'));
+          return;
+        }
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.setAttribute('data-visible', 'true');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        elements.forEach((element) => observer.observe(element));
+      };
+      reveal();
+    </script>
+  </body>
+</html>

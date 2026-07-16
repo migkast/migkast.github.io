@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import GrowthSystem from '../../components/GrowthSystem.astro';
+import FaqSection from '../../components/FaqSection.astro';
+import { channels, clients, copy, languages, langFrom, productCopy, sectionLabels } from '../../lib/site';
+import { faqs } from '../../lib/faqs';
+
+export function getStaticPaths() { return languages.map((lang) => ({ params: { lang } })); }
+const lang = langFrom(Astro.params.lang);
+const t = copy[lang];
+const labels = sectionLabels[lang];
+const products = productCopy[lang];
+const platformChannels = channels.filter((channel) => channel.kind === 'platform');
+const capabilityChannels = channels.filter((channel) => channel.kind === 'capability');
+---
+<BaseLayout lang={lang}>
+  <Header lang={lang} />
+  <main id="main">
+    <section class="section hero">
+      <div class="hero-grid">
+        <div class="hero-copy" data-reveal>
+          <p class="eyebrow">{t.eyebrow}</p>
+          <h1 class="hero-title">{t.hero}</h1>
+          <p class="lead">{t.heroBody}</p>
+          <div class="hero-actions">
+            <a class="button" href={`/${lang}/contact/`}>{t.cta}</a>
+            <a class="button button-ghost" href="#method">{t.secondary}</a>
+          </div>
+          <p class="cta-note">{t.finalBody}</p>
+        </div>
+        <aside class="hero-trust" data-reveal>
+          <figure class="portrait">
+            <img src="/images/miguel-headshot.jpg" alt="Portrait of Miguel Casteleiro" width="800" height="800" />
+          </figure>
+          <div class="hero-identity">
+            <div class="hero-name-row">
+              <strong>Miguel Casteleiro</strong>
+              <a class="linkedin-link" href="https://www.linkedin.com/in/mcasteleiro/" aria-label="View Miguel Casteleiro on LinkedIn"><span aria-hidden="true">in</span></a>
+            </div>
+            <p>{labels.portraitRole}</p>
+          </div>
+        </aside>
+      </div>
+      <ul id="proof" class="stats">{t.stats.map(([number, label]) => <li><strong>{number}</strong><span>{label}</span></li>)}</ul>
+    </section>
+
+    <section class="section" aria-labelledby="clients-title">
+      <p id="clients-title" class="eyebrow">{t.logoTitle}</p>
+      <div class="logo-cloud" data-reveal>
+        {clients.map((client) => (
+          <a class={`brand-logo ${client.size || ''} tone-${client.tone || 'natural'}`} href={client.website} aria-label={`${client.name} website`}>
+            {client.asset ? <img src={client.asset} alt={`${client.name} logo`} loading="lazy" /> : <span>{client.name}</span>}
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section id="recognition" class="section problem-section">
+      <div class="recognition">
+        <div data-reveal>
+          <p class="eyebrow">{labels.recognition}</p>
+          <h2>{t.recognitionTitle}</h2>
+          <p class="lead">{t.recognitionBody}</p>
+        </div>
+        <ol class="symptoms" data-reveal>{t.symptoms.map((symptom) => <li>{symptom}</li>)}</ol>
+      </div>
+      <div class="root-causes" data-reveal>
+        <p class="eyebrow">{labels.causes}</p>
+        <h3>{t.constraintTitle}</h3>
+        <p class="diagnostic-intro">{t.constraintIntro}</p>
+        <div class="diagnostic-grid">
+          {t.examples.map(([title, body], index) => <article class="diagnostic-card diagnostic-symptom"><span>0{index + 1}</span><p class="diagnostic-label">{labels.diagnosis}</p><div><h3>{title}</h3><p>{body}</p></div></article>)}
+          {t.scenarios.map(([title, body], index) => <article class="diagnostic-card diagnostic-cause"><span>0{index + 4}</span><p class="diagnostic-label">{labels.causes}</p><div><h3>{title}</h3><p>{body}</p></div></article>)}
+        </div>
+      </div>
+    </section>
+
+    <figure class="working-image" data-reveal>
+      <img src="/images/bg.jpg" alt="Miguel Casteleiro discussing strategy in a working session" width="1064" height="709" loading="lazy" />
+    </figure>
+
+    <section class="section section-dark solution-section">
+      <p class="eyebrow">{labels.whatIDo}</p>
+      <div class="solution-grid" data-reveal>
+        <h2>{t.solutionTitle}</h2>
+        <p>{t.solutionBody}</p>
+      </div>
+    </section>
+
+    <section class="section engagement-section">
+      <p class="eyebrow">{labels.engagements}</p>
+      <h2>{t.engagementTitle}</h2>
+      <a class="engagement-faq-link" href="#faq">{t.engagementFaqLink} ↓</a>
+      <div class="engagement-grid" data-reveal>
+        {[t.advisory, t.fractional].map(([title, quote, body], index) => {
+          const includes = index === 0 ? t.advisoryIncludes : t.fractionalIncludes;
+          return <article class="engagement-card">
+            <span class="card-index">0{index + 1}</span>
+            <h3>{title}</h3>
+            <p class="quote">{quote}</p>
+            <ul>{includes.map((item) => <li>{item}</li>)}</ul>
+            <p class="engagement-close">{body}</p>
+          </article>;
+        })}
+      </div>
+      <div class="engagement-cta">
+        <p>{t.engagementCtaBody}</p>
+        <a class="button" href={`/${lang}/contact/`}>{t.cta}</a>
+      </div>
+    </section>
+
+    <section class="section section-dark thesis-section">
+      <div class="thesis-grid" data-reveal>
+        <h2>{t.thesis}</h2>
+        <p>{t.thesisBody}</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="system-title">
+      <p class="eyebrow">{labels.operatingModel}</p>
+      <h2 id="system-title">{t.systemTitle}</h2>
+      <GrowthSystem lang={lang} />
+    </section>
+
+    <section id="method" class="section">
+      <p class="eyebrow">{labels.method}</p>
+      <h2>{t.methodTitle}</h2>
+      <ol class="method-list" data-reveal>{t.method.map((step) => <li>{step}</li>)}</ol>
+    </section>
+
+    <section id="channels" class="section section-dark">
+      <p class="eyebrow">{labels.channels}</p>
+      <h2>{t.channelsTitle}</h2>
+      <p class="lead">{t.channelsBody}</p>
+      <div class="channel-groups" data-reveal>
+        <div class="channel-list channel-platforms">
+          {platformChannels.map((channel) => <span>{channel.asset ? <img src={channel.asset} alt="" aria-hidden="true" /> : null}{channel.name}</span>)}
+        </div>
+        <div class="channel-list channel-capabilities">
+          {capabilityChannels.map((channel) => <span>{channel.name}</span>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="section builder-section">
+      <p class="eyebrow">{labels.builder}</p>
+      <h2>{t.builderTitle}</h2>
+      <div class="builder-grid" data-reveal>
+        <article class="product-card">
+          <span class="product-logo">MarvelPixel</span>
+          <h3>{products.marvelTitle}</h3>
+          <p>{products.marvelBody}</p>
+          <a class="text-link" href="https://www.marvelpixel.io/">{labels.visit} MarvelPixel ↗</a>
+        </article>
+        <article class="product-card">
+          <span class="product-logo">SEOforGPT</span>
+          <h3>{products.seoTitle}</h3>
+          <p>{products.seoBody}</p>
+          <a class="text-link" href="https://www.seoforgpt.io/">{labels.visit} SEOforGPT ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-dark fit-grid">
+      <div class="capacity" data-reveal><strong>5</strong><span>{labels.companiesMaximum}</span></div>
+      <div data-reveal><p class="eyebrow">{labels.capacity}</p><h2>{t.fitTitle}</h2><p class="lead">{t.fitBody}</p></div>
+    </section>
+
+    <FaqSection lang={lang} items={faqs[lang].home} />
+
+    <section class="section section-signal final-cta">
+      <h2>{t.finalTitle}</h2>
+      <p class="lead">{t.finalBody}</p>
+      <a class="button" href={`/${lang}/contact/`}>{t.cta}</a>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

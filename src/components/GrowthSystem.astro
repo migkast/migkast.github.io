@@ -1,0 +1,20 @@
+---
+import { layers } from '../lib/site';
+import type { Language } from '../lib/site';
+const { lang } = Astro.props as { lang: Language };
+const core = {
+  en: ['Growth', 'Leadership'],
+  pt: ['Liderança de', 'Crescimento'],
+  es: ['Liderazgo de', 'Crecimiento']
+} as const;
+---
+<div class="system-map" data-reveal>
+  <div class="system-core"><span>{core[lang][0]}</span><strong>{core[lang][1]}</strong></div>
+  {layers[lang].map(([number, title, body], index) => (
+    <article class="system-layer" style={`--i:${index}`}>
+      <span class="layer-number">{number}</span>
+      <h3>{title}</h3>
+      <p>{body}</p>
+    </article>
+  ))}
+</div>
