@@ -8,7 +8,7 @@ Local development
 
 1. Run `npm install`
 2. Run `npm run dev`
-3. Open `http://localhost:4321/en/`
+3. Open `http://localhost:4321/`
 
 Production
 ----------
@@ -21,8 +21,8 @@ the `dist/` directory to GitHub Pages on pushes to `main` or `master`.
 Languages
 ---------
 
-Commercial pages are available in English, Portuguese, and Spanish under
-`/en/`, `/pt/`, and `/es/`.
+English commercial pages use the root routes. Portuguese and Spanish are
+available under `/pt/` and `/es/`.
 
 Booking
 -------

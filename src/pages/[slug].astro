@@ -1,0 +1,9 @@
+---
+import EnglishPage from './[lang]/[slug].astro';
+const Page = EnglishPage as any;
+
+export function getStaticPaths() {
+  return ['approach', 'experience', 'insights', 'about'].map((slug) => ({ params: { slug } }));
+}
+---
+<Page />

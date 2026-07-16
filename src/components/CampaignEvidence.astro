@@ -1,5 +1,5 @@
 ---
-import { campaignEvidence, campaignEvidenceCopy, type Language } from '../lib/site';
+import { campaignEvidence, campaignEvidenceCopy, routeFor, type Language } from '../lib/site';
 
 interface Props { lang: Language; }
 const { lang } = Astro.props;
@@ -70,7 +70,7 @@ const platformLogos = {
 
   <div class="campaign-evidence-cta" data-reveal>
     <h3>{t.ctaTitle}</h3>
-    <a class="button" href={`/${lang}/contact/`}>{t.ctaLabel}</a>
+    <a class="button" href={routeFor(lang, 'contact')}>{t.ctaLabel}</a>
   </div>
 </section>
 

@@ -5,7 +5,7 @@ import Footer from '../../components/Footer.astro';
 import GrowthSystem from '../../components/GrowthSystem.astro';
 import FaqSection from '../../components/FaqSection.astro';
 import CampaignEvidence from '../../components/CampaignEvidence.astro';
-import { channels, clients, copy, languages, langFrom, productCopy, sectionLabels } from '../../lib/site';
+import { channels, clients, copy, languages, langFrom, productCopy, routeFor, sectionLabels } from '../../lib/site';
 import { faqs } from '../../lib/faqs';
 
 export function getStaticPaths() { return languages.map((lang) => ({ params: { lang } })); }
@@ -26,7 +26,7 @@ const capabilityChannels = channels.filter((channel) => channel.kind === 'capabi
           <h1 class="hero-title">{t.hero}</h1>
           <p class="lead">{t.heroBody}</p>
           <div class="hero-actions">
-            <a class="button" href={`/${lang}/contact/`}>{t.cta}</a>
+            <a class="button" href={routeFor(lang, 'contact')}>{t.cta}</a>
             <a class="button button-ghost" href="#solution">{t.secondary}</a>
           </div>
           <p class="cta-note">{t.finalBody}</p>
@@ -124,7 +124,7 @@ const capabilityChannels = channels.filter((channel) => channel.kind === 'capabi
       </div>
       <div class="engagement-cta">
         <p>{t.engagementCtaBody}</p>
-        <a class="button" href={`/${lang}/contact/`}>{t.cta}</a>
+        <a class="button" href={routeFor(lang, 'contact')}>{t.cta}</a>
       </div>
     </section>
 
@@ -176,7 +176,7 @@ const capabilityChannels = channels.filter((channel) => channel.kind === 'capabi
     <section class="section section-signal final-cta">
       <h2>{t.finalTitle}</h2>
       <p class="lead">{t.finalBody}</p>
-      <a class="button" href={`/${lang}/contact/`}>{t.cta}</a>
+      <a class="button" href={routeFor(lang, 'contact')}>{t.cta}</a>
     </section>
   </main>
   <Footer lang={lang} />

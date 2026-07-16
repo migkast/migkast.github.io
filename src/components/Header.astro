@@ -1,13 +1,13 @@
 ---
-import { copy, type Language } from '../lib/site';
+import { copy, routeFor, type Language } from '../lib/site';
 const { lang, active = '' } = Astro.props as { lang: Language; active?: string };
 const t = copy[lang];
-const home = `/${lang}/`;
+const home = routeFor(lang);
 const activeIndex = t.paths.findIndex((path) => path === active);
 const languageHref = (target: Language) => {
-  if (active === 'contact') return `/${target}/contact/`;
-  if (activeIndex >= 0) return `/${target}/${copy[target].paths[activeIndex]}/`;
-  return `/${target}/`;
+  if (active === 'contact') return routeFor(target, 'contact');
+  if (activeIndex >= 0) return routeFor(target, copy[target].paths[activeIndex]);
+  return routeFor(target);
 };
 const navigationLabel = { en: 'Primary navigation', pt: 'Navegação principal', es: 'Navegación principal' }[lang];
 const languageLabel = { en: 'Language selection', pt: 'Seleção de idioma', es: 'Selección de idioma' }[lang];
@@ -20,7 +20,7 @@ const menuLabel = { en: 'Menu', pt: 'Menu', es: 'Menú' }[lang];
   </a>
   <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">{menuLabel}</button>
   <nav id="site-nav" class="site-nav" aria-label={navigationLabel}>
-    {t.nav.map((item, index) => <a class:list={{ active: active === t.paths[index] }} href={`/${lang}/${t.paths[index]}/`}>{item}</a>)}
+    {t.nav.map((item, index) => <a class:list={{ active: active === t.paths[index] }} href={routeFor(lang, t.paths[index])}>{item}</a>)}
   </nav>
   <div class="header-actions">
     <div class="languages" aria-label={languageLabel}>
@@ -28,7 +28,7 @@ const menuLabel = { en: 'Menu', pt: 'Menu', es: 'Menú' }[lang];
       <a class:list={{ active: lang === 'pt' }} href={languageHref('pt')} lang="pt">PT</a>
       <a class:list={{ active: lang === 'es' }} href={languageHref('es')} lang="es">ES</a>
     </div>
-    <a class="button button-small" href={`/${lang}/contact/`}>{t.cta}</a>
+    <a class="button button-small" href={routeFor(lang, 'contact')}>{t.cta}</a>
   </div>
 </header>
 <script>

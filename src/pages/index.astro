@@ -1,3 +1,5 @@
 ---
-return Astro.redirect('/en/', 302);
+import EnglishHome from './[lang]/index.astro';
+const Home = EnglishHome as any;
 ---
+<Home />

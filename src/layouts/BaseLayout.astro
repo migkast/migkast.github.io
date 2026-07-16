@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { copy, type Language } from '../lib/site';
+import { copy, routeFor, type Language } from '../lib/site';
 
 interface Props { lang: Language; title?: string; description?: string; path?: string; noindex?: boolean; }
 const { lang, title, description, path = '', noindex = false } = Astro.props;
@@ -12,7 +12,7 @@ const defaultTitles = {
 };
 const pageTitle = title ? `${title} | Miguel Casteleiro` : defaultTitles[lang];
 const pageDescription = description || t.heroBody;
-const canonical = new URL(`/${lang}/${path}`, Astro.site);
+const canonical = new URL(routeFor(lang, path), Astro.site);
 const routeKey = path.replace(/\/$/, '');
 const routeGroups: Record<string, Record<Language, string>> = {
   approach: { en: 'approach', pt: 'abordagem', es: 'enfoque' },
@@ -29,8 +29,8 @@ const routeGroups: Record<string, Record<Language, string>> = {
 };
 const equivalentRoutes = routeGroups[routeKey];
 const alternates = equivalentRoutes
-  ? { en: `/en/${equivalentRoutes.en}/`, pt: `/pt/${equivalentRoutes.pt}/`, es: `/es/${equivalentRoutes.es}/` }
-  : { en: '/en/', pt: '/pt/', es: '/es/' };
+  ? { en: routeFor('en', equivalentRoutes.en), pt: routeFor('pt', equivalentRoutes.pt), es: routeFor('es', equivalentRoutes.es) }
+  : { en: routeFor('en'), pt: routeFor('pt'), es: routeFor('es') };
 const personId = 'https://miguelcasteleiro.com/#person';
 const websiteId = 'https://miguelcasteleiro.com/#website';
 const jsonLd = {

@@ -4,7 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import GrowthSystem from '../../components/GrowthSystem.astro';
 import FaqSection from '../../components/FaqSection.astro';
-import { clients, copy, type Language } from '../../lib/site';
+import { clients, copy, routeFor, type Language } from '../../lib/site';
 import { faqs, type FaqPage } from '../../lib/faqs';
 
 const pages = {
@@ -35,7 +35,7 @@ export function getStaticPaths() {
     ['es', 'enfoque'], ['es', 'experiencia'], ['es', 'ideas'], ['es', 'sobre-mi']
   ].map(([lang, slug]) => ({ params: { lang, slug } }));
 }
-const lang = Astro.params.lang as Language;
+const lang = (Astro.params.lang ?? 'en') as Language;
 const slug = Astro.params.slug as keyof (typeof pages)[typeof lang];
 const page = pages[lang][slug] as readonly [string, string, readonly (readonly [string, string])[]];
 const t = copy[lang];
@@ -104,7 +104,7 @@ const pageLabels = {
     <section class="section section-signal supporting-cta">
       <h2>{t.finalTitle}</h2>
       <p>{t.finalBody}</p>
-      <a class="button" href={`/${lang}/contact/`}>{t.cta}</a>
+      <a class="button" href={routeFor(lang, 'contact')}>{t.cta}</a>
     </section>
   </main>
   <Footer lang={lang} />

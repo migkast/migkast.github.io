@@ -1,17 +1,17 @@
 ---
-import { copy, type Language } from '../lib/site';
+import { copy, routeFor, type Language } from '../lib/site';
 const { lang } = Astro.props as { lang: Language };
 const t = copy[lang];
 ---
 <footer class="footer">
   <div>
-    <a class="brand footer-brand" href={`/${lang}/`}><span class="brand-mark">MC</span><span>Miguel Casteleiro</span></a>
+    <a class="brand footer-brand" href={routeFor(lang)}><span class="brand-mark">MC</span><span>Miguel Casteleiro</span></a>
     <p>{t.footer}</p>
   </div>
   <div class="footer-links">
     <a href="https://www.linkedin.com/in/mcasteleiro/" rel="me">LinkedIn</a>
     <a href="https://www.seoforgpt.io/">SEOforGPT</a>
-    <a href={`/${lang}/contact/`}>{t.cta}</a>
+    <a href={routeFor(lang, 'contact')}>{t.cta}</a>
   </div>
   <p class="fine-print">© {new Date().getFullYear()} Miguel Casteleiro</p>
 </footer>

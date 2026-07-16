@@ -297,3 +297,9 @@ export const channels: readonly Channel[] = [
 export function langFrom(value: string | undefined): Language {
   return languages.includes(value as Language) ? value as Language : 'en';
 }
+
+export function routeFor(lang: Language, path = ''): string {
+  const normalizedPath = path.replace(/^\/+|\/+$/g, '');
+  const suffix = normalizedPath ? `${normalizedPath}/` : '';
+  return lang === 'en' ? `/${suffix}` : `/${lang}/${suffix}`;
+}

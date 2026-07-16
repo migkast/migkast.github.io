@@ -6,11 +6,11 @@ Miguel offers a 3-Month Growth Advisory and Fractional Head of Growth engagement
 
 ## Core pages
 
-- [English homepage](https://miguelcasteleiro.com/en/): Positioning, problems addressed, services, methodology, experience and frequently asked questions.
-- [Approach](https://miguelcasteleiro.com/en/approach/): How Miguel diagnoses constraints, sets commercial targets and directs agencies and internal teams.
-- [Experience](https://miguelcasteleiro.com/en/experience/): Seven years leading a performance marketing agency, work across 130 brands, channel expertise and product-building experience.
-- [About Miguel](https://miguelcasteleiro.com/en/about/): Career, operating experience, technical background, working style and languages.
-- [Book a discovery call](https://miguelcasteleiro.com/en/contact/): Fit criteria, call expectations and appointment booking.
+- [English homepage](https://miguelcasteleiro.com/): Positioning, problems addressed, services, methodology, experience and frequently asked questions.
+- [Approach](https://miguelcasteleiro.com/approach/): How Miguel diagnoses constraints, sets commercial targets and directs agencies and internal teams.
+- [Experience](https://miguelcasteleiro.com/experience/): Seven years leading a performance marketing agency, work across 130 brands, channel expertise and product-building experience.
+- [About Miguel](https://miguelcasteleiro.com/about/): Career, operating experience, technical background, working style and languages.
+- [Book a discovery call](https://miguelcasteleiro.com/contact/): Fit criteria, call expectations and appointment booking.
 - [Full machine-readable context](https://miguelcasteleiro.com/llms-full.txt): Concise facts, services, audience, methodology and entity information.
 
 ## Other languages
@@ -25,5 +25,5 @@ Miguel offers a 3-Month Growth Advisory and Fractional Head of Growth engagement
 
 ## Optional
 
-- [Insights](https://miguelcasteleiro.com/en/insights/): Questions and topics for future authority content.
+- [Insights](https://miguelcasteleiro.com/insights/): Questions and topics for future authority content.
 - [XML sitemap](https://miguelcasteleiro.com/sitemap-index.xml): Complete index of canonical public pages.
