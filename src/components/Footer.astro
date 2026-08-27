@@ -1,7 +1,8 @@
 ---
-import { copy, routeFor, type Language } from '../lib/site';
+import { copy, routeFor, sectionLabels, type Language } from '../lib/site';
 const { lang } = Astro.props as { lang: Language };
 const t = copy[lang];
+const labels = sectionLabels[lang];
 ---
 <footer class="footer">
   <div>
@@ -10,7 +11,7 @@ const t = copy[lang];
   </div>
   <div class="footer-links">
     <a href="https://www.linkedin.com/in/mcasteleiro/" rel="me">LinkedIn</a>
-    <a href="https://www.seoforgpt.io/">SEOforGPT</a>
+    <a href="https://www.seoforgpt.io/agencies">{labels.seoLink}</a>
     <a href={routeFor(lang, 'contact')}>{t.cta}</a>
   </div>
   <p class="fine-print">© {new Date().getFullYear()} Miguel Casteleiro</p>

@@ -45,9 +45,9 @@ const isInsights = ['insights', 'ideas'].includes(slug);
 const isAbout = ['about', 'sobre', 'sobre-mi'].includes(slug);
 const faqPage: FaqPage = isApproach ? 'approach' : isExperience ? 'experience' : isInsights ? 'insights' : 'about';
 const pageLabels = {
-  en: { experience: 'Selected operating experience', thinking: 'Questions worth answering', background: 'Background and operating principles', links: 'Selected links' },
-  pt: { experience: 'Experiência operacional selecionada', thinking: 'Questões que vale a pena responder', background: 'Percurso e princípios de trabalho', links: 'Links selecionados' },
-  es: { experience: 'Experiencia operativa seleccionada', thinking: 'Preguntas que merece la pena responder', background: 'Trayectoria y principios de trabajo', links: 'Enlaces seleccionados' }
+  en: { experience: 'Selected operating experience', thinking: 'Questions worth answering', background: 'Background and operating principles', links: 'Selected links', seoLink: 'SEOforGPT — AI visibility for agencies' },
+  pt: { experience: 'Experiência operacional selecionada', thinking: 'Questões que vale a pena responder', background: 'Percurso e princípios de trabalho', links: 'Links selecionados', seoLink: 'SEOforGPT — visibilidade em IA para agências' },
+  es: { experience: 'Experiencia operativa seleccionada', thinking: 'Preguntas que merece la pena responder', background: 'Trayectoria y principios de trabajo', links: 'Enlaces seleccionados', seoLink: 'SEOforGPT — visibilidad en IA para agencias' }
 }[lang];
 ---
 <BaseLayout lang={lang} title={page[0]} description={page[1]} path={`${slug}/`}>
@@ -95,7 +95,7 @@ const pageLabels = {
       <p class="eyebrow">{pageLabels.links}</p>
       <div>
         <a class="text-link" href="https://www.linkedin.com/in/mcasteleiro/">LinkedIn ↗</a>
-        <a class="text-link" href="https://www.seoforgpt.io/">SEOforGPT ↗</a>
+        <a class="text-link" href="https://www.seoforgpt.io/agencies">{pageLabels.seoLink} ↗</a>
       </div>
     </section> : null}
 

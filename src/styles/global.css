@@ -214,6 +214,8 @@ body.campaign-dialog-open { overflow: hidden; }
 .product-logo { font-family: 'Manrope', sans-serif; font-size: 1.65rem; font-weight: 600; letter-spacing: -.05em; }
 .product-card p { color: var(--muted); max-width: 520px; }
 .product-card .text-link { margin-top: auto; }
+.product-card .product-links { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; }
+.product-links .text-link { margin-top: 0; }
 .method-list { list-style: none; padding: 0; margin: var(--space-5) 0 0; border-top: 1px solid var(--line); counter-reset: method; }
 .method-list li { counter-increment: method; display: grid; grid-template-columns: 70px 1fr; padding: 1.2rem 0; border-bottom: 1px solid var(--line); font-size: clamp(1.2rem, 2.2vw, 2rem); }
 .method-list li::before { content: '0' counter(method); color: var(--signal); font-size: .75rem; padding-top: .5rem; }

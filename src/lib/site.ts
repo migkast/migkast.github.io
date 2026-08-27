@@ -52,19 +52,25 @@ export const sectionLabels = {
     recognition: 'Recognition', causes: 'Likely causes', diagnosis: 'Diagnostic patterns',
     whatIDo: 'What I do', engagements: 'Ways to work together', operatingModel: 'The operating model',
     method: 'A disciplined sequence', channels: 'Channel expertise', builder: 'Builder credibility', capacity: 'Capacity',
-    companiesMaximum: 'companies maximum', visit: 'Visit', platforms: 'Platforms I work across', portraitRole: 'Growth advisor, former performance marketing agency founder'
+    companiesMaximum: 'companies maximum', visit: 'Visit', platforms: 'Platforms I work across', portraitRole: 'Growth advisor, former performance marketing agency founder',
+    seoLink: 'SEOforGPT — AI visibility for agencies',
+    mcpLink: 'GEO MCP for AI visibility workflows'
   },
   pt: {
     recognition: 'Reconhecimento', causes: 'Causas prováveis', diagnosis: 'Padrões de diagnóstico',
     whatIDo: 'O que faço', engagements: 'Formas de trabalhar em conjunto', operatingModel: 'O modelo operacional',
     method: 'Uma sequência disciplinada', channels: 'Experiência em canais', builder: 'Experiência como fundador', capacity: 'Capacidade',
-    companiesMaximum: 'empresas no máximo', visit: 'Visitar', platforms: 'Plataformas com que trabalho', portraitRole: 'Consultor de crescimento, antigo fundador de uma agência de performance marketing'
+    companiesMaximum: 'empresas no máximo', visit: 'Visitar', platforms: 'Plataformas com que trabalho', portraitRole: 'Consultor de crescimento, antigo fundador de uma agência de performance marketing',
+    seoLink: 'SEOforGPT — visibilidade em IA para agências',
+    mcpLink: 'MCP de GEO para workflows de visibilidade em IA'
   },
   es: {
     recognition: 'Reconocimiento', causes: 'Causas probables', diagnosis: 'Patrones de diagnóstico',
     whatIDo: 'Lo que hago', engagements: 'Formas de trabajar juntos', operatingModel: 'El modelo operativo',
     method: 'Una secuencia disciplinada', channels: 'Experiencia en canales', builder: 'Experiencia como fundador', capacity: 'Capacidad',
-    companiesMaximum: 'empresas como máximo', visit: 'Visitar', platforms: 'Plataformas con las que trabajo', portraitRole: 'Consultor de crecimiento, antiguo fundador de una agencia de performance marketing'
+    companiesMaximum: 'empresas como máximo', visit: 'Visitar', platforms: 'Plataformas con las que trabajo', portraitRole: 'Consultor de crecimiento, antiguo fundador de una agencia de performance marketing',
+    seoLink: 'SEOforGPT — visibilidad en IA para agencias',
+    mcpLink: 'MCP de GEO para flujos de visibilidad en IA'
   }
 } as const;
 
