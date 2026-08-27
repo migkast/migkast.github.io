@@ -1,0 +1,61 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogBookingCta from '../../components/BlogBookingCta.astro';
+import BlogClosingCta from '../../components/BlogClosingCta.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { formatPostDate, getPublishedPosts, postDescription, type BlogPost } from '../../lib/blog';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({ params: { slug: post.data.slug }, props: { post } }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props as { post: BlogPost };
+const title = post.data.meta_title?.trim() || post.data.title;
+const description = postDescription(post);
+const published = post.data.published_at || post.data.created_at || post.data.timestamp;
+---
+<BaseLayout
+  lang="en"
+  title={title}
+  description={description}
+  path={`blog/${post.data.slug}/`}
+  exactTitle
+  englishOnly
+  keywords={post.data.keywords || undefined}
+  structuredData={post.data.json_ld}
+  useDefaultStructuredData={false}
+  ogType="article"
+  articlePublishedTime={published}
+>
+  <Header lang="en" active="blog" />
+  <main id="main" class="blog-shell">
+    <article class="blog-article">
+      <header class="section blog-article-header">
+        <div class="blog-article-kicker">
+          <a href="/blog/">Blog</a>
+          <span aria-hidden="true">/</span>
+          <time datetime={published}>{formatPostDate(post)}</time>
+        </div>
+        <h1>{post.data.title}</h1>
+        {post.data.excerpt ? <p class="blog-article-deck">{post.data.excerpt}</p> : null}
+        {post.data.tags?.length ? <ul class="blog-tags" aria-label="Article topics">{post.data.tags.map((tag) => <li>{tag}</li>)}</ul> : null}
+      </header>
+
+      <div class="section blog-article-layout">
+        <aside class="blog-article-aside" aria-label="Article information">
+          <p class="eyebrow">Field note</p>
+          <p>By Miguel Casteleiro</p>
+          <a class="blog-back-link" href="/blog/"><span aria-hidden="true">←</span> All articles</a>
+        </aside>
+        <div class="blog-prose" set:html={post.data.content_html} />
+      </div>
+    </article>
+
+    <BlogClosingCta />
+  </main>
+  <BlogBookingCta />
+  <Footer lang="en" />
+</BaseLayout>

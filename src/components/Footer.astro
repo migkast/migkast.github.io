@@ -10,6 +10,7 @@ const labels = sectionLabels[lang];
     <p>{t.footer}</p>
   </div>
   <div class="footer-links">
+    {lang === 'en' ? <a href="/blog/">Blog</a> : null}
     <a href="https://www.linkedin.com/in/mcasteleiro/" rel="me">LinkedIn</a>
     <a href="https://www.seoforgpt.io/agencies">{labels.seoLink}</a>
     <a href={routeFor(lang, 'contact')}>{t.cta}</a>

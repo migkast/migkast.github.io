@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "miguel-blog-webhook",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-28",
+  "workers_dev": true,
+  "vars": {
+    "GITHUB_OWNER": "migkast",
+    "GITHUB_REPO": "migkast.github.io",
+    "GITHUB_BRANCH": "main",
+    "SITE_ORIGIN": "https://miguelcasteleiro.com"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "BLOG_POSTS",
+      "id": "REPLACE_WITH_KV_NAMESPACE_ID"
+    }
+  ],
+  "secrets": {
+    "required": ["WEBHOOK_SECRET", "GITHUB_TOKEN"]
+  }
+}

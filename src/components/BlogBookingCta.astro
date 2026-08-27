@@ -1,0 +1,32 @@
+---
+const { closingId = 'blog-closing-cta' } = Astro.props as { closingId?: string };
+---
+<aside class="blog-persistent-cta" data-blog-persistent data-closing-id={closingId} aria-label="Book a discovery call">
+  <div>
+    <span>Growth feels stuck?</span>
+    <strong>Let&rsquo;s find the real constraint.</strong>
+  </div>
+  <a class="button button-small" href="/contact/">Book a discovery call</a>
+</aside>
+<script>
+  const persistentCtas = document.querySelectorAll<HTMLElement>('[data-blog-persistent]');
+
+  persistentCtas.forEach((cta) => {
+    const header = document.querySelector('.site-header');
+    const closing = document.getElementById(cta.dataset.closingId || 'blog-closing-cta');
+
+    if (header) {
+      const headerObserver = new IntersectionObserver(([entry]) => {
+        cta.dataset.headerAway = String(!entry.isIntersecting);
+      });
+      headerObserver.observe(header);
+    }
+
+    if (closing) {
+      const closingObserver = new IntersectionObserver(([entry]) => {
+        cta.dataset.closingVisible = String(entry.isIntersecting);
+      }, { threshold: 0.15 });
+      closingObserver.observe(closing);
+    }
+  });
+</script>

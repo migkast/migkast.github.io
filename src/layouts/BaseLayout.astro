@@ -2,15 +2,41 @@
 import '../styles/global.css';
 import { copy, routeFor, type Language } from '../lib/site';
 
-interface Props { lang: Language; title?: string; description?: string; path?: string; noindex?: boolean; }
-const { lang, title, description, path = '', noindex = false } = Astro.props;
+interface Props {
+  lang: Language;
+  title?: string;
+  description?: string;
+  path?: string;
+  noindex?: boolean;
+  exactTitle?: boolean;
+  englishOnly?: boolean;
+  keywords?: string[];
+  structuredData?: Record<string, unknown> | null;
+  useDefaultStructuredData?: boolean;
+  ogType?: 'website' | 'article';
+  articlePublishedTime?: string;
+}
+const {
+  lang,
+  title,
+  description,
+  path = '',
+  noindex = false,
+  exactTitle = false,
+  englishOnly = false,
+  keywords,
+  structuredData,
+  useDefaultStructuredData = true,
+  ogType = 'website',
+  articlePublishedTime
+} = Astro.props;
 const t = copy[lang];
 const defaultTitles = {
   en: 'Miguel Casteleiro | E-commerce Growth Advisor',
   pt: 'Miguel Casteleiro | Consultor de Crescimento para E-commerce',
   es: 'Miguel Casteleiro | Consultor de Crecimiento para E-commerce'
 };
-const pageTitle = title ? `${title} | Miguel Casteleiro` : defaultTitles[lang];
+const pageTitle = title ? (exactTitle ? title : `${title} | Miguel Casteleiro`) : defaultTitles[lang];
 const pageDescription = description || t.heroBody;
 const canonical = new URL(routeFor(lang, path), Astro.site);
 const routeKey = path.replace(/\/$/, '');
@@ -33,7 +59,7 @@ const alternates = equivalentRoutes
   : { en: routeFor('en'), pt: routeFor('pt'), es: routeFor('es') };
 const personId = 'https://miguelcasteleiro.com/#person';
 const websiteId = 'https://miguelcasteleiro.com/#website';
-const jsonLd = {
+const defaultJsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     {
@@ -56,6 +82,10 @@ const jsonLd = {
     }
   ]
 };
+const jsonLd = useDefaultStructuredData ? defaultJsonLd : structuredData;
+const serializedJsonLd = jsonLd
+  ? JSON.stringify(jsonLd).replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026')
+  : null;
 const skipLabel = { en: 'Skip to content', pt: 'Saltar para o conteúdo', es: 'Saltar al contenido' }[lang];
 ---
 <!doctype html>
@@ -64,26 +94,27 @@ const skipLabel = { en: 'Skip to content', pt: 'Saltar para o conteúdo', es: 'S
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={pageDescription} />
+    {keywords?.length ? <meta name="keywords" content={keywords.join(', ')} /> : null}
     <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
     <meta name="theme-color" content="#f4f0e8" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="en" href={new URL(alternates.en, Astro.site)} />
-    <link rel="alternate" hreflang="pt" href={new URL(alternates.pt, Astro.site)} />
-    <link rel="alternate" hreflang="es" href={new URL(alternates.es, Astro.site)} />
-    <link rel="alternate" hreflang="x-default" href={new URL(alternates.en, Astro.site)} />
-    <meta property="og:type" content="website" />
+    {englishOnly
+      ? <><link rel="alternate" hreflang="en" href={canonical} /><link rel="alternate" hreflang="x-default" href={canonical} /></>
+      : <><link rel="alternate" hreflang="en" href={new URL(alternates.en, Astro.site)} /><link rel="alternate" hreflang="pt" href={new URL(alternates.pt, Astro.site)} /><link rel="alternate" hreflang="es" href={new URL(alternates.es, Astro.site)} /><link rel="alternate" hreflang="x-default" href={new URL(alternates.en, Astro.site)} /></>}
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={t.locale} />
     <meta property="og:image" content="https://miguelcasteleiro.com/images/miguel-headshot.jpg" />
     <meta property="og:image:alt" content="Miguel Casteleiro, e-commerce growth advisor" />
+    {ogType === 'article' && articlePublishedTime ? <meta property="article:published_time" content={articlePublishedTime} /> : null}
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content="https://miguelcasteleiro.com/images/miguel-headshot.jpg" />
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {serializedJsonLd ? <script is:inline type="application/ld+json" set:html={serializedJsonLd} /> : null}
     <title>{pageTitle}</title>
   </head>
   <body>

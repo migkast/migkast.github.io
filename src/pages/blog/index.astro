@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogBookingCta from '../../components/BlogBookingCta.astro';
+import BlogClosingCta from '../../components/BlogClosingCta.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { formatPostDate, getPublishedPosts } from '../../lib/blog';
+
+const posts = await getPublishedPosts();
+const [featured, ...remaining] = posts;
+---
+<BaseLayout
+  lang="en"
+  title="E-commerce Growth Blog"
+  description="Practical thinking on e-commerce growth, performance marketing, teams, measurement and AI visibility."
+  path="blog/"
+  englishOnly
+>
+  <Header lang="en" active="blog" />
+  <main id="main" class="blog-shell">
+    <section class="section blog-index-hero">
+      <div>
+        <p class="eyebrow">The growth operator&rsquo;s notebook</p>
+        <h1>Clear thinking for harder growth decisions.</h1>
+      </div>
+      <p class="lead">Practical analysis for founders building the economics, teams and marketing systems behind durable e-commerce growth.</p>
+    </section>
+
+    {featured ? (
+      <section class="section blog-featured" aria-labelledby="latest-heading">
+        <p class="eyebrow" id="latest-heading">Latest article</p>
+        <article class="blog-featured-card" data-reveal>
+          <div class="blog-post-number" aria-hidden="true">01</div>
+          <div>
+            <p class="blog-meta"><time datetime={featured.data.published_at || featured.data.timestamp}>{formatPostDate(featured)}</time>{featured.data.tags?.[0] ? <><span aria-hidden="true">/</span><span>{featured.data.tags[0]}</span></> : null}</p>
+            <h2><a href={`/blog/${featured.data.slug}/`}>{featured.data.title}</a></h2>
+            {featured.data.excerpt ? <p class="lead">{featured.data.excerpt}</p> : null}
+            <a class="blog-read-link" href={`/blog/${featured.data.slug}/`} aria-label={`Read ${featured.data.title}`}>Read the article <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+      </section>
+    ) : (
+      <section class="section blog-empty" aria-labelledby="empty-heading">
+        <p class="eyebrow">New writing is on the way</p>
+        <h2 id="empty-heading">The first field note is being prepared.</h2>
+        <p class="lead">This blog will cover the commercial decisions, operating systems and channel realities behind scalable e-commerce growth.</p>
+        <a class="button" href="/contact/">Book a discovery call</a>
+      </section>
+    )}
+
+    {remaining.length > 0 ? (
+      <section class="section blog-archive" aria-labelledby="archive-heading">
+        <div class="blog-section-heading">
+          <p class="eyebrow">More field notes</p>
+          <h2 id="archive-heading">Latest thinking</h2>
+        </div>
+        <ol class="blog-post-list">
+          {remaining.map((post, index) => (
+            <li data-reveal>
+              <article>
+                <span class="blog-post-number" aria-hidden="true">{String(index + 2).padStart(2, '0')}</span>
+                <div>
+                  <p class="blog-meta"><time datetime={post.data.published_at || post.data.timestamp}>{formatPostDate(post)}</time></p>
+                  <h3><a href={`/blog/${post.data.slug}/`}>{post.data.title}</a></h3>
+                  {post.data.excerpt ? <p>{post.data.excerpt}</p> : null}
+                </div>
+                <a class="blog-read-link" href={`/blog/${post.data.slug}/`} aria-label={`Read ${post.data.title}`}>Read <span aria-hidden="true">↗</span></a>
+              </article>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ) : null}
+
+    <BlogClosingCta />
+  </main>
+  <BlogBookingCta />
+  <Footer lang="en" />
+</BaseLayout>
