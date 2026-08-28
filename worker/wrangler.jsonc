@@ -13,7 +13,7 @@
   "kv_namespaces": [
     {
       "binding": "BLOG_POSTS",
-      "id": "REPLACE_WITH_KV_NAMESPACE_ID"
+      "id": "96ae372c86384aa3b4ddf27479765efc"
     }
   ],
   "secrets": {
