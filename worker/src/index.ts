@@ -1,5 +1,6 @@
 import { publishToGitHub, removeFromGitHub } from './github';
 import { sanitizeArticleHtml } from './sanitize';
+import { normalizeBlogStructuredData } from './structured-data';
 import type { Env, StoredBlogPost } from './types';
 import { HttpError, validateFaqStructuredData, validatePayload } from './validation';
 
@@ -30,23 +31,26 @@ export async function handleRequest(request: Request, env: Env, fetcher: typeof 
     const payload = validatePayload(input);
     const existing = await env.BLOG_POSTS.get<StoredBlogPost>(`post:${payload.id}`, 'json');
     const slug = await resolveSlug(payload.slug, payload.title, payload.id, existing, env.BLOG_POSTS);
+    const origin = env.SITE_ORIGIN.replace(/\/+$/, '');
+    const canonicalUrl = `${origin}/blog/${slug}/`;
     const contentHtml = sanitizeArticleHtml(payload.content_html);
     if (!contentHtml) throw new HttpError(422, 'content_html is empty after removing unsafe markup');
-    validateFaqStructuredData(payload.json_ld, contentHtml);
+    const jsonLd = normalizeBlogStructuredData(payload.json_ld, payload, canonicalUrl);
+    validateFaqStructuredData(jsonLd, contentHtml);
 
     const post: StoredBlogPost = {
       ...payload,
       slug,
       content_html: contentHtml,
-      content: contentHtml
+      content: contentHtml,
+      json_ld: jsonLd
     };
 
     await persistPost(post, existing, env.BLOG_POSTS);
     if (post.status === 'published') await publishToGitHub(post, env, fetcher);
     else await removeFromGitHub(post.id, env, fetcher);
 
-    const origin = env.SITE_ORIGIN.replace(/\/+$/, '');
-    return json({ cms_post_id: post.id, cms_url: `${origin}/blog/${post.slug}/` }, 200);
+    return json({ cms_post_id: post.id, cms_url: canonicalUrl }, 200);
   } catch (error) {
     if (error instanceof HttpError) return json({ message: error.message }, error.status);
     console.error('Unhandled blog webhook error', error);
@@ -66,7 +70,8 @@ async function readJson(request: Request): Promise<unknown> {
 }
 
 function enforceJsonContentType(contentType: string | null): void {
-  if (!contentType?.toLowerCase().startsWith('application/json')) {
+  const mediaType = contentType?.split(';', 1)[0]?.trim().toLowerCase();
+  if (mediaType !== 'application/json') {
     throw new HttpError(415, 'Content-Type must be application/json');
   }
 }

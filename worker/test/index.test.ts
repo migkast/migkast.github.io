@@ -32,6 +32,11 @@ describe('article sanitizer', () => {
     expect(result).not.toContain('script');
     expect(result).not.toContain('javascript:');
   });
+
+  it('prevents opener access on every link that opens a new tab', () => {
+    const result = sanitizeArticleHtml('<a href="/contact/" target="_blank" rel="opener">Contact</a>');
+    expect(result).toBe('<a href="/contact/" target="_blank" rel="noopener noreferrer">Contact</a>');
+  });
 });
 
 describe('webhook handler', () => {
@@ -45,6 +50,16 @@ describe('webhook handler', () => {
     });
     const stored = JSON.parse(setup.github.files.get(`src/content/blog/${basePayload.id}.json`)!.content);
     expect(stored.content_html).toContain('<h2>Opening</h2>');
+    expect(stored.json_ld).toMatchObject({
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: basePayload.title,
+      datePublished: basePayload.published_at,
+      dateModified: basePayload.timestamp,
+      url: 'https://miguelcasteleiro.com/blog/example-title/',
+      mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://miguelcasteleiro.com/blog/example-title/' },
+      author: { '@type': 'Person', name: 'Miguel Casteleiro' }
+    });
   });
 
   it('keeps a derived slug stable across updates and avoids duplicate commits', async () => {
@@ -93,6 +108,25 @@ describe('webhook handler', () => {
       method: 'POST', headers: { 'Content-Type': 'text/plain', 'X-Webhook-Secret': 'test-secret' }, body: '{}'
     }), setup.env, setup.github.fetch);
     expect(wrongType.status).toBe(415);
+
+    const jsonp = await handleRequest(new Request('https://worker.test/webhook', {
+      method: 'POST', headers: { 'Content-Type': 'application/jsonp', 'X-Webhook-Secret': 'test-secret' }, body: '{}'
+    }), setup.env, setup.github.fetch);
+    expect(jsonp.status).toBe(415);
+  });
+
+  it('accepts ISO timestamps with offsets and rejects dates that would break Astro content validation', async () => {
+    const setup = createSetup();
+    const validOffset = await invoke(setup.env, setup.github.fetch, {
+      ...basePayload,
+      timestamp: '2026-05-08T12:05:00+02:00'
+    });
+    expect(validOffset.status).toBe(200);
+
+    for (const timestamp of ['May 8, 2026', '2026-05-08', '2026-02-31T10:05:00.000Z']) {
+      const response = await invoke(setup.env, setup.github.fetch, { ...basePayload, timestamp });
+      expect(response.status).toBe(422);
+    }
   });
 
   it('accepts complete FAQPage markup that matches the visible FAQ', async () => {
@@ -100,6 +134,13 @@ describe('webhook handler', () => {
     const payload = withFaq(basePayload);
     const response = await invoke(setup.env, setup.github.fetch, payload);
     expect(response.status).toBe(200);
+  });
+
+  it('rejects a published post without BlogPosting structured data', async () => {
+    const setup = createSetup();
+    const response = await invoke(setup.env, setup.github.fetch, { ...basePayload, json_ld: null });
+    expect(response.status).toBe(422);
+    expect(((await response.json()) as { message: string }).message).toContain('BlogPosting');
   });
 
   it('rejects a visible FAQ without FAQPage markup', async () => {

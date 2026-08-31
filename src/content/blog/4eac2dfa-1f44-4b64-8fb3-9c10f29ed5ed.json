@@ -33,18 +33,25 @@
       {
         "@type": "BlogPosting",
         "author": {
-          "name": "Miguel website",
-          "@type": "Organization"
+          "@type": "Person",
+          "name": "Miguel Casteleiro",
+          "url": "https://miguelcasteleiro.com/"
         },
         "headline": "How to Diagnose Stalled Ecommerce Growth From $2M to $20M",
         "keywords": "ecommerce, growth, diagnostics, marketing, retention, operations, ecommerce growth, stalled revenue, ecommerce diagnostics, CAC payback, conversion rate, retention strategies, ecommerce constraints",
         "publisher": {
-          "name": "Miguel website",
-          "@type": "Organization"
+          "@type": "Person",
+          "name": "Miguel Casteleiro",
+          "url": "https://miguelcasteleiro.com/"
         },
         "description": "Learn how to diagnose and fix stalled ecommerce growth between $2M and $20M by identifying the real constraints holding back your brand's revenue.",
-        "dateModified": "2026-08-29T00:06:35.240Z",
-        "datePublished": "2026-08-29T00:06:35.240Z"
+        "dateModified": "2026-08-31T12:17:00.157Z",
+        "datePublished": "2026-08-31T12:17:00.157Z",
+        "url": "https://miguelcasteleiro.com/blog/diagnose-stalled-ecommerce-growth/",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://miguelcasteleiro.com/blog/diagnose-stalled-ecommerce-growth/"
+        }
       },
       {
         "@type": "FAQPage",

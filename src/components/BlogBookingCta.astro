@@ -14,17 +14,36 @@ const { closingId = 'blog-closing-cta' } = Astro.props as { closingId?: string }
   persistentCtas.forEach((cta) => {
     const header = document.querySelector('.site-header');
     const closing = document.getElementById(cta.dataset.closingId || 'blog-closing-cta');
+    const action = cta.querySelector<HTMLAnchorElement>('a');
+    const mobileViewport = window.matchMedia('(max-width: 980px)');
+    let headerAway = false;
+    let closingVisible = false;
+
+    const updateVisibility = () => {
+      const visible = !closingVisible && (mobileViewport.matches || headerAway);
+      cta.inert = !visible;
+      cta.setAttribute('aria-hidden', String(!visible));
+      if (visible) action?.removeAttribute('tabindex');
+      else action?.setAttribute('tabindex', '-1');
+    };
+
+    updateVisibility();
+    mobileViewport.addEventListener('change', updateVisibility);
 
     if (header) {
       const headerObserver = new IntersectionObserver(([entry]) => {
-        cta.dataset.headerAway = String(!entry.isIntersecting);
+        headerAway = !entry.isIntersecting;
+        cta.dataset.headerAway = String(headerAway);
+        updateVisibility();
       });
       headerObserver.observe(header);
     }
 
     if (closing) {
       const closingObserver = new IntersectionObserver(([entry]) => {
-        cta.dataset.closingVisible = String(entry.isIntersecting);
+        closingVisible = entry.isIntersecting;
+        cta.dataset.closingVisible = String(closingVisible);
+        updateVisibility();
       }, { threshold: 0.15 });
       closingObserver.observe(closing);
     }

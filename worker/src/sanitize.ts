@@ -27,7 +27,7 @@ export function sanitizeArticleHtml(html: string): string {
       a: (_tagName, attributes) => {
         const external = /^https?:\/\//i.test(attributes.href || '');
         const attribs = { ...attributes };
-        if (external) attribs.rel = 'noopener noreferrer';
+        if (external || attribs.target === '_blank') attribs.rel = 'noopener noreferrer';
         if (attribs.target !== '_blank') delete attribs.target;
         return {
           tagName: 'a',

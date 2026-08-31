@@ -4,7 +4,7 @@ import BlogBookingCta from '../../components/BlogBookingCta.astro';
 import BlogClosingCta from '../../components/BlogClosingCta.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
-import { formatPostDate, getPublishedPosts } from '../../lib/blog';
+import { formatPostDate, getPublishedPosts, postDate } from '../../lib/blog';
 
 const posts = await getPublishedPosts();
 const [featured, ...remaining] = posts;
@@ -32,7 +32,7 @@ const [featured, ...remaining] = posts;
         <article class="blog-featured-card" data-reveal>
           <div class="blog-post-number" aria-hidden="true">01</div>
           <div>
-            <p class="blog-meta"><time datetime={featured.data.published_at || featured.data.timestamp}>{formatPostDate(featured)}</time>{featured.data.tags?.[0] ? <><span aria-hidden="true">/</span><span>{featured.data.tags[0]}</span></> : null}</p>
+            <p class="blog-meta"><time datetime={postDate(featured)}>{formatPostDate(featured)}</time>{featured.data.tags?.[0] ? <><span aria-hidden="true">/</span><span>{featured.data.tags[0]}</span></> : null}</p>
             <h2><a href={`/blog/${featured.data.slug}/`}>{featured.data.title}</a></h2>
             {featured.data.excerpt ? <p class="lead">{featured.data.excerpt}</p> : null}
             <a class="blog-read-link" href={`/blog/${featured.data.slug}/`} aria-label={`Read ${featured.data.title}`}>Read the article <span aria-hidden="true">↗</span></a>
@@ -60,7 +60,7 @@ const [featured, ...remaining] = posts;
               <article>
                 <span class="blog-post-number" aria-hidden="true">{String(index + 2).padStart(2, '0')}</span>
                 <div>
-                  <p class="blog-meta"><time datetime={post.data.published_at || post.data.timestamp}>{formatPostDate(post)}</time></p>
+                  <p class="blog-meta"><time datetime={postDate(post)}>{formatPostDate(post)}</time></p>
                   <h3><a href={`/blog/${post.data.slug}/`}>{post.data.title}</a></h3>
                   {post.data.excerpt ? <p>{post.data.excerpt}</p> : null}
                 </div>

@@ -4,6 +4,8 @@ Cloudflare Worker that receives SEOforGPT payload-version-2 blog webhooks, store
 
 Articles with a visible FAQ section must include matching `FAQPage` JSON-LD. The Worker validates every `Question` and `acceptedAnswer` against the visible article and returns an actionable `422` response when the markup is incomplete or inconsistent.
 
+Published posts must include `BlogPosting` JSON-LD. Before publishing, the Worker aligns site-owned facts—the canonical URL, visible publication and modification dates, headline, author and publisher—with the persisted article so structured data cannot contradict the page.
+
 ## Routes
 
 - `GET /health` returns `{ "status": "ok" }`.

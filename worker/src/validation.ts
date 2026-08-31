@@ -7,6 +7,7 @@ const MAX_SLUG_LENGTH = 300;
 const MAX_EXCERPT_LENGTH = 2_000;
 const MAX_ARRAY_ITEMS = 50;
 const MAX_ARRAY_ITEM_LENGTH = 120;
+const ISO_DATETIME_PATTERN = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
 
 export class HttpError extends Error {
   constructor(public status: number, message: string) {
@@ -168,10 +169,29 @@ function nullableIsoDate(value: unknown, field: string): string | null {
 }
 
 function isoDate(value: unknown, field: string): string {
-  if (typeof value !== 'string' || !value.trim() || Number.isNaN(Date.parse(value))) {
+  if (typeof value !== 'string' || !isIsoDatetime(value)) {
     throw new HttpError(422, `${field} must be a valid ISO date string`);
   }
   return value;
+}
+
+function isIsoDatetime(value: string): boolean {
+  const match = ISO_DATETIME_PATTERN.exec(value);
+  if (!match || Number.isNaN(Date.parse(value))) return false;
+
+  const [, yearText, monthText, dayText, hourText, minuteText, secondText] = match;
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  const hour = Number(hourText);
+  const minute = Number(minuteText);
+  const second = Number(secondText);
+  if (hour > 23 || minute > 59 || second > 59) return false;
+
+  const calendarDate = new Date(Date.UTC(year, month - 1, day));
+  return calendarDate.getUTCFullYear() === year
+    && calendarDate.getUTCMonth() === month - 1
+    && calendarDate.getUTCDate() === day;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
