@@ -16,6 +16,9 @@ const { post } = Astro.props as { post: BlogPost };
 const title = post.data.meta_title?.trim() || post.data.title;
 const description = postDescription(post);
 const published = post.data.published_at || post.data.created_at || post.data.timestamp;
+const articleHtml = post.data.content_html
+  .replaceAll('<table>', '<div class="blog-table-scroll" role="region" aria-label="Scrollable data table" tabindex="0"><table>')
+  .replaceAll('</table>', '</table></div>');
 ---
 <BaseLayout
   lang="en"
@@ -50,7 +53,7 @@ const published = post.data.published_at || post.data.created_at || post.data.ti
           <p>By Miguel Casteleiro</p>
           <a class="blog-back-link" href="/blog/"><span aria-hidden="true">←</span> All articles</a>
         </aside>
-        <div class="blog-prose" set:html={post.data.content_html} />
+        <div class="blog-prose" set:html={articleHtml} />
       </div>
     </article>
 
