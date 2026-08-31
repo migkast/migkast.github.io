@@ -3,14 +3,15 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 const nullableStringArray = z.array(z.string()).nullable();
+const isoDatetime = z.iso.datetime({ offset: true });
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/blog' }),
   schema: z.object({
     payload_version: z.literal(2),
     id: z.uuid(),
-    created_at: z.iso.datetime().nullable(),
-    published_at: z.iso.datetime().nullable(),
+    created_at: isoDatetime.nullable(),
+    published_at: isoDatetime.nullable(),
     title: z.string().min(1),
     content_html: z.string().min(1),
     content_markdown: z.string().nullable(),
@@ -23,7 +24,7 @@ const blog = defineCollection({
     keywords: nullableStringArray,
     json_ld: z.record(z.string(), z.unknown()).nullable(),
     status: z.literal('published'),
-    timestamp: z.iso.datetime()
+    timestamp: isoDatetime
   })
 });
 
