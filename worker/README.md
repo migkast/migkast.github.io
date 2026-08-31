@@ -2,6 +2,8 @@
 
 Cloudflare Worker that receives SEOforGPT payload-version-2 blog webhooks, stores private state in Workers KV, and publishes sanitized posts to this Astro repository through GitHub's Contents API.
 
+Articles with a visible FAQ section must include matching `FAQPage` JSON-LD. The Worker validates every `Question` and `acceptedAnswer` against the visible article and returns an actionable `422` response when the markup is incomplete or inconsistent.
+
 ## Routes
 
 - `GET /health` returns `{ "status": "ok" }`.

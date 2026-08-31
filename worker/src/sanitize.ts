@@ -46,6 +46,12 @@ export function sanitizeArticleHtml(html: string): string {
   }).trim();
 }
 
+export function articleText(html: string): string {
+  return sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} })
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function isDimension(value: string | undefined): value is string {
   return typeof value === 'string' && /^\d{1,5}$/.test(value);
 }

@@ -1,7 +1,7 @@
 import { publishToGitHub, removeFromGitHub } from './github';
 import { sanitizeArticleHtml } from './sanitize';
 import type { Env, StoredBlogPost } from './types';
-import { HttpError, validatePayload } from './validation';
+import { HttpError, validateFaqStructuredData, validatePayload } from './validation';
 
 const MAX_REQUEST_BYTES = 900_000;
 const JSON_HEADERS = { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' };
@@ -32,6 +32,7 @@ export async function handleRequest(request: Request, env: Env, fetcher: typeof 
     const slug = await resolveSlug(payload.slug, payload.title, payload.id, existing, env.BLOG_POSTS);
     const contentHtml = sanitizeArticleHtml(payload.content_html);
     if (!contentHtml) throw new HttpError(422, 'content_html is empty after removing unsafe markup');
+    validateFaqStructuredData(payload.json_ld, contentHtml);
 
     const post: StoredBlogPost = {
       ...payload,

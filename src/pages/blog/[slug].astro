@@ -5,6 +5,7 @@ import BlogBookingCta from '../../components/BlogBookingCta.astro';
 import BlogClosingCta from '../../components/BlogClosingCta.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
+import { prepareArticleHtml } from '../../lib/article';
 import { formatPostDate, getPublishedPosts, postDescription, type BlogPost } from '../../lib/blog';
 
 export const getStaticPaths = (async () => {
@@ -16,9 +17,7 @@ const { post } = Astro.props as { post: BlogPost };
 const title = post.data.meta_title?.trim() || post.data.title;
 const description = postDescription(post);
 const published = post.data.published_at || post.data.created_at || post.data.timestamp;
-const articleHtml = post.data.content_html
-  .replaceAll('<table>', '<div class="blog-table-scroll" role="region" aria-label="Scrollable data table" tabindex="0"><table>')
-  .replaceAll('</table>', '</table></div>');
+const article = prepareArticleHtml(post.data.content_html);
 ---
 <BaseLayout
   lang="en"
@@ -51,9 +50,19 @@ const articleHtml = post.data.content_html
         <aside class="blog-article-aside" aria-label="Article information">
           <p class="eyebrow">Field note</p>
           <p>By Miguel Casteleiro</p>
+          {article.sections.length ? (
+            <nav class="blog-toc" aria-labelledby="blog-toc-title">
+              <p id="blog-toc-title">In this article</p>
+              <ol>
+                {article.sections.map((section) => (
+                  <li><a href={`#${section.id}`}>{section.title}</a></li>
+                ))}
+              </ol>
+            </nav>
+          ) : null}
           <a class="blog-back-link" href="/blog/"><span aria-hidden="true">←</span> All articles</a>
         </aside>
-        <div class="blog-prose" set:html={articleHtml} />
+        <div class="blog-prose" set:html={article.html} />
       </div>
     </article>
 

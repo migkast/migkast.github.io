@@ -95,6 +95,32 @@ describe('webhook handler', () => {
     expect(wrongType.status).toBe(415);
   });
 
+  it('accepts complete FAQPage markup that matches the visible FAQ', async () => {
+    const setup = createSetup();
+    const payload = withFaq(basePayload);
+    const response = await invoke(setup.env, setup.github.fetch, payload);
+    expect(response.status).toBe(200);
+  });
+
+  it('rejects a visible FAQ without FAQPage markup', async () => {
+    const setup = createSetup();
+    const payload = { ...basePayload, content_html: '<h2>FAQ</h2><h3>What is this?</h3><p>A useful answer.</p>' };
+    const response = await invoke(setup.env, setup.github.fetch, payload);
+    expect(response.status).toBe(422);
+    expect(((await response.json()) as { message: string }).message).toContain('FAQPage');
+  });
+
+  it('rejects FAQPage answers that are not visible in the article', async () => {
+    const setup = createSetup();
+    const payload = withFaq(basePayload);
+    const faqPage = (payload.json_ld['@graph'] as Array<Record<string, unknown>>)[1]!;
+    const question = (faqPage.mainEntity as Array<Record<string, unknown>>)[0]!;
+    question.acceptedAnswer = { '@type': 'Answer', text: 'A different hidden answer.' };
+    const response = await invoke(setup.env, setup.github.fetch, payload);
+    expect(response.status).toBe(422);
+    expect(((await response.json()) as { message: string }).message).toContain('visible article');
+  });
+
   it('returns a retryable error when GitHub is unavailable', async () => {
     const setup = createSetup();
     const failedFetch: typeof fetch = async () => new Response(JSON.stringify({ message: 'service unavailable' }), { status: 500 });
@@ -132,6 +158,27 @@ function createSetup() {
     SITE_ORIGIN: 'https://miguelcasteleiro.com'
   } as unknown as Env;
   return { env, github };
+}
+
+function withFaq(payload: typeof basePayload) {
+  return {
+    ...payload,
+    content_html: '<h2>FAQ</h2><h3>What is this?</h3><p>A useful answer.</p>',
+    json_ld: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        { '@type': 'BlogPosting', headline: payload.title },
+        {
+          '@type': 'FAQPage',
+          mainEntity: [{
+            '@type': 'Question',
+            name: 'What is this?',
+            acceptedAnswer: { '@type': 'Answer', text: 'A useful answer.' }
+          }]
+        }
+      ]
+    }
+  };
 }
 
 class MemoryKv {

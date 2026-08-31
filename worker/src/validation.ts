@@ -1,4 +1,5 @@
 import type { SeoForGptPayload } from './types';
+import { articleText } from './sanitize';
 
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const MAX_TITLE_LENGTH = 300;
@@ -50,6 +51,42 @@ export function validatePayload(input: unknown): SeoForGptPayload {
   };
 }
 
+export function validateFaqStructuredData(jsonLd: Record<string, unknown> | null, contentHtml: string): void {
+  const faqSection = findFaqHeading(contentHtml);
+  const faqPage = findTypedNode(jsonLd, 'FAQPage');
+
+  if (faqSection && !faqPage) {
+    throw new HttpError(422, 'json_ld must include FAQPage markup when the article contains an FAQ section');
+  }
+  if (!faqPage) return;
+
+  const entities = faqPage.mainEntity;
+  if (!Array.isArray(entities) || entities.length === 0) {
+    throw new HttpError(422, 'json_ld FAQPage.mainEntity must be a non-empty array');
+  }
+
+  const visibleText = normalizeText(articleText(contentHtml));
+  entities.forEach((entity, index) => {
+    if (!isRecord(entity) || !hasType(entity, 'Question')) {
+      throw new HttpError(422, `json_ld FAQPage.mainEntity[${index}] must be a Question`);
+    }
+
+    const question = nonEmptySchemaText(entity.name);
+    if (!question) throw new HttpError(422, `json_ld FAQ question ${index + 1} must have a name`);
+
+    const answer = entity.acceptedAnswer;
+    if (!isRecord(answer) || !hasType(answer, 'Answer')) {
+      throw new HttpError(422, `json_ld FAQ question ${index + 1} must have an acceptedAnswer of type Answer`);
+    }
+    const answerText = nonEmptySchemaText(answer.text);
+    if (!answerText) throw new HttpError(422, `json_ld FAQ answer ${index + 1} must have text`);
+
+    if (!visibleText.includes(normalizeText(question)) || !visibleText.includes(normalizeText(answerText))) {
+      throw new HttpError(422, `json_ld FAQ question ${index + 1} and its answer must appear in the visible article`);
+    }
+  });
+}
+
 function requiredString(value: unknown, field: string, maxLength: number): string {
   const result = stringValue(value, field, maxLength).trim();
   if (!result) throw new HttpError(422, `${field} must be a non-empty string`);
@@ -84,6 +121,45 @@ function nullableObject(value: unknown, field: string): Record<string, unknown> 
   if (value === null) return null;
   if (!isRecord(value)) throw new HttpError(422, `${field} must be an object or null`);
   return value;
+}
+
+function findFaqHeading(html: string): boolean {
+  return [...html.matchAll(/<h2>([\s\S]*?)<\/h2>/gi)].some((match) => {
+    const heading = normalizeText(articleText(match[1] || ''));
+    return heading === 'faq' || heading === 'faqs' || heading === 'frequently asked questions';
+  });
+}
+
+function findTypedNode(value: unknown, type: string): Record<string, unknown> | null {
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const match = findTypedNode(item, type);
+      if (match) return match;
+    }
+    return null;
+  }
+  if (!isRecord(value)) return null;
+  if (hasType(value, type)) return value;
+  for (const child of Object.values(value)) {
+    const match = findTypedNode(child, type);
+    if (match) return match;
+  }
+  return null;
+}
+
+function hasType(value: Record<string, unknown>, type: string): boolean {
+  const schemaType = value['@type'];
+  return schemaType === type || (Array.isArray(schemaType) && schemaType.includes(type));
+}
+
+function nonEmptySchemaText(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const text = articleText(value).trim();
+  return text || null;
+}
+
+function normalizeText(value: string): string {
+  return value.normalize('NFKC').replace(/\s+/g, ' ').trim().toLowerCase();
 }
 
 function nullableIsoDate(value: unknown, field: string): string | null {
