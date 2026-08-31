@@ -1,12 +1,12 @@
 ---
 const { closingId = 'blog-closing-cta' } = Astro.props as { closingId?: string };
 ---
-<aside class="blog-persistent-cta" data-blog-persistent data-closing-id={closingId} aria-label="Book a discovery call">
+<aside class="blog-persistent-cta" data-blog-persistent data-closing-id={closingId} aria-label="Grow your company">
   <div>
-    <span>Growth feels stuck?</span>
-    <strong>Let&rsquo;s find the real constraint.</strong>
+    <span>Your next growth stage</span>
+    <strong>Turn the real constraint into profitable growth.</strong>
   </div>
-  <a class="button button-small" href="/contact/">Book a discovery call</a>
+  <a class="button button-small" href="/contact/">Let&rsquo;s grow your company</a>
 </aside>
 <script>
   const persistentCtas = document.querySelectorAll<HTMLElement>('[data-blog-persistent]');
