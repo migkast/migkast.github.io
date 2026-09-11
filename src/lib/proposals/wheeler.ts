@@ -38,7 +38,7 @@ export const engagements: Engagement[] = [
       {title:'Brand & search visibility',includes:["Map searches where the independently owned legacy site ranks", "Strengthen Wheeler’s own pages, identity signals and useful content", "Build credible references and links to the correct Wheeler", "Coordinate brand protection with Wheeler’s counsel; legal action remains with Wheeler", "Track progress toward outranking the legacy site; rankings are not guaranteed"],detail:'Compete to outrank the independently owned legacy site and bring demand to Wheeler.'},
       {title:'Local SEO + website improvements',includes:["Review crawlability and indexing", "Prioritize Los Angeles search opportunities", "Improve titles, page structure and internal links", "Apply agreed fixes to the existing site"],detail:'Prioritize LA pages and existing-site fixes.'},
     ]},
-  {id:'team',name:'Marketing Team',price:15000,
+  {id:'team',name:'Marketing Team',price:17000,
     launchChannelsAt:1,
     description:'We launch Wheeler across search, paid and social to build the go-to brand.',
     includesLabel:'Everything in Growth Execution, plus:',
