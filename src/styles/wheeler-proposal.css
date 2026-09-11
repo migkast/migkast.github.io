@@ -170,3 +170,17 @@
 .wheeler-proposal .agent-title .scope-trigger{padding:2px 0;}
 .wheeler-proposal .agent-logos{padding-top:2px;}
 @media(max-width:760px),(hover:none){.wheeler-proposal .plan-inclusions>ul>li>.feature-icon{margin-top:10px;}.wheeler-proposal .scope-trigger{padding:12px 0;}.wheeler-proposal .agent-title .scope-trigger{padding:12px 0;}.wheeler-proposal .agent-logos{padding-top:12px;}}
+.wheeler-proposal .discuss-engagement{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;padding:12px 16px;margin-top:24px;border:1px solid #9baa9f;border-radius:2px;text-decoration:none;font-size:13px;color:var(--green);}
+.wheeler-proposal .team-plan .discuss-engagement{background:var(--green);color:white;border-color:var(--green);}
+.wheeler-proposal .first-weeks>.eyebrow{flex-wrap:wrap;}
+.wheeler-proposal .launch-footage{display:block;font-size:11px;color:var(--muted);line-height:1.5;}
+.wheeler-proposal .comparison-frame{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:8px;background:var(--line);isolation:isolate;}
+.wheeler-proposal .ambition .comparison-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0;user-select:none;}
+.wheeler-proposal .comparison-after{clip-path:inset(0 0 0 var(--split));}
+.wheeler-proposal .comparison-label{position:absolute;top:12px;padding:6px 10px;background:#222b37de;color:#fff;font-size:10px;letter-spacing:.02em;border-radius:2px;pointer-events:none;}
+.wheeler-proposal .before-label{left:12px;}.wheeler-proposal .after-label{right:12px;}
+.wheeler-proposal .comparison-divider{position:absolute;top:0;bottom:0;left:var(--split);width:2px;background:white;transform:translateX(-50%);pointer-events:none;box-shadow:0 0 5px #0005;}
+.wheeler-proposal .comparison-divider>span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:44px;height:44px;border:1px solid #ffffffaa;border-radius:50%;background:#faf9f6;color:var(--ink);font-size:26px;letter-spacing:3px;padding-left:3px;box-shadow:0 2px 10px #0003;}
+.wheeler-proposal .comparison-range{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;opacity:0;cursor:ew-resize;z-index:3;touch-action:pan-y;}
+.wheeler-proposal .comparison-frame:focus-within{outline:3px solid #547eaa;outline-offset:4px;}
+.wheeler-proposal .house-comparison figcaption{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;font-size:11px;}

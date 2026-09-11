@@ -1,0 +1,21 @@
+<figure class="house-comparison">
+  <div class="comparison-frame" style="--split:50%" data-house-comparison>
+    <img class="comparison-before" src="/images/wheeler/residential-project.avif" alt="Wheeler house under construction, with exposed framing and scaffolding" width="1600" height="1200" draggable="false" />
+    <img class="comparison-after" src="/images/wheeler/residential-finished-visualization.webp" alt="Proposed finish for the same house with warm-white walls, dark trim and landscaping" width="1448" height="1086" draggable="false" />
+    <span class="comparison-label before-label">Original</span>
+    <span class="comparison-label after-label">Finish</span>
+    <span class="comparison-divider" aria-hidden="true"><span>‹ ›</span></span>
+    <input class="comparison-range" type="range" min="0" max="100" value="50" step="1" aria-label="Compare original construction photo and proposed finish" aria-valuetext="50% original photo, 50% finished visualization" />
+  </div>
+  <figcaption><span>Drag to see the transformation</span></figcaption>
+</figure>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-house-comparison]').forEach(frame=>{
+    const range=frame.querySelector<HTMLInputElement>('input')!;
+    range.addEventListener('input',()=>{
+      const value=Number(range.value);
+      frame.style.setProperty('--split',`${value}%`);
+      range.setAttribute('aria-valuetext',`${value}% original photo, ${100-value}% finished visualization`);
+    });
+  });
+</script>

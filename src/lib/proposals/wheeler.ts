@@ -8,12 +8,13 @@ export interface Engagement {
   features: PlanFeature[];
   involvement: string;
   firstWeeks: string[];
+  launchChannelsAt?: number;
 }
 export const gtmAgents: PlanFeature[] = [
   {title:'SEO + GEO Monitoring Agent',includes:["Set up keyword and buyer-question monitoring", "Establish Google and AI visibility baselines", "Track changes and competitor mentions", "Generate visibility reports and flag optimization opportunities"],detail:'Monitors search and AI visibility, generates reports and flags opportunities.',logos:[{src:'https://cdn.jsdelivr.net/npm/simple-icons@11/icons/openai.svg',alt:'ChatGPT'},{src:'https://www.gstatic.com/images/branding/googleg/1x/googleg_standard_color_128dp.png',alt:'Google'}]},
   {title:'Content Agent',includes:["Turn visibility data into content briefs", "Write structured, source-backed articles", "Use Wheeler’s approved product and brand material", "Publish articles and update existing content within agreed editorial rules"],detail:'Writes, publishes and updates content using SEO and AI visibility data.',logos:[{src:'/images/wheeler/content-agent.svg',alt:'Content writing'}]},
   {title:'LinkedIn Outreach Agent',includes:["Research architects, builders and developers", "Build relevant prospect lists", "Send personalized connection and outreach messages", "Run follow-up sequences and route replies to Wheeler"],detail:'Finds professional buyers, sends LinkedIn outreach and follows up.',logos:[{src:'https://cdn.jsdelivr.net/npm/simple-icons@11/icons/linkedin.svg',alt:'LinkedIn'}]},
-  {title:'Cold Email Agent',includes:["Share prospect research with the LinkedIn agent", "Write and send targeted cold email sequences", "Run follow-ups and route replies to Wheeler", "Manage opt-outs and ramp sending with deliverability readiness"],detail:'Sends targeted cold emails, follows up and routes replies to Wheeler.',logos:[{src:'/images/wheeler/email-agent.svg',alt:'Email'}]},
+  {title:'Cold Email Agent',includes:["Configure agreed domains, mailboxes and sender authentication", "Manage email warmup and monitor deliverability", "Share prospect research with the LinkedIn agent", "Write and send targeted cold email sequences", "Run follow-ups and route replies to Wheeler", "Manage opt-outs and ramp sending with deliverability readiness"],detail:'Sends targeted cold emails, follows up and routes replies to Wheeler.',logos:[{src:'/images/wheeler/email-agent.svg',alt:'Email'}]},
   {title:'Reddit Seeding Agent',includes:["Find relevant communities and discussions", "Check community participation rules", "Publish useful contributions with transparent affiliation", "Escalate sensitive topics and respect community rules"],detail:'Finds relevant discussions and participates with useful, openly affiliated contributions.',logos:[{src:'/platforms/reddit.svg',alt:'Reddit'}]}
 ];
 export const engagements: Engagement[] = [
@@ -27,22 +28,22 @@ export const engagements: Engagement[] = [
     description:'I run organic growth and outreach.',
     includesLabel:'GTM agents + hands-on execution:',
     involvement:"Ongoing organic and outreach execution led by Miguel.",
-    firstWeeks:["Five agents publishing, reporting and doing outreach.", "Marketing analytics and two buyer funnels set up.", "Initial LA search improvements and brand protection underway."],
+    firstWeeks:["Five agents publishing, reporting and doing outreach.", "Marketing analytics, CRM and two buyer funnels set up.", "Initial LA search improvements and brand protection underway."],
     features:[
       {title:'GTM agents',includes:gtmAgents.map(agent=>agent.title),items:gtmAgents.map(agent=>agent.title)},
-      {title:'Brand & search visibility',includes:["Map searches where the independently owned legacy site ranks", "Strengthen Wheeler’s own pages, identity signals and useful content", "Build credible references and links to the correct Wheeler", "Coordinate brand protection with Wheeler’s counsel; legal action remains with Wheeler", "Track progress toward outranking the legacy site; rankings are not guaranteed"],detail:'Compete to outrank the independently owned legacy site and bring demand to Wheeler.'},
-      {title:'Marketing analytics setup',includes:["Configure Google Analytics and Google Search Console", "Set up PostHog where agreed", "Define lead and conversion events", "Validate tracking and reporting access"],detail:'Google Analytics, Google Search Console and PostHog, configured for the agreed stack.'},
+      {title:'Marketing analytics setup',includes:["Configure Google Analytics and Google Search Console", "Set up Bing Webmaster Tools", "Set up or optimize Google Business Profile and coordinate verification with Wheeler", "Set up PostHog where agreed", "Define lead and conversion events", "Validate tracking and reporting access"],detail:'Google Analytics, Search Console, Bing Webmaster Tools, Google Business Profile and PostHog.'},
       {title:'Set up two GTM funnels',includes:["Define homeowner and professional propositions", "Map landing pages and calls to action", "Set up lead forms and sales handoffs", "Test each path from visit to inquiry"],detail:'One for homeowners; one for architects, builders and developers.'},
+      {title:'CRM & pipeline reporting',includes:["Configure the CRM and connect lead sources", "Set up homeowner and professional pipelines", "Route inquiries to Wheeler", "Report on sources, lead stages and outcomes", "Wheeler manages sales follow-up, quotes and closing"],detail:'Capture inquiries, organize both buyer pipelines and track progress.'},
+      {title:'Campaign optimization & testing',includes:["Test audiences and messages", "Review response and conversion data", "Improve campaigns based on results"],detail:'Test audiences and messages, measure response and improve campaign performance.'},
+      {title:'Brand & search visibility',includes:["Map searches where the independently owned legacy site ranks", "Strengthen Wheeler’s own pages, identity signals and useful content", "Build credible references and links to the correct Wheeler", "Coordinate brand protection with Wheeler’s counsel; legal action remains with Wheeler", "Track progress toward outranking the legacy site; rankings are not guaranteed"],detail:'Compete to outrank the independently owned legacy site and bring demand to Wheeler.'},
       {title:'Local SEO + website improvements',includes:["Review crawlability and indexing", "Prioritize Los Angeles search opportunities", "Improve titles, page structure and internal links", "Apply agreed fixes to the existing site"],detail:'Prioritize LA pages and existing-site fixes.'},
-      {title:'Content publishing & optimization',includes:["Publish content within agreed editorial rules", "Format headings, links and metadata", "Connect articles to relevant buyer journeys", "Refresh content using visibility and engagement data"],detail:'Operate publishing, page optimization and ongoing content updates.'},
-      {title:'Email infrastructure',includes:["Configure agreed domains and mailboxes", "Set up sender authentication", "Plan gradual email warmup and monitor deliverability", "Ramp active cold email sending as deliverability allows"],detail:'Domains, authentication, warmup and delivery monitoring for active outreach.'},
-      {title:'Lead tracking + reporting',includes:["Capture inquiry source and campaign details", "Define reporting metrics with Wheeler", "Build a basic lead reporting view", "Review lead quality using Wheeler’s sales feedback"],detail:'Know where inquiries come from and what happens next.'}
     ]},
   {id:'team',name:'Marketing Team',price:15000,
+    launchChannelsAt:1,
     description:'We launch Wheeler across search, paid and social to build the go-to brand.',
     includesLabel:'Everything in Growth Execution, plus:',
     involvement:"Miguel runs positioning, campaign strategy and specialist execution for the agreed marketing program.",
-    firstWeeks:["Everything in Growth Execution, plus:", "An all-in LA brand launch across Facebook and Instagram: coordinated video, creative and retargeting built to make Wheeler a familiar name across the region.", "Google Ads brand protection: capture Wheeler searches and direct demand to the right website.", "Dedicated PPC campaigns for both funnels: homeowners and architects, builders and developers.", "Organic social publishing reinforces the launch through a coordinated editorial calendar."],
+    firstWeeks:["Everything in Growth Execution, plus:", "An all-in LA brand launch across", "Google Ads brand protection: capture Wheeler searches and direct demand to the right website.", "Dedicated PPC campaigns for both funnels: homeowners and architects, builders and developers.", "Organic social publishing reinforces the launch through a coordinated editorial calendar."],
     features:[
       {title:'Google Ads Specialist',includes:["Set up or audit the Google Ads account", "Configure and validate conversion tracking", "Research keywords and build campaigns", "Launch a Wheeler brand campaign directing searches to the correct website", "Write and test ad copy", "Optimize bids, budgets and search terms"],person:true,detail:'Search campaigns, testing and optimization.',logo:'/platforms/googleads-color.svg'},
       {title:'Meta Ads Specialist',includes:["Set up the business and advertising accounts", "Set up or connect Facebook and Instagram pages", "Configure Meta Pixel and agreed conversion events", "Build audiences, campaigns and new ads", "Test creative and optimize performance"],person:true,detail:'Meta campaigns, retargeting and creative tests.',logo:'/platforms/meta-color.svg'},
@@ -62,11 +63,12 @@ export const engagements: Engagement[] = [
   "includesLabel": "Everything in Marketing Team, plus these CMO responsibilities:",
   "involvement": "Miguel directs marketing within agreed authority and brings Stacie clear decisions. Wheeler retains sales leadership, pricing, contracts and final investment approvals.",
   "firstWeeks": [
-    "The full Marketing Team launch, with Miguel leading the marketing function.",
-    "A 3–6 month LA growth brief: priorities, investment scenarios, success measures and accountable owners.",
-    "A first customer-facing tool selected, scoped and prototyped to help buyers understand Wheeler and start a project.",
-    "A partner-marketing plan and an executive review cadence: what to fund, what to change and what needs Stacie’s decision."
-  ],
+    "The full Marketing Team launch, plus the leadership foundation for Wheeler’s next stage:",
+    "A 3–6 month LA decision brief, informed by founder, buyer and sales-team input: where to concentrate, how to differentiate and which partner opportunities to pursue.",
+    "An investment case for Stacie: budget scenarios, expected outcomes and assumptions, resource needs and criteria for increasing spend.",
+    "A clear marketing mandate: decision authority, specialist accountability and an escalation process so Stacie does not manage daily execution.",
+    "A first executive growth review: the priorities to fund now, initiatives to defer and the evidence needed before expanding beyond LA."
+],
   "features": [
     {
       "title": "Marketing leadership & accountability",
@@ -141,3 +143,5 @@ export const growthPhases = [
   {title:'Coordinated marketing', detail:'Bring paid campaigns, design and organic social online together.'},
   {title:'Experiment + scale', detail:'Improve channels, test opportunities and assess expansion.'}
 ] as const;
+
+export const engagementEmail=(name:string)=>'mailto:hey@seoforgpt.io?subject='+encodeURIComponent('Wheeler proposal: '+name)+'&body='+encodeURIComponent('Hi Miguel,\n\nI would like to discuss the '+name+' engagement for Wheeler, including scope, marketing budget and a kickoff date.\n');

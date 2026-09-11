@@ -2,3 +2,5 @@ Retrieved September 10, 2026 from Wheeler's public website for the Wheeler propo
 logo.webp: https://getwheelersteel.com/assets/logo-520-CHzrpL1V.webp
 residential-project.avif: https://getwheelersteel.com/assets/streetView-1600-Cqgey3RT.avif
 Project photograph is Wheeler's published project imagery, not evidence of Miguel's work.
+
+residential-finished-visualization.webp: AI-generated finished-home concept, September 11, 2026, based on residential-project.avif. Not a photograph of a completed Wheeler project.
