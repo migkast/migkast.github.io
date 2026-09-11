@@ -161,3 +161,12 @@
 .wheeler-proposal .team-ready span{font-size:9px;margin-right:6px;}
 .wheeler-proposal .channel-logos{display:flex;align-items:center;gap:12px;margin:8px 0 12px;}
 .wheeler-proposal .channel-logos img{display:block;width:20px;height:20px;object-fit:contain;}
+/* Align each leading icon with the first line of its label. */
+.wheeler-proposal .plan-inclusions>ul>li>.feature-icon{margin-top:4px;}
+.wheeler-proposal .scope-trigger{line-height:20px;padding:6px 0;align-items:flex-start;}
+.wheeler-proposal .scope-trigger .person-icon{margin-top:2px;}
+.wheeler-proposal .agent-title{flex-wrap:nowrap;}
+.wheeler-proposal .agent-title .scope-wrap{min-width:0;}
+.wheeler-proposal .agent-title .scope-trigger{padding:2px 0;}
+.wheeler-proposal .agent-logos{padding-top:2px;}
+@media(max-width:760px),(hover:none){.wheeler-proposal .plan-inclusions>ul>li>.feature-icon{margin-top:10px;}.wheeler-proposal .scope-trigger{padding:12px 0;}.wheeler-proposal .agent-title .scope-trigger{padding:12px 0;}.wheeler-proposal .agent-logos{padding-top:12px;}}

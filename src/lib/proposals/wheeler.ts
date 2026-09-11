@@ -41,7 +41,7 @@ export const engagements: Engagement[] = [
   {id:'team',name:'Marketing Team',price:15000,
     description:'We launch Wheeler across search, paid and social to build the go-to brand.',
     includesLabel:'Everything in Growth Execution, plus:',
-    involvement:"Miguel leads coordinated specialist execution across the agreed channels.",
+    involvement:"Miguel runs positioning, campaign strategy and specialist execution for the agreed marketing program.",
     firstWeeks:["Everything in Growth Execution, plus:", "An all-in LA brand launch across Facebook and Instagram: coordinated video, creative and retargeting built to make Wheeler a familiar name across the region.", "Google Ads brand protection: capture Wheeler searches and direct demand to the right website.", "Dedicated PPC campaigns for both funnels: homeowners and architects, builders and developers.", "Organic social publishing reinforces the launch through a coordinated editorial calendar."],
     features:[
       {title:'Google Ads Specialist',includes:["Set up or audit the Google Ads account", "Configure and validate conversion tracking", "Research keywords and build campaigns", "Launch a Wheeler brand campaign directing searches to the correct website", "Write and test ad copy", "Optimize bids, budgets and search terms"],person:true,detail:'Search campaigns, testing and optimization.',logo:'/platforms/googleads-color.svg'},
@@ -54,21 +54,82 @@ export const engagements: Engagement[] = [
       {title:'Landing-page improvements',includes:["Review message and offer clarity", "Improve layout, forms and calls to action", "Align landing pages with campaigns", "Test conversion tracking and mobile usability"],detail:'Turn more relevant visits into inquiries.'},
       {title:'Attribution + sales feedback',includes:["Connect campaign sources to CRM records", "Define qualification and outcome reporting", "Review meetings, quotes and pipeline with Wheeler", "Use sales feedback to improve targeting"],detail:'Connect campaigns, leads, quotes and pipeline.'}
     ]},
-  {id:'cmo',name:'Fractional CMO',price:27000,
-    description:'I lead the marketing function.',
-    includesLabel:'Everything in Marketing Team, plus:',
-    involvement:"Embedded growth leadership, aligned with Stacie\u2019s operating cadence.",
-    firstWeeks:["Everything in Marketing Team, with Miguel accountable for the growth function:", "A 3–6 month LA market-entry plan: priority buyers, competitive positioning and the moves that build preference for Wheeler.", "An investment plan connecting channel budgets and conversion assumptions to qualified pipeline goals.", "A functioning external growth team: clear ownership, launch coordination and decisions driven by one accountable lead.", "An executive growth dashboard and decision cadence with Stacie: what to accelerate, what to stop and when California expansion is justified."],
-    features:[
-      {title:'Speed run GTM',includes:["Prioritize the fastest useful launches", "Coordinate parallel work across specialists", "Resolve marketing delivery dependencies", "Use early evidence to refine the launch"],detail:'Build Wheeler into the go-to steel construction brand.'},
-      {title:'Company-wide growth strategy',includes:["Set commercial growth priorities with Stacie", "Align positioning, channels and resource needs", "Define performance goals and investment tradeoffs", "Lead the executive growth decision cadence"],detail:'Set the growth direction, commercial priorities and investment choices.'},
-      {title:'Hiring + team development',includes:["Define roles and resource needs", "Source and assess approved hires", "Onboard and coordinate the team", "Set expectations and review performance"],detail:'Select, onboard and manage the right people.'},
-      {title:'Vendor & specialist management',includes:["Select suitable specialist resources", "Set clear briefs and deliverables", "Coordinate dependencies and quality reviews", "Manage performance against agreed priorities"],detail:'Coordinate delivery and performance.'},
-      {title:'Budget allocation',includes:["Recommend channel and resource budgets", "Allocate within Wheeler’s approved authority", "Review spend against performance", "Recommend where to increase or reduce investment"],detail:'Direct approved investment toward what works.'},
-      {title:'New-market launches',includes:["Assess demand, competition and delivery readiness in each market", "Adapt campaigns and buyer journeys to local demand", "Coordinate approved launches and sales handoffs", "Measure launch performance before expanding further"],detail:'Turn approved expansion priorities into local launches, from California outward.'},
-      {title:'Partnerships + channel experiments',includes:["Identify relevant partners and channels", "Define small, measurable experiments", "Coordinate approved tests", "Recommend which initiatives to scale"],detail:'Test new opportunities before scaling them.'},
-      {title:'Executive reporting',includes:["Report progress against growth priorities", "Review pipeline and marketing performance", "Surface decisions, risks and dependencies", "Align with Stacie’s operating cadence"],detail:'Growth decisions aligned with Stacie’s operating cadence.'}
-    ]}
+  {
+  "id": "cmo",
+  "name": "Fractional CMO",
+  "price": 27000,
+  "description": "A marketing leader for Wheeler, so Stacie can focus on building the business.",
+  "includesLabel": "Everything in Marketing Team, plus these CMO responsibilities:",
+  "involvement": "Miguel directs marketing within agreed authority and brings Stacie clear decisions. Wheeler retains sales leadership, pricing, contracts and final investment approvals.",
+  "firstWeeks": [
+    "The full Marketing Team launch, with Miguel leading the marketing function.",
+    "A 3–6 month LA growth brief: priorities, investment scenarios, success measures and accountable owners.",
+    "A first customer-facing tool selected, scoped and prototyped to help buyers understand Wheeler and start a project.",
+    "A partner-marketing plan and an executive review cadence: what to fund, what to change and what needs Stacie’s decision."
+  ],
+  "features": [
+    {
+      "title": "Marketing leadership & accountability",
+      "detail": "Delegate marketing priorities and performance, not just the task list.",
+      "includes": [
+        "Own the marketing plan and set priorities across the team",
+        "Resolve delivery tradeoffs and hold specialists accountable",
+        "Review performance and take corrective action",
+        "Bring Stacie recommendations and decisions, rather than day-to-day coordination"
+      ]
+    },
+    {
+      "title": "Investment & resource planning",
+      "detail": "Put the right budget and people behind the next stage of growth.",
+      "includes": [
+        "Develop investment scenarios using Wheeler’s goals and commercial inputs",
+        "Recommend channel mix, specialist capacity and hiring needs",
+        "Reallocate approved resources as evidence develops",
+        "Align growth investment with delivery readiness; Wheeler approves additional spend"
+      ]
+    },
+    {
+      "title": "Customer & market intelligence",
+      "detail": "Find what makes buyers choose Wheeler and what holds them back.",
+      "includes": [
+        "Lead a structured buyer-research program with homeowners and professionals",
+        "Combine interviews, campaign evidence and Wheeler’s sales feedback",
+        "Track competitor positioning and emerging market opportunities",
+        "Turn findings into decisions about messaging, priorities and buyer experience"
+      ]
+    },
+    {
+      "title": "Strategic partner marketing",
+      "detail": "Build repeatable routes to buyers through trusted industry relationships.",
+      "includes": [
+        "Develop architect and builder education and co-marketing programs",
+        "Turn approved insurance and expert relationships into joint launch opportunities",
+        "Create partner content, activation plans and measures of contribution",
+        "Lead marketing activation; Wheeler owns partnership agreements and negotiations"
+      ]
+    },
+    {
+      "title": "Marketing Engineering",
+      "detail": "Build interactive tools that help buyers understand Wheeler, gain confidence and start a project.",
+      "includes": [
+        "Identify where buyers need clearer evidence or an easier next step",
+        "Design and build agreed tools such as method comparisons, project-fit guides or guided project briefs",
+        "Connect the experience to Wheeler’s inquiry and sales handoff",
+        "Measure usage and inquiry quality, then improve the tool; substantial software projects are separately scoped"
+      ]
+    },
+    {
+      "title": "Market-entry strategy",
+      "detail": "Turn what works in LA into a deliberate plan for the next market.",
+      "includes": [
+        "Assess buyer demand, competition and routes to market",
+        "Recommend expansion priorities using marketing evidence and Wheeler’s operating inputs",
+        "Develop the local positioning, launch plan and investment case",
+        "Lead approved marketing launches; Wheeler decides business expansion and delivery commitments"
+      ]
+    }
+  ]
+}
 ];
 export const money=(value:number)=>'$'+value.toLocaleString('en-US');
 export const terms='All plans: USD, billed monthly in advance, with a 3-month initial term. Month-to-month afterward with 30 days’ notice. Setup included.';
