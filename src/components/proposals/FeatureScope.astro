@@ -1,0 +1,13 @@
+---
+import type { PlanFeature } from '../../lib/proposals/wheeler';
+interface Props { feature: PlanFeature; id: string; }
+const { feature, id } = Astro.props;
+---
+<span class="scope-wrap" data-scope>
+  <button class="scope-trigger" type="button" aria-expanded="false" aria-controls={id}>
+    <span>{feature.title}</span>
+    {feature.person && <svg class="person-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" aria-label="Team specialist" role="img"><circle cx="12" cy="7" r="3.5" /><path d="M5 21v-3a7 7 0 0 1 14 0v3" /></svg>}
+    <span class="scope-hint" aria-hidden="true">ⓘ</span>
+  </button>
+  <span class="scope-panel" id={id} hidden><strong>What’s included</strong><ul>{feature.includes.map(item=><li>{item}</li>)}</ul></span>
+</span>
