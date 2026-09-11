@@ -20,6 +20,7 @@ const plans=engagements.slice(1);
       <section class="audiences wrap" aria-labelledby="audiences-title"><h2 id="audiences-title">Two audiences. Two funnels.</h2><div class="audience-grid"><article><p class="eyebrow">Homeowners</p><h3>Confidence in the home they build.</h3><ul class="audience-points"><li>Beautiful, customizable homes</li><li>Wildfire resilience and non-combustible framing</li><li>Sustainability and long-term durability</li><li>Potential insurance savings, where supported</li></ul><p class="funnel-outcome">Create homeowner demand: “Ask your architect or contractor for steel construction.”</p></article><article><p class="eyebrow">Architects · builders · developers</p><h3>A compelling business case.</h3><ul class="audience-points"><li>Greater design flexibility and customization</li><li>Construction and process advantages</li><li>Project cost and margin opportunities</li><li>Clear comparison with panelized construction</li></ul><p class="funnel-outcome">Educate professionals so they can confidently specify Wheeler.</p></article></div><p class="audience-evidence">Built from Wheeler’s project material, founder experience and architect expertise. Technical and insurance claims use approved supporting evidence.</p></section>
       <section class="approach wrap" aria-labelledby="approach-title"><p class="eyebrow">From ambition to execution</p><h2 id="approach-title">The growth approach</h2><ol class="phase-track">{growthPhases.map((phase,i)=><li><span class="phase-number">0{i+1}</span><h3>{phase.title}</h3><p>{phase.detail}</p></li>)}</ol><p class="approach-note">Your engagement determines how much of this Miguel operates.</p></section>
       <section class="intro wrap" id="plans"><p class="eyebrow">Your investment</p><h2>Choose how much you want me to own.</h2><p class="team-ready"><span aria-hidden="true">●</span> Specialist team ready to start.</p><a href="#managed" class="small-start">Want to start smaller? GTM Managed Agents · $5,000/month ↓</a></section>
+      <p class="wrap touch-guidance">Tap a service name to see what’s included.</p>
       <section class="pricing wrap" aria-label="Growth plans">
         {plans.map((plan,i)=><article class:list={['plan',{'team-plan':plan.id==='team'}]} aria-labelledby={`title-${plan.id}`}>
           <div class="plan-heading"><p class="eyebrow">{['Organic + outbound','Specialist execution','Growth leadership'][i]}</p><h2 id={`title-${plan.id}`}>{plan.name}</h2><p class="price">{money(plan.price)}<span> / month</span></p><p class="description">{plan.description}</p><p class="term">Initial 3-month engagement.</p></div>
@@ -58,15 +59,39 @@ const plans=engagements.slice(1);
     try{sessionStorage.removeItem(sessionKey);}catch{/* Hide immediately regardless of storage. */}
     content.hidden=true;gate.hidden=false;password.value='';password.focus();window.scrollTo(0,0);
   });
+  let closeActiveScope: (()=>void) | undefined;
   document.querySelectorAll<HTMLElement>('[data-scope]').forEach(wrapper=>{
     const trigger=wrapper.querySelector<HTMLButtonElement>('button')!;
     const panel=wrapper.querySelector<HTMLElement>('.scope-panel')!;
-    const setOpen=(open:boolean)=>{panel.hidden=!open;trigger.setAttribute('aria-expanded',String(open));};
-    wrapper.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse' && window.matchMedia('(min-width:761px) and (hover:hover)').matches)setOpen(true);});
-    wrapper.addEventListener('pointerleave',()=>{if(!wrapper.contains(document.activeElement))setOpen(false);});
-    trigger.addEventListener('focus',()=>{if(trigger.matches(':focus-visible'))setOpen(true);});
-    trigger.addEventListener('click',event=>setOpen(event.pointerType==='mouse' && window.matchMedia('(min-width:761px) and (hover:hover)').matches ? true : panel.hidden));
-    wrapper.addEventListener('focusout',event=>{if(!wrapper.contains(event.relatedTarget as Node))setOpen(false);});
+    let closeTimer: ReturnType<typeof setTimeout> | undefined;
+    let keyboardFocused=false;
+    const closeScope=()=>setOpen(false);
+    const setOpen=(open:boolean)=>{
+      clearTimeout(closeTimer);
+      if(open){
+        if(closeActiveScope!==closeScope)closeActiveScope?.();
+        closeActiveScope=closeScope;
+      }else if(closeActiveScope===closeScope){
+        closeActiveScope=undefined;
+      }
+      panel.hidden=!open;
+      trigger.setAttribute('aria-expanded',String(open));
+    };
+    wrapper.addEventListener('pointerenter',event=>{
+      clearTimeout(closeTimer);
+      if(event.pointerType==='mouse' && window.matchMedia('(min-width:1021px) and (hover:hover)').matches)setOpen(true);
+    });
+    wrapper.addEventListener('pointerleave',()=>{
+      // Allow the pointer to cross the edge between the label and its details.
+      closeTimer=setTimeout(()=>{if(!keyboardFocused)setOpen(false);},150);
+    });
+    trigger.addEventListener('pointerdown',()=>{keyboardFocused=false;});
+    trigger.addEventListener('focus',()=>{
+      keyboardFocused=trigger.matches(':focus-visible');
+      if(keyboardFocused)setOpen(true);
+    });
+    trigger.addEventListener('click',event=>setOpen(event.pointerType==='mouse' && window.matchMedia('(min-width:1021px) and (hover:hover)').matches ? true : panel.hidden));
+    wrapper.addEventListener('focusout',event=>{if(!wrapper.contains(event.relatedTarget as Node)){keyboardFocused=false;setOpen(false);}});
     wrapper.addEventListener('keydown',event=>{if(event.key==='Escape'){setOpen(false);event.stopPropagation();}});
     document.addEventListener('pointerdown',event=>{if(!wrapper.contains(event.target as Node))setOpen(false);});
   });
