@@ -1,5 +1,6 @@
 ---
 import '../../styles/wheeler-proposal.css';
+import FocusedProposal from '../../components/proposals/FocusedProposal.astro';
 import FeatureScope from '../../components/proposals/FeatureScope.astro';
 import HouseComparison from '../../components/proposals/HouseComparison.astro';
 import { engagements, money, terms, extras, growthPhases, engagementEmail } from '../../lib/proposals/wheeler';
@@ -9,13 +10,20 @@ const plans=engagements.slice(1);
 ---
 <!doctype html>
 <html lang="en">
-<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><meta name="description" content="Wheeler growth proposal: managed agents, acquisition execution, a specialist team or growth leadership." /><title>Wheeler × Miguel Casteleiro · Plans & pricing</title><link rel="icon" href="/favicon.svg" /></head>
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><meta name="description" content="Wheeler growth proposal: a focused 90-day builder growth engagement with optional Instagram support." /><title>Wheeler × Miguel Casteleiro · Plans & pricing</title><link rel="icon" href="/favicon.svg" /></head>
 <body class="wheeler-proposal">
   <section id="proposal-gate" class="gate" aria-labelledby="gate-title"><img src="/images/wheeler/logo.webp" width="230" height="54" alt="Wheeler Residential Steel Supply" /><p class="eyebrow">Prepared for Stacie Morris</p><h1 id="gate-title">The next stage<br />for Wheeler.</h1><p>Growth proposal · Miguel Casteleiro</p><form id="unlock-form"><label for="proposal-password">Proposal password</label><div class="gate-input"><input id="proposal-password" type="password" autocomplete="current-password" required aria-describedby="gate-error" /><button type="submit">Open proposal ↗</button></div><p id="gate-error" role="alert"></p></form><noscript>Enable JavaScript to open this proposal.</noscript></section>
   <div id="proposal-content" hidden>
-    <a class="skip" href="#plans">Skip to plans</a>
+    <a class="skip" href="#focused-plans" id="proposal-skip">Skip to plans</a>
     <header class="masthead"><div class="co-brand"><div class="author"><img src="/images/miguel-headshot.jpg" width="48" height="48" alt="Miguel Casteleiro" /><span>Miguel Casteleiro<small>Growth advisory</small></span></div><span class="brand-cross" aria-hidden="true">×</span><img class="wheeler-logo" src="/images/wheeler/logo.webp" width="190" height="45" alt="Wheeler Residential Steel Supply" /></div><span>Prepared for Stacie Morris</span><button id="lock-proposal" class="quiet">Lock</button></header>
     <main id="main" tabindex="-1">
+      <div class="version-tabs wrap" role="tablist" aria-label="Proposal version">
+        <button id="tab-focused" role="tab" aria-selected="true" aria-controls="panel-focused" tabindex="0">Focused 90-day proposal</button>
+        <button id="tab-original" role="tab" aria-selected="false" aria-controls="panel-original" tabindex="-1">Original proposal</button>
+      </div>
+      <div id="panel-focused" role="tabpanel" aria-labelledby="tab-focused"><FocusedProposal /></div>
+      <div id="panel-original" role="tabpanel" aria-labelledby="tab-original" hidden>
+      <p class="wrap original-label">Original proposal · Earlier broader scope</p>
       <section class="ambition wrap" aria-labelledby="ambition-title"><div><p class="eyebrow">Wheeler / The ambition</p><h1 id="ambition-title">Make Wheeler the go-to brand for residential steel construction.</h1><div class="market-path" aria-label="Market ambition"><span>Los Angeles</span><span aria-hidden="true">→</span><span>California</span><span aria-hidden="true">→</span><span>USA</span><span aria-hidden="true">→</span><span>Worldwide</span></div><p class="ambition-note">The immediate objective: a defensible LA presence over 3–6 months. Expand across California and beyond as demand, delivery capacity and results support it.</p></div><HouseComparison /></section>
       <section class="audiences wrap" aria-labelledby="audiences-title"><h2 id="audiences-title">Two audiences. Two funnels.</h2><div class="audience-grid"><article><p class="eyebrow">Homeowners</p><h3>Confidence in the home they build.</h3><ul class="audience-points"><li>Beautiful, customizable homes</li><li>Wildfire resilience and non-combustible framing</li><li>Sustainability and long-term durability</li><li>Potential insurance savings, where supported</li></ul><p class="funnel-outcome">Create homeowner demand: “Ask your architect or contractor for steel construction.”</p></article><article><p class="eyebrow">Architects · builders · developers</p><h3>A compelling business case.</h3><ul class="audience-points"><li>Greater design flexibility and customization</li><li>Construction and process advantages</li><li>Project cost and margin opportunities</li><li>Clear comparison with panelized construction</li></ul><p class="funnel-outcome">Educate professionals so they can confidently specify Wheeler.</p></article></div><p class="audience-evidence">Built from Wheeler’s project material, founder experience and architect expertise. Technical and insurance claims use approved supporting evidence.</p></section>
       <section class="approach wrap" aria-labelledby="approach-title"><p class="eyebrow">From ambition to execution</p><h2 id="approach-title">The growth approach</h2><ol class="phase-track">{growthPhases.map((phase,i)=><li><span class="phase-number">0{i+1}</span><h3>{phase.title}</h3><p>{phase.detail}</p></li>)}</ol><p class="approach-note">Your engagement determines how much of this Miguel operates.</p></section>
@@ -35,6 +43,7 @@ const plans=engagements.slice(1);
       </div></section>
       <section class="wrap launch-notes" aria-label="How delivery works"><p><strong>Ready to start.</strong> The specialist team is ready. We confirm access, required assets, marketing budget and channel priorities at kickoff. Launch targets run from that agreed date and depend on timely approvals. Sending ramps with channel readiness; a live campaign is the start of learning, not proof of results.</p><p><strong>Management by exception.</strong> Agents publish and send within agreed rules. Miguel monitors performance, handles exceptions and escalates new claims or sensitive situations.</p><p><strong>Focused capacity.</strong> Heavier involvement during setup, then capacity allocated against agreed priorities. Scope changes and extra resources are agreed separately.</p></section>
       <section class="wrap notes" aria-label="Plan details"><p>{terms}</p><p>{extras}</p><p>Wheeler provides project material and approvals, and owns sales follow-up, quotes and closing. We agree priorities and delivery arrangements before starting.</p></section>
+      </div>
       <section class="evidence wrap" aria-labelledby="evidence-title"><p class="eyebrow">Campaign evidence</p><h2 id="evidence-title">A look inside accounts I’ve managed.</h2><p class="evidence-context">Platform-reported results from other businesses; not forecasts for Wheeler.</p><div class="evidence-grid">{campaignEvidence.map(item=><article class="evidence-card"><header><img src={item.platform==='Meta' ? '/platforms/meta-color.svg' : '/platforms/googleads-color.svg'} width="24" height="24" alt="" /><h3>{item.platform}</h3><span>1-month overview</span></header><p class="evidence-relevance">{item.platform==='Meta' ? 'Relevant to Wheeler: audience and creative testing for homeowner demand.' : 'Relevant to Wheeler: search acquisition and measurement for branded, homeowner and professional demand.'}</p><p class="evidence-scope">{item.scope==='campaign' ? 'Selected campaign · Account snapshot' : 'Account snapshot'}</p><dl>{item.metrics.map(metric=><div><dt>{item.id==='meta-scale' && metric.key==='purchases' ? 'Subscriptions' : item.id==='meta-scale' && metric.key==='costPerPurchase' ? 'Cost per subscription' : campaignEvidenceCopy.en.metrics[metric.key]}</dt><dd>{metric.value}</dd></div>)}</dl><a href={item.original} target="_blank" rel="noopener" aria-label={`View full ${item.platform} screenshot: ${item.id}`}><img class="evidence-image" src={item.preview} width={item.width} height={item.height} loading="lazy" alt={`${item.platform} ${item.scope} performance, 1-month overview`} /><span>View full screenshot ↗</span></a></article>)}</div></section>
     </main><footer class="wrap footer"><span>Wheeler Residential Steel Supply</span><span>Prepared by Miguel Casteleiro · September 2026</span></footer>
   </div>
@@ -60,11 +69,45 @@ const plans=engagements.slice(1);
     content.hidden=true;gate.hidden=false;password.value='';password.focus();window.scrollTo(0,0);
   });
   let closeActiveScope: (()=>void) | undefined;
+  const versionTabs=Array.from(document.querySelectorAll<HTMLButtonElement>('.version-tabs [role="tab"]'));
+  const selectVersion=(selected:HTMLButtonElement)=>{
+    closeActiveScope?.();
+    versionTabs.forEach(tab=>{
+      const active=tab===selected;
+      tab.setAttribute('aria-selected',String(active));
+      tab.tabIndex=active ? 0 : -1;
+      document.getElementById(tab.getAttribute('aria-controls')!)!.hidden=!active;
+    });
+    document.querySelector<HTMLAnchorElement>('#proposal-skip')!.href=selected.id==='tab-focused' ? '#focused-plans' : '#plans';
+  };
+  versionTabs.forEach((tab,index)=>{
+    tab.addEventListener('click',()=>selectVersion(tab));
+    tab.addEventListener('keydown',event=>{
+      let next:number;
+      if(event.key==='ArrowRight')next=(index+1)%versionTabs.length;
+      else if(event.key==='ArrowLeft')next=(index+versionTabs.length-1)%versionTabs.length;
+      else if(event.key==='Home')next=0;
+      else if(event.key==='End')next=versionTabs.length-1;
+      else return;
+      event.preventDefault();selectVersion(versionTabs[next]);versionTabs[next].focus();
+    });
+  });
+  const instagram=document.querySelector<HTMLInputElement>('#instagram-addon')!;
+  const contact=document.querySelector<HTMLAnchorElement>('#focused-contact')!;
+  const updateInvestment=()=>{
+    document.querySelector('#focused-selection-label')!.textContent=instagram.checked ? 'With Instagram' : 'Core engagement';
+    document.querySelector('#focused-total')!.textContent=instagram.checked ? contact.dataset.instagramPrice! : contact.dataset.corePrice!;
+    contact.href=instagram.checked ? contact.dataset.instagramHref! : contact.dataset.coreHref!;
+  };
+  instagram.checked=false;
+  updateInvestment();
+  instagram.addEventListener('change',updateInvestment);
   document.querySelectorAll<HTMLElement>('[data-scope]').forEach(wrapper=>{
     const trigger=wrapper.querySelector<HTMLButtonElement>('button')!;
     const panel=wrapper.querySelector<HTMLElement>('.scope-panel')!;
     let closeTimer: ReturnType<typeof setTimeout> | undefined;
     let keyboardFocused=false;
+    let pointerFocus=false;
     const closeScope=()=>setOpen(false);
     const setOpen=(open:boolean)=>{
       clearTimeout(closeTimer);
@@ -81,18 +124,20 @@ const plans=engagements.slice(1);
       clearTimeout(closeTimer);
       if(event.pointerType==='mouse' && window.matchMedia('(min-width:1021px) and (hover:hover)').matches)setOpen(true);
     });
-    wrapper.addEventListener('pointerleave',()=>{
+    wrapper.addEventListener('pointerleave',event=>{
+      if(event.pointerType!=='mouse' || !window.matchMedia('(min-width:1021px) and (hover:hover)').matches)return;
       // Allow the pointer to cross the edge between the label and its details.
       closeTimer=setTimeout(()=>{if(!keyboardFocused)setOpen(false);},150);
     });
-    trigger.addEventListener('pointerdown',()=>{keyboardFocused=false;});
+    trigger.addEventListener('pointerdown',()=>{keyboardFocused=false;pointerFocus=true;});
     trigger.addEventListener('focus',()=>{
-      keyboardFocused=trigger.matches(':focus-visible');
+      keyboardFocused=!pointerFocus && trigger.matches(':focus-visible');
+      pointerFocus=false;
       if(keyboardFocused)setOpen(true);
     });
     trigger.addEventListener('click',event=>setOpen(event.pointerType==='mouse' && window.matchMedia('(min-width:1021px) and (hover:hover)').matches ? true : panel.hidden));
-    wrapper.addEventListener('focusout',event=>{if(!wrapper.contains(event.relatedTarget as Node)){keyboardFocused=false;setOpen(false);}});
+    wrapper.addEventListener('focusout',event=>{if(!wrapper.contains(event.relatedTarget as Node)){keyboardFocused=false;pointerFocus=false;closeTimer=setTimeout(()=>setOpen(false),150);}});
     wrapper.addEventListener('keydown',event=>{if(event.key==='Escape'){setOpen(false);event.stopPropagation();}});
-    document.addEventListener('pointerdown',event=>{if(!wrapper.contains(event.target as Node))setOpen(false);});
+    document.addEventListener('click',event=>{if(!wrapper.contains(event.target as Node))setOpen(false);});
   });
 </script>
