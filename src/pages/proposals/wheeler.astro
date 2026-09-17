@@ -95,8 +95,6 @@ const plans=engagements.slice(1);
   const instagram=document.querySelector<HTMLInputElement>('#instagram-addon')!;
   const contact=document.querySelector<HTMLAnchorElement>('#focused-contact')!;
   const updateInvestment=()=>{
-    document.querySelector('#focused-selection-label')!.textContent=instagram.checked ? 'With Instagram' : 'Core engagement';
-    document.querySelector('#focused-total')!.textContent=instagram.checked ? contact.dataset.instagramPrice! : contact.dataset.corePrice!;
     contact.href=instagram.checked ? contact.dataset.instagramHref! : contact.dataset.coreHref!;
   };
   instagram.checked=false;

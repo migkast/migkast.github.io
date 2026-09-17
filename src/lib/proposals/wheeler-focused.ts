@@ -8,7 +8,7 @@ const agentBullet = (titles: string[], text: string) => ({
   logos: titles.flatMap(title => gtmAgents.find(agent => agent.title === title)?.logos ?? []),
 });
 export const focused = {
-  name: 'Builder Growth', price: 6000, instagramPrice: 700,
+  name: 'Wheeler Growth', price: 7000, instagramPrice: 700,
   features: [
     {title:'One GTM funnel', detail:'One focused path for LA builders and general contractors.', includes:['Define the builder and GC proposition','Align landing pages and calls to action','Set up lead capture and sales handoffs','Test the path from visit to inquiry']},
     {title:'GTM agents', detail:'Authority first. Targeted builder outreach follows in month 2.', items:['Month 1: SEO + GEO Monitoring, Content and Reddit Seeding','Month 2: LinkedIn Outreach and Cold Email'], includes:gtmAgents.map(agent => `${agent.title}: ${agent.detail}`)},
