@@ -1,7 +1,7 @@
 ---
 import FeatureScope from './FeatureScope.astro';
 import HouseComparison from './HouseComparison.astro';
-import { focused, focusedEmail } from '../../lib/proposals/wheeler-focused';
+import { focused, focusedAgents, focusedEmail } from '../../lib/proposals/wheeler-focused';
 import { money } from '../../lib/proposals/wheeler';
 ---
 <section class="ambition wrap" aria-labelledby="focused-ambition">
@@ -17,6 +17,39 @@ import { money } from '../../lib/proposals/wheeler';
     <a class="discuss-engagement" id="focused-contact" href={focusedEmail(false)} data-core-href={focusedEmail(false)} data-instagram-href={focusedEmail(true)}>Discuss this engagement <span aria-hidden="true">↗</span></a>
   </aside>
 </div>
-<section class="wrap focused-roadmap" aria-labelledby="focused-roadmap-title"><p class="eyebrow">The first 90 days</p><h2 id="focused-roadmap-title">Set up properly. Activate. Improve.</h2><p class="roadmap-intro">Complete what is missing and connect what already works. We build on Wheeler’s existing systems, content and expertise.</p><div class="focused-months">{focused.months.map((month,index)=><article><p class="eyebrow">Month 0{index+1}</p><h3>{month.title}</h3><p>{month.purpose}</p><ul>{month.items.map(item=><li>{typeof item==='string' ? item : <>{item.text}<ul class="roadmap-agent-list">{item.agents.map(agent=><li><span class="roadmap-inline-logos" aria-hidden="true">{agent.logos.map(logo=><img src={logo.src} width="16" height="16" alt="" />)}</span>{agent.text}</li>)}</ul></>}</li>)}</ul></article>)}</div><p class="involvement">Planned sequencing from kickoff, dependent on access, approved material and channel readiness. Rankings and lead volumes are not guaranteed.</p></section>
-<section class="wrap focused-operations" aria-labelledby="focused-delivery-title"><h2 id="focused-delivery-title">Clear ownership. Visible progress.</h2><p class="roadmap-intro">I work with a maximum of five clients at a time, staying hands-on with execution and focused on measurable business results.</p><div class="focused-operation-grid"><article><p class="eyebrow">Miguel operates</p><p>Messaging, foundation setup, the website editorial calendar, agent publishing and outreach, optimization and reporting. One monthly review with concise written progress updates.</p></article><article><p class="eyebrow">Wheeler contributes</p><p>Access, approved technical and project material, audience input and timely approvals. Wheeler owns sales response, qualification, quotes and closing.</p></article><article><p class="eyebrow">What we measure</p><p>Working tracking, published content and active outreach first. Then qualified builder conversations, meetings, quotes and attributable pipeline, using available data and Wheeler’s sales feedback. Numeric targets follow the baseline.</p></article></div></section>
+<section class="wrap focused-outcomes" aria-labelledby="focused-outcomes-title">
+  <p class="eyebrow">The 90-day deliverables</p>
+  <h2 id="focused-outcomes-title">What Wheeler will have. What we’ll learn.</h2>
+  <p class="roadmap-intro">Keep what already works. Complete the gaps, launch the activity and use the evidence to decide what comes next.</p>
+  <div class="outcomes-foundation"><strong>Build on your existing setup.</strong> We check what Wheeler already has, keep what works and improve what is needed to analyze marketing, optimize landing pages, understand conversion and attribute demand.</div>
+  <div class="outcomes-list">{focused.outcomes.map((outcome,index)=><article class="outcome-row">
+    <div class="outcome-heading"><span class="outcome-number" aria-hidden="true">0{index+1}</span><h3>{outcome.title}</h3><p>{outcome.label}</p></div>
+    <div class="outcome-output"><p class="eyebrow">What Wheeler receives</p><ul>{outcome.outputs.map(output=><li>{output}</li>)}</ul></div>
+    <div class="outcome-learning"><p class="eyebrow">What we’ll learn</p><p class="outcome-insight">{outcome.learning}</p><p class="outcome-goal"><strong>Goal:</strong> {outcome.goal}</p></div>
+  </article>)}</div>
+  <p class="involvement">These are the planned outputs for the initial engagement. Topic selection and sequencing are agreed at kickoff using existing assets, access and priorities. Instagram remains an optional add-on.</p>
+</section>
+<section class="wrap focused-roadmap" aria-labelledby="focused-roadmap-title">
+  <p class="eyebrow">The first 90 days</p><h2 id="focused-roadmap-title">Set up properly. Activate. Improve.</h2>
+  <p class="roadmap-intro">Complete what is missing and connect what already works. We build on Wheeler’s existing systems, content and expertise.</p>
+  <div class="focused-months">{focused.months.map((month,index)=><article><p class="eyebrow">Month 0{index+1}</p><h3>{month.title}</h3><p>{month.purpose}</p><ul>{month.items.map(item=><li>{'agents' in item ? <><strong>{item.text}</strong><ul class="roadmap-agent-list">{item.agents.map(agent=><li><span class="roadmap-inline-logos" aria-hidden="true">{agent.logos.map(logo=><img src={logo.src} width="16" height="16" alt="" />)}</span><strong>{agent.lead}</strong> {agent.detail}</li>)}</ul></> : <><strong>{item.lead}</strong> {item.detail}</>}</li>)}</ul></article>)}</div>
+  <div class="focused-agent-program">
+    <div class="focused-agent-heading"><div><p class="eyebrow">The operating agents</p><h3>The agents behind the plan</h3></div><p>Search, content and Reddit begin in month 1. Builder outreach follows in month 2. Additional agents can follow as needs emerge.</p></div>
+    <div class="focused-agent-grid">{focusedAgents.map((agent,index)=><article>
+      <span class="agent-stage">{agent.starts}</span>
+      <div class="focused-agent-title">{agent.logos ? <span class="agent-logos">{agent.logos.map(logo=><img src={logo.src} width="20" height="20" alt={logo.alt} />)}</span> : <span class="flexible-agent-icon" aria-hidden="true">+</span>}<FeatureScope feature={agent} id={`focused-agent-${index}`} /></div>
+      <p>{agent.detail}</p>
+    </article>)}</div>
+  </div>
+  <p class="involvement">Planned sequencing from kickoff, dependent on access, approved material and channel readiness. Rankings and lead volumes are not guaranteed.</p>
+</section>
+<section class="wrap focused-operations" aria-labelledby="focused-delivery-title">
+<h2 id="focused-delivery-title">Led by Miguel. Supported by agents.</h2>
+<p class="roadmap-intro">I work with a maximum of five clients at a time, staying hands-on with execution and focused on measurable business results.</p>
+<div class="focused-operation-grid">
+<article><p class="eyebrow">Miguel · accountable lead</p><h3>Direction, implementation &amp; review</h3><p>I set priorities, build the editorial and campaign plans, configure and test the agents, implement agreed website and measurement changes, and review their output and performance throughout the engagement.</p></article>
+<article><p class="eyebrow">Agents · ongoing execution</p><h3>Research, publish &amp; reach out</h3><p>Agents monitor search and AI visibility, research topics and potential buyers, publish approved content and run outreach within agreed rules. I review their work and results, refine their instructions and handle decisions that need strategic judgment. Wheeler validates technical claims.</p></article>
+<article><p class="eyebrow">Wheeler · expertise &amp; sales</p><h3>Source material, approvals &amp; conversations</h3><p>Wheeler provides access, project material and technical validation, and agrees messaging and claims. Your team owns sales response, qualification, quotes and closing, and shares outcomes so we can improve acquisition.</p></article>
+</div><p class="involvement">One monthly review with concise written progress updates, covering what shipped, what the data shows and what changes next.</p>
+</section>
 <section class="wrap notes" aria-label="Focused engagement terms"><p>USD, billed monthly in advance, with an initial 3-month engagement. Setup included. Month-to-month afterward with 30 days’ notice.</p><p>Software, travel and applicable taxes are additional. Paid-media management and advertising spend are excluded. Extensive redevelopment, CRM migration, major shoots and additional channels require separate scope. Delivery follows agreed priorities and shared capacity.</p><p>Instagram targets homeowners from the start, with design and publishing using supplied material. Original filming and ongoing inbox or community management are excluded. Selected options are finalized in the agreement.</p></section>
