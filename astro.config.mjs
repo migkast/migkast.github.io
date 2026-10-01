@@ -23,7 +23,7 @@ export default defineConfig({
   site: 'https://miguelcasteleiro.com',
   output: 'static',
   integrations: [sitemap({
-    filter: (page) => !new URL(page).pathname.startsWith('/en/') && !new URL(page).pathname.startsWith('/proposals/'),
+    filter: (page) => !new URL(page).pathname.startsWith('/en/') && !new URL(page).pathname.startsWith('/proposals/') && !new URL(page).pathname.startsWith('/clients/'),
     serialize(item) {
       const lastModified = blogLastModified.get(new URL(item.url).pathname);
       if (lastModified) item.lastmod = new Date(lastModified);

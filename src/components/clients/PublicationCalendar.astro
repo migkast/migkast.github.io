@@ -1,0 +1,89 @@
+---
+const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+---
+<div class="publication-calendar">
+  <header class="calendar-toolbar">
+    <div><p class="eyebrow">PUBLICATION CALENDAR</p><h3 id="calendar-month" aria-live="polite" aria-atomic="true"></h3></div>
+    <div class="calendar-navigation" aria-label="Calendar navigation">
+      <button type="button" id="calendar-previous" aria-label="Previous month">←</button>
+      <button type="button" id="calendar-current">This month</button>
+      <button type="button" id="calendar-next" aria-label="Next month">→</button>
+    </div>
+  </header>
+  <p class="calendar-notice"><strong>No articles scheduled yet.</strong> We’ll add publication dates after the cluster directions are agreed.</p>
+  <table aria-labelledby="calendar-month">
+    <thead><tr>{weekdays.map(day => <th scope="col">{day}</th>)}</tr></thead>
+    <tbody id="calendar-days"></tbody>
+  </table>
+  <footer><span>Dates are open. Blog titles remain examples for review.</span><button type="button" data-back-to-clusters>Review topic clusters ↗</button></footer>
+</div>
+<script>
+  const now = new Date();
+  const dateParts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Lisbon', year: 'numeric', month: 'numeric' }).formatToParts(now);
+  const currentYear = Number(dateParts.find(part => part.type === 'year')!.value);
+  const currentMonth = Number(dateParts.find(part => part.type === 'month')!.value) - 1;
+  let displayedMonth = new Date(currentYear, currentMonth, 1);
+  const monthLabel = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric' });
+  const dayLabel = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  function renderCalendar() {
+    document.querySelector('#calendar-month')!.textContent = monthLabel.format(displayedMonth);
+    const days = document.querySelector('#calendar-days')!;
+    const year = displayedMonth.getFullYear();
+    const month = displayedMonth.getMonth();
+    const offset = (displayedMonth.getDay() + 6) % 7;
+    const dayCount = new Date(year, month + 1, 0).getDate();
+    const rows = Math.ceil((offset + dayCount) / 7);
+    const fragment = document.createDocumentFragment();
+    for (let row = 0; row < rows; row++) {
+      const week = document.createElement('tr');
+      for (let column = 0; column < 7; column++) {
+        const cell = document.createElement('td');
+        const number = row * 7 + column - offset + 1;
+        if (number > 0 && number <= dayCount) {
+          const date = new Date(year, month, number);
+          const time = document.createElement('time');
+          time.dateTime = `${year}-${String(month + 1).padStart(2, '0')}-${String(number).padStart(2, '0')}`;
+          time.textContent = String(number);
+          cell.setAttribute('aria-label', `${dayLabel.format(date)}: nothing scheduled`);
+          cell.append(time);
+        } else {
+          cell.className = 'calendar-padding';
+        }
+        week.append(cell);
+      }
+      fragment.append(week);
+    }
+    days.replaceChildren(fragment);
+  }
+  document.querySelector('#calendar-previous')!.addEventListener('click', () => {
+    displayedMonth.setMonth(displayedMonth.getMonth() - 1);
+    renderCalendar();
+  });
+  document.querySelector('#calendar-next')!.addEventListener('click', () => {
+    displayedMonth.setMonth(displayedMonth.getMonth() + 1);
+    renderCalendar();
+  });
+  document.querySelector('#calendar-current')!.addEventListener('click', () => {
+    displayedMonth = new Date(currentYear, currentMonth, 1);
+    renderCalendar();
+  });
+  renderCalendar();
+</script>
+<style>
+  .publication-calendar{background:var(--white);border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  .calendar-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px;}
+  .calendar-toolbar .eyebrow{color:var(--muted);margin-bottom:8px;}
+  .calendar-toolbar h3{font-size:24px;min-height:29px;}
+  .calendar-navigation{display:flex;gap:8px;}
+  .calendar-navigation button{min-width:44px;}
+  .calendar-notice{padding:16px 24px;background:#f0f2ee;font-size:13px;color:var(--muted);border-top:1px solid var(--line);}
+  .calendar-notice strong{color:var(--ink);}
+  table{width:100%;table-layout:fixed;border-collapse:collapse;}
+  th{text-align:left;padding:12px 16px;color:var(--muted);font-size:12px;font-weight:500;border-bottom:1px solid var(--line);}
+  .publication-calendar :global(td){height:108px;vertical-align:top;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 16px;font-size:14px;font-variant-numeric:tabular-nums;}
+  .publication-calendar :global(td:last-child){border-right:0;}
+  .publication-calendar :global(.calendar-padding){background:#f6f7f4;}
+  footer{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 24px;font-size:12px;color:var(--muted);}
+  footer button{flex:none;font-size:12px;}
+  @media(max-width:600px){.calendar-toolbar{align-items:start;flex-direction:column;padding:20px;gap:16px;}.calendar-toolbar h3{font-size:22px;}.calendar-notice{padding:16px 20px;}th{padding:10px 5px;text-align:center;font-size:11px;}.publication-calendar :global(td){height:64px;padding:8px;font-size:12px;}footer{align-items:start;flex-direction:column;padding:20px;gap:12px;}}
+</style>

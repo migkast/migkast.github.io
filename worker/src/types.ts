@@ -24,6 +24,7 @@ export interface StoredBlogPost extends Omit<SeoForGptPayload, 'slug'> {
 }
 
 export interface Env {
+  WHEELER_WORKSPACE_PASSWORD?: string;
   BLOG_POSTS: KVNamespace;
   WEBHOOK_SECRET: string;
   GITHUB_TOKEN: string;

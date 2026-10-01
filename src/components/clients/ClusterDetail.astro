@@ -1,0 +1,47 @@
+---
+import { workspace, type Cluster } from '../../lib/clients/wheeler';
+interface Props { cluster: Cluster; index: number }
+const { cluster, index } = Astro.props;
+const coverage = cluster.onHold ? 'Future opportunity' : cluster.coverage === 'expand' ? 'Build on existing content' : 'New content direction';
+---
+<article class="cluster-detail" id={`cluster-${cluster.key}`} data-cluster={cluster.key} aria-labelledby={`heading-${cluster.key}`} hidden={index !== 0}>
+  <header class="detail-header">
+    <div class="detail-kicker"><span>Direction 0{index + 1}</span><span>{coverage}</span></div>
+    <h2 id={`heading-${cluster.key}`} tabindex="-1">{cluster.name}</h2>
+    <p class="detail-summary">{cluster.summary}</p>
+    <div class="audience-tags" aria-label="Audience">{cluster.audiences.map(audience => <span>{audience}</span>)}</div>
+  </header>
+  <section class="cluster-review-record" aria-label="Review status and feedback">
+    <div class="decision-record-heading"><span data-decision-status data-state="pending">Awaiting review</span><small data-decision-meta hidden></small></div>
+    <div class="saved-feedback" data-saved-feedback hidden><h3>Feedback</h3><p data-decision-note></p></div>
+  </section>
+  {cluster.onHold && <div class="hold-note"><strong>Keep this direction on hold.</strong><p>Validate developer demand and Wheeler’s supported service scope first. No developer articles are currently planned.</p></div>}
+  <div class="strategy-focus">
+    <section class="direction-purpose"><p class="eyebrow">THE DIRECTION</p><h3>Why this direction matters</h3><p>{cluster.purpose}</p></section>
+    <section class="audience-needs"><p class="eyebrow">THE BUYER DECISION</p><h3>What the audience needs</h3><ul>{cluster.jobs.map(job => <li>{job}</li>)}</ul></section>
+  </div>
+  <section class="supporting-pages" aria-labelledby={`pages-${cluster.key}`}>
+    <h3 id={`pages-${cluster.key}`}>Existing pages supporting this direction</h3>
+    <p class="helper">We’ll review these pages and build on the relevant content.</p>
+    <ul class="existing-pages">{cluster.existingPages.map(page => <li><a href={page.url} target="_blank" rel="noopener">{page.title} ↗</a></li>)}</ul>
+    {!cluster.centralPage.startsWith('https://') && <div class="proposed-guide"><h4>Guide we’ll consider</h4><p>{cluster.centralPage.replace(/^Proposed: /, '')}</p></div>}
+  </section>
+  <section class="topic-section" aria-labelledby={`topics-${cluster.key}`}>
+    <div class="section-heading"><h3 id={`topics-${cluster.key}`}>How this could become blog content</h3><span>Examples</span></div>
+    <p class="helper">Illustrative working titles. We’ll build the publication plan after the clusters are reviewed.</p>
+    {cluster.topics.length > 0 ? <ol class="topic-list">{cluster.topics.map((topic, i) => <li><span class="topic-number">0{i + 1}</span><div><h4>{topic.title}</h4><p class="topic-meta">{topic.format}</p></div></li>)}</ol> : <div class="empty-topics"><p>No articles planned for this direction.</p><p>{cluster.exampleTopics[0]}</p></div>}
+    {cluster.possibleTopics.length > 0 && <details class="additional-topics"><summary>Another topic to consider</summary>{cluster.possibleTopics.map(topic => <div><h4>{topic.title}</h4><p>{topic.rationale}</p></div>)}</details>}
+  </section>
+  <section class="decision-box" aria-labelledby={`decision-${cluster.key}`}>
+    <div><p class="eyebrow">Your decision</p><h3 id={`decision-${cluster.key}`}>{cluster.onHold ? 'Keep this for later?' : 'Is this the right direction for Wheeler?'}</h3><p>Approve, request changes or keep it for later. Decisions and feedback are saved automatically and visible to both of us.</p></div>
+    <div class="decision-actions"><button class="approve-button" type="button" data-action="approved" aria-pressed="false">✓ Approve direction</button><button type="button" data-open-feedback aria-expanded="false" aria-controls={`feedback-${cluster.key}`}>Request changes</button><button type="button" data-action="hold" aria-pressed="false">Keep for later</button><button type="button" class="text-button" data-action="pending" hidden title="Reopen this direction for review after making changes. Existing feedback is retained.">Reopen review</button></div>
+    <div class="feedback-editor" id={`feedback-${cluster.key}`} hidden><label for={`note-${cluster.key}`}>What would you change or add?</label><textarea id={`note-${cluster.key}`} rows="3" maxlength="1200" placeholder="Share any changes, missing topics or project context…" aria-describedby={`note-error-${cluster.key}`}></textarea><p class="field-error" id={`note-error-${cluster.key}`} role="alert"></p><button type="button" data-save-feedback>Save feedback & request changes</button></div>
+    <p class="decision-state">Approving a direction is separate from approving an article for publication.</p>
+    <button class="text-button next-pending" type="button" data-next-pending hidden>Next awaiting review →</button>
+  </section>
+  <nav class="cluster-pagination" aria-label="Review next direction">
+    <button type="button" data-go-cluster={workspace.clusters[index-1]?.key} hidden={index === 0}>← Previous</button>
+    <span>{index+1} of {workspace.clusters.length}</span>
+    <button type="button" data-go-cluster={workspace.clusters[index+1]?.key} hidden={index === workspace.clusters.length-1}>Next direction →</button>
+  </nav>
+</article>

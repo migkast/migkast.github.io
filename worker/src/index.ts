@@ -3,6 +3,7 @@ import { sanitizeArticleHtml } from './sanitize';
 import { normalizeBlogStructuredData } from './structured-data';
 import type { Env, StoredBlogPost } from './types';
 import { HttpError, validateFaqStructuredData, validatePayload } from './validation';
+import { handleWheelerReview } from './wheeler-review';
 
 const MAX_REQUEST_BYTES = 900_000;
 const JSON_HEADERS = { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' };
@@ -15,6 +16,7 @@ export default {
 
 export async function handleRequest(request: Request, env: Env, fetcher: typeof fetch): Promise<Response> {
   const url = new URL(request.url);
+  if (url.pathname.startsWith('/clients/wheeler/')) return handleWheelerReview(request, env);
 
   if (url.pathname === '/health') {
     if (request.method !== 'GET') return json({ message: 'Method not allowed' }, 405, { Allow: 'GET' });

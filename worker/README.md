@@ -29,3 +29,23 @@ For local Worker execution, create an ignored `.dev.vars` file containing `WEBHO
 4. Enter the resulting `/webhook` URL and the matching webhook secret in SEOforGPT Blog Automation.
 
 The GitHub token must be fine-grained, limited to `migkast/migkast.github.io`, and grant only repository **Contents: write** permission.
+
+## Wheeler shared review
+
+The same Worker now serves password-protected content-direction approvals at:
+
+- `POST /clients/wheeler/session`: validate the workspace password and return a signed 12-hour session.
+- `GET /clients/wheeler/review`: read the shared decisions and cluster ideas.
+- `POST /clients/wheeler/review`: save one decision, idea update or recoverable idea removal.
+
+Set `WHEELER_WORKSPACE_PASSWORD` with `wrangler secret put WHEELER_WORKSPACE_PASSWORD` before deployment. The dashboard defaults to `https://miguel-blog-webhook.hey-948.workers.dev/clients/wheeler`; `PUBLIC_WHEELER_REVIEW_API` can override it. For a fully local preview, set that override to `http://localhost:8787/clients/wheeler`, put the password in ignored `worker/.dev.vars` and run `npm run dev -- --local --port 8787` in `worker/`.
+
+The review uses immutable event records under `workspace:wheeler:2026-09-30-v1:event:` in the existing `BLOG_POSTS` KV namespace. It never edits blog keys, publishes articles, or sends email. Approving a direction is separate from approving an article for publication. Distinct decisions cannot overwrite a whole review; the latest event wins when both users change the same item. Idea removal is reversible and retains history.
+
+KV propagation can take about a minute across locations. The dashboard keeps acknowledged events locally, refreshes on return and once a minute while visible. Failed changes are queued locally for retry, and the UI marks pending decisions until the server acknowledges them and shows a retry action if syncing fails. Decisions and feedback are displayed inside each cluster, with no separate sending step. The reviewer's name is supplied by the user, not an independently verified identity.
+
+CORS allows the configured website, its `www` host and local previews. Both reading and writing require the signed session; the preview-only JavaScript gate is no longer used for this workspace. The original proposal gate is unchanged.
+
+### Updating the content directions
+
+Existing cluster copy is kept in `src/lib/clients/wheeler-clusters.json`. Keep a direction's `key` unchanged when editing its copy so its shared decisions remain attached. After publishing a material change, use **Reopen review** in that direction to ask for another decision; existing feedback is retained. This does not publish an article or populate the calendar. Adding a new direction also requires adding its key to the Worker's allowed cluster keys.
