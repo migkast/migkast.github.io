@@ -15,6 +15,7 @@
 .wheeler-workspace button:active,.wheeler-workspace .primary:active{transform:translateY(1px);}
 .wheeler-workspace .primary{color:white;background:var(--green);border-color:var(--green);}
 .wheeler-workspace :focus-visible{outline:3px solid #3e7cba;outline-offset:3px;}
+.wheeler-workspace #workspace-main:focus{outline:none;}
 .wheeler-workspace button,.wheeler-workspace a,.wheeler-workspace summary{-webkit-tap-highlight-color:transparent;}
 .wheeler-workspace input,.wheeler-workspace textarea{font-size:16px;padding:12px;border:1px solid #a7b5aa;border-radius:8px;background:#fff;width:100%;min-width:0;}
 .wheeler-workspace textarea{resize:vertical;}
