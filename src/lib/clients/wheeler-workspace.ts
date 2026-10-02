@@ -4,7 +4,6 @@ const storageKey = `wheeler-workspace-review-${workspace.version}`;
 import { WheelerReviewSync, type SyncStatus } from './wheeler-review-sync';
 import type { ReviewChange } from './wheeler-review';
 let sync: WheelerReviewSync;
-let syncStatus: SyncStatus = 'loading';
 const gate = document.querySelector<HTMLElement>('#workspace-gate')!;
 const content = document.querySelector<HTMLElement>('#workspace-content')!;
 const password = document.querySelector<HTMLInputElement>('#workspace-password')!;
@@ -344,7 +343,6 @@ sync = new WheelerReviewSync(content.dataset.reviewApi || '', workspace.version,
   });
   renderIdeas(); update();
 }, status => {
-  syncStatus = status;
   saveStatus.textContent = syncMessages[status];
   saveStatus.dataset.state = status;
   document.querySelector<HTMLElement>('#shared-sync-error')!.hidden = status !== 'offline' && status !== 'unconfigured';
@@ -353,21 +351,9 @@ sync = new WheelerReviewSync(content.dataset.reviewApi || '', workspace.version,
   update();
 });
 document.querySelector('#retry-shared-review')!.addEventListener('click', () => { void sync.refresh(); });
-const refreshInterval = 5 * 60 * 1000;
-const idleAfter = 10 * 60 * 1000;
-let lastActivity = Date.now();
-function refreshWhileActive() {
-  if (!document.hidden && !content.hidden && syncStatus !== 'saving' && Date.now() - lastActivity < idleAfter) void sync.refresh(false);
-}
-function recordActivity() {
-  const wasIdle = Date.now() - lastActivity >= idleAfter;
-  lastActivity = Date.now();
-  if (wasIdle) refreshWhileActive();
-}
-for (const event of ['pointerdown', 'keydown', 'scroll']) window.addEventListener(event, recordActivity, { passive: true });
+// Read shared decisions on page load or explicit retry, never on a timer.
+// Reconnecting still retries pending saves without waiting for a page reload.
 window.addEventListener('online', () => { if (!content.hidden) void sync.refresh(); });
-document.addEventListener('visibilitychange', () => { if (!document.hidden) { lastActivity = Date.now(); refreshWhileActive(); } });
-setInterval(refreshWhileActive, refreshInterval);
 void sync.start().then(open => { if (open) unlock(); });
 
 renderIdeas();
