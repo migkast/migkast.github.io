@@ -42,7 +42,9 @@ Set `WHEELER_WORKSPACE_PASSWORD` with `wrangler secret put WHEELER_WORKSPACE_PAS
 
 The review uses immutable event records under `workspace:wheeler:2026-09-30-v1:event:` in the existing `BLOG_POSTS` KV namespace. It never edits blog keys, publishes articles, or sends email. Approving a direction is separate from approving an article for publication. Distinct decisions cannot overwrite a whole review; the latest event wins when both users change the same item. Idea removal is reversible and retains history.
 
-KV propagation can take about a minute across locations. The dashboard keeps acknowledged events locally, refreshes on return and once a minute while visible. Failed changes are queued locally for retry, and the UI marks pending decisions until the server acknowledges them and shows a retry action if syncing fails. Decisions and feedback are displayed inside each cluster, with no separate sending step. The reviewer's name is supplied by the user, not an independently verified identity.
+The Worker caches authenticated review reads at each edge location for five minutes, avoiding a KV history listing for every refresh. Successful writes invalidate that location’s cache; cache failures never block a durable save. Browser responses remain private and uncached, and every read still requires a valid signed session.
+
+The dashboard checks for updates every five minutes while visible and recently active, pauses after ten minutes of inactivity, and backs off failed automatic reads for fifteen minutes. Saves are sent immediately, with failed changes queued locally for retry. Other users’ updates can take roughly ten minutes plus KV propagation to appear across locations. Acknowledged local events are retained so a delayed read cannot undo a confirmed save. The UI confirms shared saving only after server acknowledgement. The reviewer’s name is supplied by the user, not an independently verified identity.
 
 CORS allows the configured website, its `www` host and local previews. Both reading and writing require the signed session; the preview-only JavaScript gate is no longer used for this workspace. The original proposal gate is unchanged.
 

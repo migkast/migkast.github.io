@@ -8,6 +8,7 @@ export class WheelerReviewSync {
   private token = '';
   private flushing = false;
   private reading = false;
+  private nextAutomaticRefresh = 0;
   private stateSignature = '';
   private cacheKey: string;
   private tokenKey: string;
@@ -33,7 +34,7 @@ export class WheelerReviewSync {
     const response = await fetch(`${this.api}/session`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password }), signal: AbortSignal.timeout(15000)
     });
-    const body = await response.json();
+    const body = await response.json() as { message?: string; token: string };
     if (!response.ok) throw new Error(body.message || 'Could not open the workspace. Please retry.');
     this.token = body.token;
     try { sessionStorage.setItem(this.tokenKey, this.token); } catch { /* Session persistence is optional. */ }
@@ -51,13 +52,15 @@ export class WheelerReviewSync {
     void this.flush();
   }
   hasPendingDecision(key: string) { return this.pending.some(operation => operation.change.kind === 'decision' && operation.change.key === key); }
-  async refresh() {
+  async refresh(force = true) {
     if (this.reading || !this.token) return false;
+    if (!force && Date.now() < this.nextAutomaticRefresh) return true;
+    this.nextAutomaticRefresh = Date.now() + 5 * 60 * 1000;
     this.reading = true;
     this.onStatus(this.pending.length ? 'saving' : 'loading');
     try {
       const response = await this.request('GET');
-      const body = await response.json();
+      const body = await response.json() as { events: ReviewEvent[] };
       for (const event of body.events as ReviewEvent[]) this.events.set(event.id, event);
       // Keep confirmed local events too: KV reads in another region can briefly lag.
       this.pending = this.pending.filter(operation => !this.events.has(operation.id));
@@ -65,7 +68,11 @@ export class WheelerReviewSync {
       this.onStatus(this.pending.length ? 'saving' : 'saved');
       void this.flush();
       return true;
-    } catch { if (this.token) this.onStatus('offline'); return false; }
+    } catch {
+      this.nextAutomaticRefresh = Date.now() + 15 * 60 * 1000;
+      if (this.token) this.onStatus('offline');
+      return false;
+    }
     finally { this.reading = false; }
   }
   private async flush() {
@@ -77,7 +84,7 @@ export class WheelerReviewSync {
         this.onStatus('saving');
         const operation = this.pending[0]!;
         const response = await this.request('POST', operation);
-        const body = await response.json();
+        const body = await response.json() as { event: ReviewEvent };
         this.events.set(body.event.id, body.event);
         this.pending = this.pending.filter(item => item.id !== operation.id);
         this.persist(); this.emitState();

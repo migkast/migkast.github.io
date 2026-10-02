@@ -42,7 +42,16 @@ export async function handleWheelerReview(request: Request, env: Env): Promise<R
     if (route !== `${ROOT}/review`) return json({ message: 'Not found' }, 404);
     if (!['GET', 'POST'].includes(request.method)) return json({ message: 'Method not allowed' }, 405);
     await verifyToken(request.headers.get('Authorization'), env.WHEELER_WORKSPACE_PASSWORD);
+    // Authentication is always checked before consulting the shared edge cache.
+    const cache = typeof caches === 'undefined' ? undefined : (caches as CacheStorage & { default?: Cache }).default;
+    const cacheKey = new Request(`${new URL(request.url).origin}/internal/wheeler-review-cache-v1`);
     if (request.method === 'GET') {
+      let cached: Response | undefined;
+      try { cached = await cache?.match(cacheKey); } catch { /* Cache is optional; KV remains authoritative. */ }
+      if (cached) {
+        headers['X-Wheeler-Review-Cache'] = 'HIT';
+        return json(await cached.json());
+      }
       // Separate immutable records avoid overwriting another person's whole review.
       const events: ReviewEvent[] = [];
       let cursor: string | undefined;
@@ -54,6 +63,12 @@ export async function handleWheelerReview(request: Request, env: Env): Promise<R
         }
         cursor = page.list_complete ? undefined : page.cursor;
       } while (cursor);
+      try {
+        await cache?.put(cacheKey, new Response(JSON.stringify({ events }), {
+          headers: { 'Content-Type': 'application/json', 'Cache-Control': 'max-age=300' }
+        }));
+      } catch { /* A cache failure must not prevent shared reviews from loading. */ }
+      headers['X-Wheeler-Review-Cache'] = 'MISS';
       return json({ events });
     }
     const operation = validateOperation(await readBody(request));
@@ -62,6 +77,7 @@ export async function handleWheelerReview(request: Request, env: Env): Promise<R
     if (previous) return json({ event: previous });
     const event: ReviewEvent = { ...operation, savedAt: new Date().toISOString() };
     await env.BLOG_POSTS.put(key, JSON.stringify(event));
+    try { await cache?.delete(cacheKey); } catch { /* The saved event is durable even if cache invalidation fails. */ }
     return json({ event }, 201);
   } catch (error) {
     if (error instanceof HttpError) return json({ message: error.message }, error.status);

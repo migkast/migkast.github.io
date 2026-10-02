@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { handleRequest } from '../src/index';
 import type { Env } from '../src/types';
 import { reduceReview, type ReviewEvent } from '../../src/lib/clients/wheeler-review';
@@ -8,12 +8,13 @@ const key2 = 'wildfire-rebuild-framing-decisions';
 const origin = 'https://miguelcasteleiro.com';
 function setup() {
   const values = new Map<string, string>([['post:unrelated-blog', '{"title":"Unchanged"}']]);
+  const list = vi.fn(async ({ prefix }: { prefix: string }) => ({ keys: [...values.keys()].filter(key => key.startsWith(prefix)).map(name => ({ name })), list_complete: true }));
   const env = {
     SITE_ORIGIN: origin, WHEELER_WORKSPACE_PASSWORD: 'test-workspace-password',
     BLOG_POSTS: {
       async get(key: string, format?: string) { const value = values.get(key); return value ? format === 'json' ? JSON.parse(value) : value : null; },
       async put(key: string, value: string) { values.set(key, value); },
-      async list({ prefix }: { prefix: string }) { return { keys: [...values.keys()].filter(key => key.startsWith(prefix)).map(name => ({ name })), list_complete: true }; }
+      list
     }
   } as unknown as Env;
   async function request(path: string, method = 'GET', body?: unknown, token?: string, requestOrigin = origin) {
@@ -27,13 +28,63 @@ function setup() {
     expect(result.status).toBe(200);
     return ((await result.json()) as { token: string }).token;
   }
-  return { values, env, request, login };
+  return { values, env, request, login, list };
+}
+afterEach(() => vi.unstubAllGlobals());
+
+function installCache() {
+  const entries = new Map<string, { response: Response; expires: number }>();
+  vi.stubGlobal('caches', { default: {
+    async match(request: Request) {
+      const entry = entries.get(request.url);
+      return entry && entry.expires > Date.now() ? entry.response.clone() : undefined;
+    },
+    async put(request: Request, response: Response) {
+      entries.set(request.url, { response: response.clone(), expires: Date.now() + 300000 });
+    },
+    async delete(request: Request) { return entries.delete(request.url); }
+  } });
+  return entries;
 }
 function decision(key: string, note = '', status = 'approved') {
   return { id: crypto.randomUUID(), reviewer: 'Stacie Morris', change: { kind: 'decision', key, status, note } };
 }
 
 describe('Wheeler shared approvals', () => {
+  it('reuses authenticated reads without repeatedly listing KV and expires the cache', async () => {
+    const entries = installCache(), app = setup(), token = await app.login();
+    const first = await app.request('review', 'GET', undefined, token);
+    const second = await app.request('review', 'GET', undefined, await app.login(), 'http://localhost:4321');
+    expect(first.headers.get('X-Wheeler-Review-Cache')).toBe('MISS');
+    expect(second.headers.get('X-Wheeler-Review-Cache')).toBe('HIT');
+    expect(second.headers.get('Cache-Control')).toBe('no-store');
+    expect(second.headers.get('Access-Control-Allow-Origin')).toBe('http://localhost:4321');
+    expect(app.list).toHaveBeenCalledTimes(1);
+    expect((await app.request('review')).status).toBe(401);
+    for (const entry of entries.values()) entry.expires = 0;
+    await app.request('review', 'GET', undefined, token);
+    expect(app.list).toHaveBeenCalledTimes(2);
+  });
+  it('invalidates the cached review after a durable save so another session sees the decision', async () => {
+    installCache();
+    const app = setup(), token = await app.login();
+    await app.request('review', 'GET', undefined, token);
+    expect((await app.request('review', 'POST', decision(key1), token)).status).toBe(201);
+    const response = await app.request('review', 'GET', undefined, await app.login());
+    const { events } = await response.json() as { events: ReviewEvent[] };
+    expect(reduceReview(events).decisions[key1]?.status).toBe('approved');
+    expect(app.list).toHaveBeenCalledTimes(2);
+  });
+  it('keeps reads and saves working when the optional cache fails', async () => {
+    vi.stubGlobal('caches', { default: {
+      async match() { throw new Error('Cache unavailable'); },
+      async put() { throw new Error('Cache unavailable'); },
+      async delete() { throw new Error('Cache unavailable'); }
+    } });
+    const app = setup(), token = await app.login();
+    expect((await app.request('review', 'GET', undefined, token)).status).toBe(200);
+    expect((await app.request('review', 'POST', decision(key1), token)).status).toBe(201);
+  });
   it('requires a server-validated password and signed session for both reads and writes', async () => {
     const app = setup();
     expect((await app.request('session', 'POST', { password: 'wrong' })).status).toBe(401);

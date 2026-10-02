@@ -353,9 +353,21 @@ sync = new WheelerReviewSync(content.dataset.reviewApi || '', workspace.version,
   update();
 });
 document.querySelector('#retry-shared-review')!.addEventListener('click', () => { void sync.refresh(); });
+const refreshInterval = 5 * 60 * 1000;
+const idleAfter = 10 * 60 * 1000;
+let lastActivity = Date.now();
+function refreshWhileActive() {
+  if (!document.hidden && !content.hidden && syncStatus !== 'saving' && Date.now() - lastActivity < idleAfter) void sync.refresh(false);
+}
+function recordActivity() {
+  const wasIdle = Date.now() - lastActivity >= idleAfter;
+  lastActivity = Date.now();
+  if (wasIdle) refreshWhileActive();
+}
+for (const event of ['pointerdown', 'keydown', 'scroll']) window.addEventListener(event, recordActivity, { passive: true });
 window.addEventListener('online', () => { if (!content.hidden) void sync.refresh(); });
-document.addEventListener('visibilitychange', () => { if (!document.hidden && !content.hidden) void sync.refresh(); });
-setInterval(() => { if (!document.hidden && !content.hidden && syncStatus !== 'saving') void sync.refresh(); }, 60000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { lastActivity = Date.now(); refreshWhileActive(); } });
+setInterval(refreshWhileActive, refreshInterval);
 void sync.start().then(open => { if (open) unlock(); });
 
 renderIdeas();
