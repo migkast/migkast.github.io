@@ -57,7 +57,7 @@ try {
   }
 } catch { /* Browser persistence is optional; shared saving remains available. */ }
 
-const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.workspace-tabs [role="tab"]'));
+const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('#workspace-section-content .workspace-tabs [role="tab"]'));
 function selectTab(tab: HTMLButtonElement) {
   tabs.forEach(item => {
     const active = item === tab;
@@ -81,9 +81,37 @@ tabs.forEach((tab, index) => {
   });
 });
 
+const backlinkTabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.backlink-tabs [role="tab"]'));
+function selectBacklinkTab(tab: HTMLButtonElement) {
+  backlinkTabs.forEach(item => {
+    const active = item === tab;
+    item.setAttribute('aria-selected', String(active));
+    item.tabIndex = active ? 0 : -1;
+    document.getElementById(item.getAttribute('aria-controls')!)!.hidden = !active;
+  });
+}
+backlinkTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => selectBacklinkTab(tab));
+  tab.addEventListener('keydown', event => {
+    let next: number;
+    if (event.key === 'ArrowRight') next = (index + 1) % backlinkTabs.length;
+    else if (event.key === 'ArrowLeft') next = (index - 1 + backlinkTabs.length) % backlinkTabs.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = backlinkTabs.length - 1;
+    else return;
+    event.preventDefault();
+    selectBacklinkTab(backlinkTabs[next]);
+    backlinkTabs[next].focus();
+  });
+});
+document.querySelectorAll<HTMLAnchorElement>('.backlink-audit a[href^="#backlink-opportunit"]').forEach(link => {
+  link.addEventListener('click', () => selectBacklinkTab(backlinkTabs[1]));
+});
+
 // Sidebar switches workspace sections without changing shared review state.
 const sectionLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-workspace-section]'));
 function selectWorkspaceSection() {
+  if (location.hash.startsWith('#backlink-opportunit')) selectBacklinkTab(backlinkTabs[1]);
   const section = location.hash === '#backlinks' || location.hash.startsWith('#backlink-') ? 'backlinks' : 'content';
   document.body.classList.toggle('backlink-view', section === 'backlinks');
   document.querySelector<HTMLElement>('#workspace-section-content')!.hidden = section !== 'content';

@@ -360,3 +360,10 @@
 .audit-highlights strong small{display:block;font-size:12px;margin-top:4px;}
 @media(max-width:1150px){.audit-quick-wins{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:600px){.audit-quick-wins{grid-template-columns:1fr;}.audit-highlights .audit-domain-link{grid-row:3;}.audit-highlights strong small{font-size:11px;}}
+
+/* Backlink views reuse the Content workspace header and tab hierarchy. */
+.backlink-heading h1{font-size:clamp(30px,3vw,40px);}
+.backlink-heading .review-overview>strong{font-size:14px;letter-spacing:0;}
+.backlink-tabs{margin-bottom:24px;}
+.backlink-tab-intro{font-size:13px;color:var(--muted);margin-bottom:24px!important;}
+#panel-backlink-actions .audit-priorities{margin-top:0;}
