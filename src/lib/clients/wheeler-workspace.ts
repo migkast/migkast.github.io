@@ -12,6 +12,8 @@ const saveStatus = document.querySelector<HTMLElement>('#save-status')!;
 const reviewer = document.querySelector<HTMLInputElement>('#workspace-reviewer')!;
 const decisions: Record<string, ReviewDecision> = {};
 const ideas: ClusterIdea[] = [];
+let backlinks: Record<string, boolean> = {};
+let backlinkChanged = false;
 let editingIdeaId: string | undefined;
 let removedIdea: { idea: ClusterIdea; index: number } | undefined;
 
@@ -78,6 +80,61 @@ tabs.forEach((tab, index) => {
     tabs[next].focus();
   });
 });
+
+// Sidebar switches workspace sections without changing shared review state.
+const sectionLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-workspace-section]'));
+function selectWorkspaceSection() {
+  const section = location.hash === '#backlinks' || location.hash.startsWith('#backlink-') ? 'backlinks' : 'content';
+  document.body.classList.toggle('backlink-view', section === 'backlinks');
+  document.querySelector<HTMLElement>('#workspace-section-content')!.hidden = section !== 'content';
+  document.querySelector<HTMLElement>('#workspace-section-backlinks')!.hidden = section !== 'backlinks';
+  document.querySelector('#workspace-section-label')!.textContent = section === 'backlinks' ? 'Backlinks' : 'Content';
+  sectionLinks.forEach(link => {
+    const active = link.dataset.workspaceSection === section;
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
+  });
+}
+window.addEventListener('hashchange', selectWorkspaceSection);
+sectionLinks.forEach(link => link.addEventListener('click', () => {
+  // The destination is a view, not an off-screen anchor.
+  window.scrollTo(0, 0);
+  document.querySelector<HTMLElement>('#workspace-main')?.focus({ preventScroll: true });
+}));
+selectWorkspaceSection();
+
+const backlinkFilter = document.querySelector<HTMLSelectElement>('#backlink-status-filter');
+function filterBacklinks() {
+  let visible = 0;
+  document.querySelectorAll<HTMLTableRowElement>('[data-backlink-status]').forEach(row => {
+    row.hidden = !!backlinkFilter && backlinkFilter.value !== 'all' && row.dataset.backlinkStatus !== backlinkFilter.value;
+    if (!row.hidden) visible++;
+  });
+  document.querySelector('#backlink-filter-count')!.textContent = `${visible} ${visible === 1 ? 'opportunity' : 'opportunities'}`;
+}
+backlinkFilter?.addEventListener('change', filterBacklinks);
+function renderBacklinks() {
+  document.querySelectorAll<HTMLTableRowElement>('[data-backlink-id]').forEach(row => {
+    const initial = row.dataset.initialStatus!;
+    const done = initial !== 'No action' && (backlinks[row.dataset.backlinkId!] ?? initial === 'Done');
+    const status = done ? 'Done' : initial === 'Done' ? 'Open' : initial;
+    row.dataset.backlinkStatus = status;
+    const checkbox = row.querySelector<HTMLInputElement>('input');
+    if (checkbox) checkbox.checked = done;
+    const badge = row.querySelector<HTMLElement>('[data-backlink-badge]')!;
+    badge.textContent = status;
+    badge.className = `audit-status ${done ? 'done' : status === 'No action' ? 'no-action' : status === 'Open' ? 'open' : 'check'}`;
+  });
+  filterBacklinks();
+}
+document.querySelectorAll<HTMLInputElement>('[data-backlink-checkbox]').forEach(checkbox => {
+  checkbox.addEventListener('change', () => {
+    backlinkChanged = true;
+    save({ kind: 'backlink', id: Number(checkbox.dataset.backlinkCheckbox), done: checkbox.checked });
+  });
+});
+document.querySelector('#retry-backlink-save')?.addEventListener('click', () => { void sync.refresh(); });
+
 
 let selectedCluster = workspace.clusters[0]?.key || '';
 const clusterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-select-cluster]'));
@@ -337,6 +394,8 @@ sync = new WheelerReviewSync(content.dataset.reviewApi || '', workspace.version,
   for (const key of Object.keys(decisions)) delete decisions[key];
   Object.assign(decisions, state.decisions);
   ideas.splice(0, ideas.length, ...state.ideas);
+  backlinks = state.backlinks;
+  renderBacklinks();
   document.querySelectorAll<HTMLElement>('[data-cluster]').forEach(detail => {
     const note = detail.querySelector<HTMLTextAreaElement>('textarea')!;
     if (note.dataset.dirty !== 'true' && document.activeElement !== note) note.value = decisions[detail.dataset.cluster!]?.note || '';
@@ -345,6 +404,10 @@ sync = new WheelerReviewSync(content.dataset.reviewApi || '', workspace.version,
 }, status => {
   saveStatus.textContent = syncMessages[status];
   saveStatus.dataset.state = status;
+  const backlinkSaveStatus = document.querySelector<HTMLElement>('#backlink-save-status')!;
+  backlinkSaveStatus.hidden = !backlinkChanged;
+  backlinkSaveStatus.textContent = status === 'saved' ? 'Completion saved to the shared workspace.' : syncMessages[status];
+  document.querySelector<HTMLElement>('#retry-backlink-save')!.hidden = !backlinkChanged || status !== 'offline';
   document.querySelector<HTMLElement>('#shared-sync-error')!.hidden = status !== 'offline' && status !== 'unconfigured';
   document.querySelector<HTMLElement>('#retry-shared-review')!.hidden = status !== 'offline';
   if (status === 'locked' && !content.hidden) { content.hidden = true; gate.hidden = false; }

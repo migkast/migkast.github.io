@@ -105,6 +105,10 @@ function validateOperation(input: Record<string, unknown>): ReviewOperation {
     if (typeof change.key !== 'string' || !CLUSTERS.has(change.key) || !['pending', 'approved', 'changes', 'hold'].includes(String(change.status)) || typeof change.note !== 'string' || change.note.length > 1200 || (change.status === 'changes' && !change.note.trim())) throw new HttpError(400, 'Invalid cluster decision');
     return { ...base, change: { kind: 'decision', key: change.key, status: change.status as 'pending' | 'approved' | 'changes' | 'hold', note: change.note.trim() } };
   }
+  if (change?.kind === 'backlink') {
+    if (typeof change.id !== 'number' || !Number.isInteger(change.id) || change.id < 1 || change.id > 19 || typeof change.done !== 'boolean') throw new HttpError(400, 'Invalid backlink completion');
+    return { ...base, change: { kind: 'backlink', id: change.id, done: change.done } };
+  }
   if (change?.kind === 'idea') {
     const idea = change.idea as Record<string, unknown> | undefined;
     if (!idea || typeof idea.id !== 'string' || !UUID.test(idea.id) || typeof idea.title !== 'string' || !idea.title.trim() || idea.title.length > 150 || typeof idea.description !== 'string' || idea.description.length > 1500) throw new HttpError(400, 'Invalid cluster idea');

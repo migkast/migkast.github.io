@@ -1,6 +1,7 @@
 ---
 import '../../styles/wheeler-workspace.css';
 import ClusterDetail from '../../components/clients/ClusterDetail.astro';
+import BacklinkAudit from '../../components/clients/BacklinkAudit.astro';
 import PublicationCalendar from '../../components/clients/PublicationCalendar.astro';
 import { workspace } from '../../lib/clients/wheeler';
 const reviewApi = import.meta.env.PUBLIC_WHEELER_REVIEW_API || 'https://miguel-blog-webhook.hey-948.workers.dev/clients/wheeler';
@@ -12,10 +13,11 @@ const reviewApi = import.meta.env.PUBLIC_WHEELER_REVIEW_API || 'https://miguel-b
   <section class="workspace-gate" id="workspace-gate" aria-labelledby="gate-heading"><img src="/images/wheeler/logo.webp" width="230" height="54" alt="Wheeler Residential Steel Supply" /><p class="eyebrow">Miguel × Wheeler</p><h1 id="gate-heading">A place to move<br />the work forward.</h1><p>Review the strategy. Share your input.<br />Decide what we create next.</p><form id="workspace-unlock"><div><label for="workspace-reviewer">Your name</label><input id="workspace-reviewer" value="Stacie Morris" maxlength="100" required autocomplete="name" /></div><label for="workspace-password">Workspace password</label><input id="workspace-password" type="password" required autocomplete="current-password" aria-describedby="password-error" /><button class="primary" type="submit">Open workspace ↗</button><p id="password-error" role="alert"></p></form><noscript>Enable JavaScript to open this workspace.</noscript></section>
   <div id="workspace-content" data-review-api={reviewApi} hidden>
     <a class="skip-link" href="#workspace-main">Skip to workspace</a>
-    <aside class="workspace-sidebar"><a href="/clients/wheeler/" class="workspace-brand" aria-label="Wheeler workspace"><img src="/images/wheeler/logo.webp" width="184" height="44" alt="Wheeler Residential Steel Supply" /></a><p class="sidebar-caption">PROJECT WORKSPACE</p><nav aria-label="Project navigation"><a class="sidebar-link active" href="#workspace-main" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" /></svg>Content & GEO</a><a class="sidebar-link" href="/proposals/wheeler/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM10 10h5M10 14h5" /></svg>Our engagement ↗</a><a class="sidebar-link" href="https://getwheelersteel.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18z" /></svg>Wheeler website ↗</a></nav><div class="sidebar-bottom"><div class="workspace-author"><img src="/images/miguel-headshot.jpg" width="40" height="40" alt="" /><span>Miguel Casteleiro<small>Your growth partner</small></span></div><button type="button" id="workspace-lock">Lock workspace</button></div></aside>
+    <aside class="workspace-sidebar"><a href="/clients/wheeler/" class="workspace-brand" aria-label="Wheeler workspace"><img src="/images/wheeler/logo.webp" width="184" height="44" alt="Wheeler Residential Steel Supply" /></a><p class="sidebar-caption">PROJECT WORKSPACE</p><nav aria-label="Project navigation"><p class="sidebar-group-title">SEO &amp; GEO</p><a class="sidebar-link active" href="#content" data-workspace-section="content" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" /></svg>Content</a><a class="sidebar-link" href="#backlinks" data-workspace-section="backlinks"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 13 4-4M8 16l-2 2a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0M16 8l2-2a4 4 0 0 1 6 6l-5 5a4 4 0 0 1-6 0" transform="translate(1 0) scale(.9)" /></svg>Backlinks</a></nav><div class="sidebar-bottom"><div class="workspace-author"><img src="/images/miguel-headshot.jpg" width="40" height="40" alt="" /><span>Miguel Casteleiro<small>Your growth partner</small></span></div><button type="button" id="workspace-lock">Lock workspace</button></div></aside>
     <div class="workspace-body">
-      <header class="workspace-topbar"><span>Wheeler <span aria-hidden="true">/</span> Content & GEO</span><span>Prepared for Stacie Morris</span></header>
+      <header class="workspace-topbar"><span>Wheeler <span aria-hidden="true">/</span> <span id="workspace-section-label">Content</span></span><span>Prepared for Stacie Morris</span></header>
       <main id="workspace-main" tabindex="-1">
+        <div id="workspace-section-content">
         <header class="workspace-heading"><div><h1>Wheeler content strategy</h1></div><div class="review-overview"><strong id="review-progress">0 of {workspace.clusters.length} reviewed</strong><div class="progress-track" aria-hidden="true"><span id="progress-fill"></span></div><small>Updated {workspace.updated}</small></div></header>
         <div class="workspace-tabs" role="tablist" aria-label="Content strategy views"><button id="view-clusters" role="tab" aria-selected="true" aria-controls="panel-clusters" tabindex="0">Topic clusters</button><button id="view-plan" role="tab" aria-selected="false" aria-controls="panel-plan" tabindex="-1">Publication calendar</button></div>
         <div id="shared-sync-error" class="shared-sync-error" hidden><p id="save-status" role="status"></p><button id="retry-shared-review" type="button" hidden>Retry saving</button></div>
@@ -32,6 +34,8 @@ const reviewApi = import.meta.env.PUBLIC_WHEELER_REVIEW_API || 'https://miguel-b
         </section>
         <section id="panel-plan" role="tabpanel" aria-labelledby="view-plan" hidden><div class="panel-heading"><h2>The publication plan comes next.</h2><p>Let’s review the clusters first. Once the directions are agreed, we’ll develop the articles and publishing sequence.</p></div><PublicationCalendar /></section>
 
+        </div>
+        <section id="workspace-section-backlinks" aria-label="Backlinks" hidden><BacklinkAudit /></section>
       </main>
       <footer class="workspace-footer"><span>Wheeler × Miguel Casteleiro</span><a href="mailto:hey@seoforgpt.io">Questions? Email Miguel ↗</a></footer>
     </div>

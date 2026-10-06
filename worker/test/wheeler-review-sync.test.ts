@@ -16,6 +16,31 @@ const response = (body: unknown, status = 200) => new Response(JSON.stringify(bo
 const change = { kind: 'decision' as const, key: 'project-specific-package-handoffs', status: 'approved' as const, note: '' };
 
 describe('Wheeler refresh and saving', () => {
+  it('restores saved backlink completion after closing and reopening the dashboard', async () => {
+    const events: unknown[] = [];
+    vi.stubGlobal('fetch', vi.fn(async (_url: unknown, options: RequestInit) => {
+      if (options.method === 'POST') {
+        const operation = JSON.parse(options.body as string) as ReviewOperation;
+        const event = { ...operation, savedAt: new Date().toISOString() };
+        events.push(event);
+        return response({ event }, 201);
+      }
+      return response({ events });
+    }));
+    const status = vi.fn();
+    const first = new WheelerReviewSync('https://worker.test/clients/wheeler', 'test', vi.fn(), status);
+    await first.start();
+    first.queue({ kind: 'backlink', id: 19, done: true }, 'Stacie Morris');
+    await vi.waitFor(() => expect(events).toHaveLength(1));
+    await vi.waitFor(() => expect(status).toHaveBeenLastCalledWith('saved'));
+    const reopenedState = vi.fn();
+    const reopened = new WheelerReviewSync('https://worker.test/clients/wheeler', 'test', reopenedState, vi.fn());
+    await reopened.start();
+    expect(reopenedState.mock.lastCall?.[0].backlinks['19']).toBe(true);
+    reopened.queue({ kind: 'backlink', id: 19, done: false }, 'Stacie Morris');
+    await vi.waitFor(() => expect(events).toHaveLength(2));
+    expect(reopenedState.mock.lastCall?.[0].backlinks['19']).toBe(false);
+  });
   it('throttles automatic reads to five minutes while allowing an explicit refresh', async () => {
     const fetcher = vi.fn(async () => response({ events: [] }));
     vi.stubGlobal('fetch', fetcher);
