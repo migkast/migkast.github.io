@@ -346,3 +346,5 @@
 @media(max-width:600px){.audit-highlights .audit-domain-link{grid-column:1;grid-row:3;}}
 
 .audit-status.no-action{background:#edf0f2;color:#49515a;border-color:#d4d9dd;}
+
+.audit-directory-links{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:10px;}.audit-opportunity-name .audit-directory-links a{font-size:13px;font-weight:500;}
