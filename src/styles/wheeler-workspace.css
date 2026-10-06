@@ -348,3 +348,15 @@
 .audit-status.no-action{background:#edf0f2;color:#49515a;border-color:#d4d9dd;}
 
 .audit-directory-links{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:10px;}.audit-opportunity-name .audit-directory-links a{font-size:13px;font-weight:500;}
+
+/* Keep all profile data together before the action list. */
+.audit-profile-stack{display:grid;gap:24px;min-width:0;}
+.audit-competitor-context{margin-top:20px;padding-top:20px;border-top:1px solid var(--line);}
+.audit-competitor-context h2{font-size:17px;letter-spacing:-.02em;margin-bottom:10px;}
+.audit-competitor-context p{font-size:13px;color:#47554e;line-height:1.65;margin-top:10px;}
+.audit-priorities{margin-bottom:24px;}
+.audit-quick-wins{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;}
+.audit-quick-wins li{border-bottom:0;padding-bottom:0;}
+.audit-highlights strong small{display:block;font-size:12px;margin-top:4px;}
+@media(max-width:1150px){.audit-quick-wins{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:600px){.audit-quick-wins{grid-template-columns:1fr;}.audit-highlights .audit-domain-link{grid-row:3;}.audit-highlights strong small{font-size:11px;}}
