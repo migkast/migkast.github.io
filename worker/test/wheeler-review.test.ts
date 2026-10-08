@@ -51,9 +51,8 @@ function decision(key: string, note = '', status = 'approved') {
 }
 
 describe('Wheeler shared approvals', () => {
-  it('shares calendar feedback and revised approval without changing cluster decisions', async () => {
+  it.each(['article:0737f9c8-d435-4b62-83f1-1b663ae7755d', 'article:78c2da9e-b67b-464f-a9cc-09c11f041dfc'])('shares calendar feedback and revised approval for %s without changing cluster decisions', async (articleKey) => {
     const app = setup(), token = await app.login();
-    const articleKey = 'article:0737f9c8-d435-4b62-83f1-1b663ae7755d';
     await app.request('review', 'POST', decision(key1), token);
     expect((await app.request('review', 'POST', decision(articleKey, 'Include our project example.', 'changes'), token)).status).toBe(201);
     let read = await app.request('review', 'GET', undefined, await app.login());

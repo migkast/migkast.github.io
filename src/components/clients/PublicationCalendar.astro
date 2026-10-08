@@ -5,12 +5,12 @@ const weeks = [...new Set(articles.map(a => {
  d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7);
  return d.toISOString().slice(0,10);
 }))];
-const months = ['2026-10', '2026-11'];
+const months = [...new Set(articles.map(a => a.scheduledDate.slice(0,7)))];
 const weekdays = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 const dateLabel = (date: string, options: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat('en-GB', {timeZone:'Europe/Lisbon', ...options}).format(new Date(`${date}T12:00:00Z`));
 ---
 <div class="publication-list">
- <header class="publication-heading"><div><h2>Topics for your review</h2><p>13 planned topics · 8 October to 4 November 2026</p></div><strong id="calendar-review-progress" aria-live="polite">0 of 13 reviewed</strong></header>
+ <header class="publication-heading"><div><h2>Topics for your review</h2><p>{articles.length} planned topics · {dateLabel(articles[0].scheduledDate,{day:'numeric',month:'long'})} to {dateLabel(articles[articles.length-1].scheduledDate,{day:'numeric',month:'long',year:'numeric'})}</p></div><strong id="calendar-review-progress" aria-live="polite">0 of {articles.length} reviewed</strong></header>
  <p class="publication-intro">Approve a topic or open it to share feedback. These are proposed publication dates; articles have not been written or published.</p>
  <div class="publication-view-switch" role="group" aria-label="Publication display"><button type="button" data-publication-view="list" aria-pressed="true">List</button><button type="button" data-publication-view="calendar" aria-pressed="false">Calendar</button></div>
  <div class="publication-month-view" hidden>
@@ -39,7 +39,7 @@ const dateLabel = (date: string, options: Intl.DateTimeFormatOptions) => new Int
  {items.map(a => <article class="publication-topic" data-calendar-key={`article:${a.id}`}>
   <div class="publication-row"><time datetime={a.scheduledDate}><strong>{dateLabel(a.scheduledDate,{day:'numeric',month:'short'})}</strong><span>{dateLabel(a.scheduledDate,{weekday:'long'})}</span></time>
   <details><summary><h4>{a.title}</h4><span class="topic-direction">{a.clusterName}</span><span class="topic-detail-label">View details <span aria-hidden="true">⌄</span></span></summary>
-   <div class="topic-brief"><dl><div><dt>Audience</dt><dd>{a.audience}</dd></div><div><dt>Purpose</dt><dd>{a.jobToBeDone}</dd></div><div><dt>What makes this useful</dt><dd>{a.differentiation}</dd></div></dl><h5>Before publication</h5><ul>{a.evidenceToVerify.map(e => <li>{e}</li>)}</ul></div>
+   <div class="topic-brief"><dl><div><dt>Audience</dt><dd>{a.audience}</dd></div><div><dt>Purpose</dt><dd>{a.purpose}</dd></div><div><dt>Practical output</dt><dd>{a.practicalOutput}</dd></div><div><dt>Scope</dt><dd>{a.scope}</dd></div></dl></div>
   </details>
   <div class="topic-controls"><span data-topic-status class="topic-status">Awaiting review</span><button type="button" data-topic-approve>Approve topic</button><button type="button" data-topic-feedback class="topic-feedback-button">Add feedback</button><button type="button" data-topic-reapprove hidden>Approve revised topic</button></div></div>
   <div class="topic-saved-feedback" hidden><strong>Feedback</strong><p data-topic-note></p><small data-topic-meta></small></div>
