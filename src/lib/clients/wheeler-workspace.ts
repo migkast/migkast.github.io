@@ -1,3 +1,4 @@
+import { initCalendarReview } from './wheeler-calendar-review';
 import { workspace, reviewLabels, type ReviewDecision, type ReviewStatus, type ClusterIdea } from './wheeler';
 
 const storageKey = `wheeler-workspace-review-${workspace.version}`;
@@ -59,6 +60,7 @@ try {
 
 const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('#workspace-section-content .workspace-tabs [role="tab"]'));
 function selectTab(tab: HTMLButtonElement) {
+  document.querySelector<HTMLElement>('#workspace-section-content .review-overview')!.hidden = tab.id === 'view-plan';
   tabs.forEach(item => {
     const active = item === tab;
     item.setAttribute('aria-selected', String(active));
@@ -418,18 +420,21 @@ const syncMessages: Record<SyncStatus, string> = {
   locked: 'Please unlock the workspace to continue saving shared changes.',
   unconfigured: 'Shared approvals are not connected yet.'
 };
+const calendarReview = initCalendarReview(change => save(change), key => sync?.hasPendingDecision(key) || false, () => { void sync.refresh(); });
 sync = new WheelerReviewSync(content.dataset.reviewApi || '', workspace.version, state => {
   for (const key of Object.keys(decisions)) delete decisions[key];
   Object.assign(decisions, state.decisions);
   ideas.splice(0, ideas.length, ...state.ideas);
   backlinks = state.backlinks;
   renderBacklinks();
+  calendarReview.render(state);
   document.querySelectorAll<HTMLElement>('[data-cluster]').forEach(detail => {
     const note = detail.querySelector<HTMLTextAreaElement>('textarea')!;
     if (note.dataset.dirty !== 'true' && document.activeElement !== note) note.value = decisions[detail.dataset.cluster!]?.note || '';
   });
   renderIdeas(); update();
 }, status => {
+  calendarReview.status(status);
   saveStatus.textContent = syncMessages[status];
   saveStatus.dataset.state = status;
   const backlinkSaveStatus = document.querySelector<HTMLElement>('#backlink-save-status')!;

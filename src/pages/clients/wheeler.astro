@@ -32,7 +32,7 @@ const reviewApi = import.meta.env.PUBLIC_WHEELER_REVIEW_API || 'https://miguel-b
             <p id="idea-save-status" role="status"></p><button type="button" class="text-button" id="undo-idea-removal" hidden>Undo removal</button>
           </section>
         </section>
-        <section id="panel-plan" role="tabpanel" aria-labelledby="view-plan" hidden><div class="panel-heading"><h2>The publication plan comes next.</h2><p>Let’s review the clusters first. Once the directions are agreed, we’ll develop the articles and publishing sequence.</p></div><PublicationCalendar /></section>
+        <section id="panel-plan" role="tabpanel" aria-labelledby="view-plan" hidden><PublicationCalendar /></section>
 
         </div>
         <section id="workspace-section-backlinks" aria-label="Backlinks" hidden><BacklinkAudit /></section>

@@ -1,89 +1,35 @@
 ---
-const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+import { articles } from '../../lib/clients/wheeler-calendar.json';
+const weeks = [...new Set(articles.map(a => {
+ const d = new Date(`${a.scheduledDate}T12:00:00Z`);
+ d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7);
+ return d.toISOString().slice(0,10);
+}))];
+const dateLabel = (date: string, options: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat('en-GB', {timeZone:'Europe/Lisbon', ...options}).format(new Date(`${date}T12:00:00Z`));
 ---
-<div class="publication-calendar">
-  <header class="calendar-toolbar">
-    <div><p class="eyebrow">PUBLICATION CALENDAR</p><h3 id="calendar-month" aria-live="polite" aria-atomic="true"></h3></div>
-    <div class="calendar-navigation" aria-label="Calendar navigation">
-      <button type="button" id="calendar-previous" aria-label="Previous month">←</button>
-      <button type="button" id="calendar-current">This month</button>
-      <button type="button" id="calendar-next" aria-label="Next month">→</button>
-    </div>
-  </header>
-  <p class="calendar-notice"><strong>No articles scheduled yet.</strong> We’ll add publication dates after the cluster directions are agreed.</p>
-  <table aria-labelledby="calendar-month">
-    <thead><tr>{weekdays.map(day => <th scope="col">{day}</th>)}</tr></thead>
-    <tbody id="calendar-days"></tbody>
-  </table>
-  <footer><span>Dates are open. Blog titles remain examples for review.</span><button type="button" data-back-to-clusters>Review topic clusters ↗</button></footer>
+<div class="publication-list">
+ <header class="publication-heading"><div><h2>Topics for your review</h2><p>13 planned topics · 9 October to 4 November 2026</p></div><strong id="calendar-review-progress" aria-live="polite">0 of 13 reviewed</strong></header>
+ <p class="publication-intro">Approve a topic or open it to share feedback. These are proposed publication dates; articles have not been written or published.</p>
+ <div class="calendar-sync" hidden><p data-calendar-sync role="status"></p><button type="button" data-calendar-retry hidden>Retry saving</button></div>
+ {weeks.map(week => {
+ const end = new Date(`${week}T12:00:00Z`); end.setUTCDate(end.getUTCDate()+6);
+ const items = articles.filter(a => a.scheduledDate >= week && a.scheduledDate <= end.toISOString().slice(0,10));
+ return <section class="publication-week" aria-label={`Week of ${dateLabel(week,{day:'numeric',month:'long'})}`}>
+ <header><h3>Week of {dateLabel(week,{day:'numeric',month:'long'})}</h3><span>{items.length} topics</span></header>
+ {items.map(a => <article class="publication-topic" data-calendar-key={`article:${a.id}`}>
+  <div class="publication-row"><time datetime={a.scheduledDate}><strong>{dateLabel(a.scheduledDate,{day:'numeric',month:'short'})}</strong><span>{dateLabel(a.scheduledDate,{weekday:'long'})}</span></time>
+  <details><summary><h4>{a.title}</h4><span class="topic-direction">{a.clusterName}</span><span class="topic-detail-label">View details <span aria-hidden="true">⌄</span></span></summary>
+   <div class="topic-brief"><dl><div><dt>Audience</dt><dd>{a.audience}</dd></div><div><dt>Purpose</dt><dd>{a.jobToBeDone}</dd></div><div><dt>What makes this useful</dt><dd>{a.differentiation}</dd></div></dl><h5>Before publication</h5><ul>{a.evidenceToVerify.map(e => <li>{e}</li>)}</ul></div>
+  </details>
+  <div class="topic-controls"><span data-topic-status class="topic-status">Awaiting review</span><button type="button" data-topic-approve>Approve topic</button><button type="button" data-topic-feedback class="topic-feedback-button">Add feedback</button><button type="button" data-topic-reapprove hidden>Approve revised topic</button></div></div>
+  <div class="topic-saved-feedback" hidden><strong>Feedback</strong><p data-topic-note></p><small data-topic-meta></small></div>
+  <form class="topic-feedback-form" hidden><label for={`topic-note-${a.id}`}>Feedback or requested changes</label><textarea id={`topic-note-${a.id}`} maxlength="1200" rows="3" required placeholder="What would you like us to change or consider?"></textarea><p data-topic-error role="alert" hidden>Please add your feedback before saving.</p><div><button type="submit">Save feedback</button><button type="button" data-topic-cancel>Cancel</button></div></form>
+ </article>)}
+ </section>;
+ })}
+ <footer><button type="button" data-back-to-clusters>Review topic clusters ↗</button><p>Dates have no assigned publication times. The final week has two topics; additional topics can be agreed separately.</p><p>Building with steel for GCs remains an approved direction, with no dated topics in this calendar yet.</p><p>Decisions are shared with Miguel. Approval here does not automatically publish an article.</p></footer>
 </div>
-<script>
-  const now = new Date();
-  const dateParts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Lisbon', year: 'numeric', month: 'numeric' }).formatToParts(now);
-  const currentYear = Number(dateParts.find(part => part.type === 'year')!.value);
-  const currentMonth = Number(dateParts.find(part => part.type === 'month')!.value) - 1;
-  let displayedMonth = new Date(currentYear, currentMonth, 1);
-  const monthLabel = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric' });
-  const dayLabel = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-  function renderCalendar() {
-    document.querySelector('#calendar-month')!.textContent = monthLabel.format(displayedMonth);
-    const days = document.querySelector('#calendar-days')!;
-    const year = displayedMonth.getFullYear();
-    const month = displayedMonth.getMonth();
-    const offset = (displayedMonth.getDay() + 6) % 7;
-    const dayCount = new Date(year, month + 1, 0).getDate();
-    const rows = Math.ceil((offset + dayCount) / 7);
-    const fragment = document.createDocumentFragment();
-    for (let row = 0; row < rows; row++) {
-      const week = document.createElement('tr');
-      for (let column = 0; column < 7; column++) {
-        const cell = document.createElement('td');
-        const number = row * 7 + column - offset + 1;
-        if (number > 0 && number <= dayCount) {
-          const date = new Date(year, month, number);
-          const time = document.createElement('time');
-          time.dateTime = `${year}-${String(month + 1).padStart(2, '0')}-${String(number).padStart(2, '0')}`;
-          time.textContent = String(number);
-          cell.setAttribute('aria-label', `${dayLabel.format(date)}: nothing scheduled`);
-          cell.append(time);
-        } else {
-          cell.className = 'calendar-padding';
-        }
-        week.append(cell);
-      }
-      fragment.append(week);
-    }
-    days.replaceChildren(fragment);
-  }
-  document.querySelector('#calendar-previous')!.addEventListener('click', () => {
-    displayedMonth.setMonth(displayedMonth.getMonth() - 1);
-    renderCalendar();
-  });
-  document.querySelector('#calendar-next')!.addEventListener('click', () => {
-    displayedMonth.setMonth(displayedMonth.getMonth() + 1);
-    renderCalendar();
-  });
-  document.querySelector('#calendar-current')!.addEventListener('click', () => {
-    displayedMonth = new Date(currentYear, currentMonth, 1);
-    renderCalendar();
-  });
-  renderCalendar();
-</script>
 <style>
-  .publication-calendar{background:var(--white);border:1px solid var(--line);border-radius:8px;overflow:hidden;}
-  .calendar-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px;}
-  .calendar-toolbar .eyebrow{color:var(--muted);margin-bottom:8px;}
-  .calendar-toolbar h3{font-size:24px;min-height:29px;}
-  .calendar-navigation{display:flex;gap:8px;}
-  .calendar-navigation button{min-width:44px;}
-  .calendar-notice{padding:16px 24px;background:#f0f2ee;font-size:13px;color:var(--muted);border-top:1px solid var(--line);}
-  .calendar-notice strong{color:var(--ink);}
-  table{width:100%;table-layout:fixed;border-collapse:collapse;}
-  th{text-align:left;padding:12px 16px;color:var(--muted);font-size:12px;font-weight:500;border-bottom:1px solid var(--line);}
-  .publication-calendar :global(td){height:108px;vertical-align:top;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 16px;font-size:14px;font-variant-numeric:tabular-nums;}
-  .publication-calendar :global(td:last-child){border-right:0;}
-  .publication-calendar :global(.calendar-padding){background:#f6f7f4;}
-  footer{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 24px;font-size:12px;color:var(--muted);}
-  footer button{flex:none;font-size:12px;}
-  @media(max-width:600px){.calendar-toolbar{align-items:start;flex-direction:column;padding:20px;gap:16px;}.calendar-toolbar h3{font-size:22px;}.calendar-notice{padding:16px 20px;}th{padding:10px 5px;text-align:center;font-size:11px;}.publication-calendar :global(td){height:64px;padding:8px;font-size:12px;}footer{align-items:start;flex-direction:column;padding:20px;gap:12px;}}
+ .publication-heading{display:flex;align-items:start;justify-content:space-between;gap:24px;margin:28px 0 12px;}.publication-heading h2{font-size:26px;}.publication-heading p,.publication-heading>strong{font-size:13px;color:var(--muted);margin-top:8px;}.publication-intro{font-size:14px;color:var(--muted);max-width:760px;margin-bottom:28px;}.publication-week{margin-bottom:28px;}.publication-week>header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}.publication-week h3{font-size:16px;}.publication-week>header span{font-size:12px;color:var(--muted);}.publication-topic{background:#fff;border:1px solid var(--line);border-radius:8px;margin-bottom:12px;overflow:hidden;}.publication-row{display:grid;grid-template-columns:76px minmax(0,1fr) 164px;gap:24px;padding:24px;}.publication-row time{display:flex;flex-direction:column;font-size:12px;color:var(--muted);padding-top:4px;}.publication-row time strong{font-size:17px;color:var(--green);}.publication-topic summary{cursor:pointer;list-style:none;}.publication-topic summary::-webkit-details-marker{display:none;}.publication-topic h4{font-size:18px;font-weight:600;line-height:1.4;}.topic-direction{display:block;font-size:12px;color:var(--muted);margin-top:8px;}.topic-detail-label{display:block;font-size:12px;color:var(--green);margin-top:12px;}.topic-brief{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;}.topic-brief dl{margin:0;}.topic-brief dl>div{margin-bottom:16px;}.topic-brief dt,.topic-brief h5{font-size:12px;font-weight:600;margin:0 0 4px;}.topic-brief dd{margin:0;color:var(--muted);white-space:pre-line;}.topic-brief ul{padding-left:18px;color:var(--muted);}.topic-brief li+li{margin-top:8px;}.topic-controls{display:flex;flex-direction:column;align-items:stretch;gap:8px;}.topic-status{font-size:12px;color:var(--muted);margin-bottom:4px;text-align:right;}.topic-status[data-state=approved]{color:var(--green);font-weight:600;}.topic-status[data-state=changes]{color:var(--amber);font-weight:600;}.topic-controls button{font-size:12px;}.topic-controls .topic-feedback-button{border:0;background:none;font-weight:400;}.topic-saved-feedback{background:#f5f1e8;border-top:1px solid #e2d8c6;padding:20px 24px;font-size:13px;}.topic-saved-feedback p{white-space:pre-wrap;margin-top:6px;}.topic-saved-feedback small{display:block;color:var(--muted);margin-top:8px;}.topic-feedback-form{padding:20px 24px;border-top:1px solid var(--line);}.topic-feedback-form label{display:block;font-size:13px;font-weight:600;margin-bottom:8px;}.topic-feedback-form textarea{width:100%;font-size:16px;padding:12px;border:1px solid var(--line);border-radius:8px;resize:vertical;}.topic-feedback-form>div{display:flex;gap:8px;margin-top:12px;}.topic-feedback-form [role=alert]{color:var(--amber);font-size:13px;margin-top:8px;}.calendar-sync{padding:16px;background:#f5f1e8;border-radius:8px;margin-bottom:20px;font-size:13px;}.publication-list footer{border-top:1px solid var(--line);padding-top:20px;font-size:12px;color:var(--muted);}.publication-list footer p+p{margin-top:8px;}
+ @media(max-width:700px){.publication-heading{display:block;}.publication-row{grid-template-columns:64px minmax(0,1fr);gap:16px;padding:20px;}.topic-controls{grid-column:2;flex-direction:row;flex-wrap:wrap;align-items:center;margin-top:8px;}.topic-status{flex-basis:100%;text-align:left;}.publication-topic h4{font-size:16px;}.topic-saved-feedback,.topic-feedback-form{padding:20px;}}
 </style>

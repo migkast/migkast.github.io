@@ -1,3 +1,4 @@
+import { articles as calendarArticles } from '../../src/lib/clients/wheeler-calendar.json';
 import type { Env } from './types';
 import { HttpError } from './validation';
 import type { ReviewOperation, ReviewEvent } from '../../src/lib/clients/wheeler-review';
@@ -9,6 +10,7 @@ const CLUSTERS = new Set([
   'architect-builder-design-coordination', 'fire-code-and-assembly-evaluation',
   'steel-framing-quote-comparison', 'project-specific-package-handoffs', 'small-developer-framing-evaluation'
 ]);
+const CALENDAR_KEYS = new Set(calendarArticles.map(article => `article:${article.id}`));
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const encoder = new TextEncoder();
 
@@ -102,7 +104,7 @@ function validateOperation(input: Record<string, unknown>): ReviewOperation {
   const change = input.change as Record<string, unknown> | undefined;
   const base = { id: input.id, reviewer: input.reviewer.trim() };
   if (change?.kind === 'decision') {
-    if (typeof change.key !== 'string' || !CLUSTERS.has(change.key) || !['pending', 'approved', 'changes', 'hold'].includes(String(change.status)) || typeof change.note !== 'string' || change.note.length > 1200 || (change.status === 'changes' && !change.note.trim())) throw new HttpError(400, 'Invalid cluster decision');
+    if (typeof change.key !== 'string' || (!CLUSTERS.has(change.key) && !CALENDAR_KEYS.has(change.key)) || !['pending', 'approved', 'changes', 'hold'].includes(String(change.status)) || typeof change.note !== 'string' || change.note.length > 1200 || (change.status === 'changes' && !change.note.trim())) throw new HttpError(400, 'Invalid cluster decision');
     return { ...base, change: { kind: 'decision', key: change.key, status: change.status as 'pending' | 'approved' | 'changes' | 'hold', note: change.note.trim() } };
   }
   if (change?.kind === 'backlink') {

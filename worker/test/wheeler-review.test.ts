@@ -51,6 +51,24 @@ function decision(key: string, note = '', status = 'approved') {
 }
 
 describe('Wheeler shared approvals', () => {
+  it('shares calendar feedback and revised approval without changing cluster decisions', async () => {
+    const app = setup(), token = await app.login();
+    const articleKey = 'article:0737f9c8-d435-4b62-83f1-1b663ae7755d';
+    await app.request('review', 'POST', decision(key1), token);
+    expect((await app.request('review', 'POST', decision(articleKey, 'Include our project example.', 'changes'), token)).status).toBe(201);
+    let read = await app.request('review', 'GET', undefined, await app.login());
+    let state = reduceReview((await read.json() as { events: ReviewEvent[] }).events);
+    expect(state.decisions[articleKey]?.status).toBe('changes');
+    expect(state.decisions[articleKey]?.note).toBe('Include our project example.');
+    expect((await app.request('review', 'POST', decision(articleKey, 'Include our project example.', 'approved'), token)).status).toBe(201);
+    read = await app.request('review', 'GET', undefined, await app.login());
+    state = reduceReview((await read.json() as { events: ReviewEvent[] }).events);
+    expect(state.decisions[articleKey]?.status).toBe('approved');
+    expect(state.decisions[articleKey]?.note).toBe('Include our project example.');
+    expect(state.decisions[key1]?.status).toBe('approved');
+    expect((await app.request('review', 'POST', decision('article:' + crypto.randomUUID()), token)).status).toBe(400);
+  });
+
   it('shares backlink completion and reopening while preserving feedback', async () => {
     const app = setup(), token = await app.login();
     await app.request('review', 'POST', decision(key1, 'Keep this feedback.', 'changes'), token);
