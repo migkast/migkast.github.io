@@ -10,7 +10,7 @@ const weekdays = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 const dateLabel = (date: string, options: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat('en-GB', {timeZone:'Europe/Lisbon', ...options}).format(new Date(`${date}T12:00:00Z`));
 ---
 <div class="publication-list">
- <header class="publication-heading"><div><h2>Topics for your review</h2><p>13 planned topics · 9 October to 4 November 2026</p></div><strong id="calendar-review-progress" aria-live="polite">0 of 13 reviewed</strong></header>
+ <header class="publication-heading"><div><h2>Topics for your review</h2><p>13 planned topics · 8 October to 4 November 2026</p></div><strong id="calendar-review-progress" aria-live="polite">0 of 13 reviewed</strong></header>
  <p class="publication-intro">Approve a topic or open it to share feedback. These are proposed publication dates; articles have not been written or published.</p>
  <div class="publication-view-switch" role="group" aria-label="Publication display"><button type="button" data-publication-view="list" aria-pressed="true">List</button><button type="button" data-publication-view="calendar" aria-pressed="false">Calendar</button></div>
  <div class="publication-month-view" hidden>
