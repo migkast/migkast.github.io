@@ -1,454 +1,440 @@
 {
   "version": "2026-09-30-v1",
-  "updated": "30 September 2026",
+  "updated": "8 October 2026",
   "clusters": [
     {
       "key": "project-specific-package-handoffs",
       "name": "Building with steel for GCs",
       "shortName": "Building with steel for GCs",
-      "summary": "Help general contractors understand how their wood-frame crews can prepare for residential cold-formed steel framing, including training, tools and site coordination.",
-      "purpose": "Crew readiness can determine whether a GC considers steel at all. Practical guidance makes the transition easier to understand, addresses concerns about unfamiliar work and gives builders a reason to involve Wheeler early.",
+      "summary": "Help general contractors evaluate residential steel, prepare their crews and manage a project with Wheeler framing.",
+      "purpose": "The GC introduction is scheduled October 8, crew preparation October 12 and first-job readiness October 19. Later articles cover finish coordination, panelized-project integration and resource tracking.",
       "audiences": [
         "General contractors",
-        "custom-home builders",
-        "framing crews moving from wood to steel"
+        "Custom-home builders",
+        "Framing crews transitioning from wood"
       ],
       "jobs": [
-        "Understand which wood-framing skills transfer and what additional training is needed",
-        "Plan the tools, crew preparation and installation sequence for a first steel-framing project",
-        "Clarify what Wheeler supplies, what the crew installs and when to involve the design team"
+        "Decide whether adding project-specific residential steel framing is a suitable option for the GC’s work.",
+        "Prepare a wood-framing crew to understand the material-specific knowledge required for cold-formed steel.",
+        "Confirm the actual project is ready for framing delivery and crew assembly.",
+        "Understand how the chosen framing material affects dimensional consistency and coordination of finished surfaces.",
+        "Explain the roles and information needed when custom framing complements a panelized approach.",
+        "Track framing resource use during the job so delivery, waste and cleanup performance can be evaluated consistently."
       ],
-      "stages": [
-        "evaluation",
-        "implementation"
-      ],
-      "coverage": "introduce",
+      "stages": [],
+      "coverage": "approved",
       "onHold": false,
-      "editorialNote": "We will develop practical guidance with Wheeler’s input, drawing on Don’s residential steel experience and approved project material. Cover crew adaptation, training needs, tools, site preparation and coordination. Distinguish on-site assembly of project-specific steel components from preassembled panels. Verify any available training or site support before describing it; do not imply Wheeler provides installation or a formal training program. Project-specific connections, modifications and engineering remain governed by approved documents and qualified professionals.",
-      "centralPage": "Proposed: Building with Residential Steel: A Practical Guide for General Contractors",
+      "editorialNote": "",
+      "centralPage": "",
       "topics": [
         {
-          "id": "b2b64e50-075a-418d-84e7-3e0206fa1d8e",
-          "title": "From Wood to Cold-Formed Steel: What GCs and Their Crews Need to Learn",
-          "date": "",
-          "status": "proposed",
-          "audience": "General contractors and wood-frame crews considering residential steel",
-          "format": "Crew training and transition guide",
-          "checks": [
-            "We will explain transferable skills and the differences crews need to prepare for, including tools, handling, fastening and reading project-specific framing information.",
-            "Validate practical guidance with Wheeler and authoritative training resources; identify training needs without claiming a crew is qualified after reading an article.",
-            "Confirm what training or support Wheeler can actually offer before describing it. Do not promise faster installation or lower labor costs."
-          ]
+          "id": "78c2da9e-b67b-464f-a9cc-09c11f041dfc",
+          "title": "Residential Steel Framing: A Guide for General Contractors",
+          "date": "2026-10-08",
+          "status": "planned",
+          "audience": "General contractors and custom-home builders",
+          "format": "",
+          "checks": []
         },
         {
-          "id": "72bf61f1-d3f1-46e7-a1a5-e0b22f45564e",
-          "title": "Planning a First Residential Steel-Framing Job: A GC’s Crew and Site Checklist",
-          "date": "",
-          "status": "proposed",
-          "audience": "General contractors preparing a first residential steel project",
-          "format": "First-project preparation checklist",
-          "checks": [
-            "We will cover crew readiness, tools, delivery and staging, installation planning, trade coordination and questions to resolve before work begins.",
-            "Use Wheeler’s actual project process to distinguish supplier, GC, framing crew and licensed design-team responsibilities.",
-            "Include a clear route for project questions and unexpected site conditions; do not provide generic engineering instructions or authorize field modifications."
-          ]
+          "id": "72bf4f73-df81-401c-9481-7f6ee34455a9",
+          "title": "Wood to Cold-Formed Steel Framing: Preparing Your Crew",
+          "date": "2026-10-12",
+          "status": "planned",
+          "audience": "GCs and framing crews transitioning from wood",
+          "format": "",
+          "checks": []
+        },
+        {
+          "id": "d71ccbd9-4c61-40b6-abdc-a48543fd7718",
+          "title": "First Residential Steel-Framing Job: A Site-Readiness Checklist",
+          "date": "2026-10-19",
+          "status": "planned",
+          "audience": "GCs planning their first residential steel job",
+          "format": "",
+          "checks": []
+        },
+        {
+          "id": "4efec579-2af8-43dd-a5df-e970ae5e91fd",
+          "title": "Wood vs. Steel Framing: Material Stability and Finish Coordination",
+          "date": "2026-11-09",
+          "status": "planned",
+          "audience": "General contractors and custom-home builders coordinating material selection and finished surfaces",
+          "format": "",
+          "checks": []
+        },
+        {
+          "id": "c711725e-ccf0-4c23-8f45-257d1d7f273d",
+          "title": "Custom Steel Framing in Panelized Homes: Scope and Coordination",
+          "date": "2026-11-20",
+          "status": "planned",
+          "audience": "GCs coordinating custom requirements alongside panelized work",
+          "format": "",
+          "checks": []
+        },
+        {
+          "id": "1cd2bfae-9187-4cba-b5e6-a274652af714",
+          "title": "Steel Framing Waste and Deliveries: A Contractor’s Tracking Guide",
+          "date": "2026-11-27",
+          "status": "planned",
+          "audience": "General contractors managing residential framing deliveries, site waste and hauling",
+          "format": "",
+          "checks": []
         }
       ],
       "possibleTopics": [],
       "exampleTopics": [],
-      "existingPages": [
-        {
-          "title": "Wheeler’s framing approach and the builder’s crew",
-          "url": "https://getwheelersteel.com/#jobsite"
-        },
-        {
-          "title": "Residential Cold-Formed Steel Framing in Los Angeles",
-          "url": "https://getwheelersteel.com/residential-steel-framing-los-angeles"
-        },
-        {
-          "title": "Wheeler’s residential project experience",
-          "url": "https://getwheelersteel.com/projects"
-        }
-      ]
+      "existingPages": []
     },
     {
       "key": "la-steel-framing-provider-evaluation",
       "name": "Los Angeles provider evaluation",
-      "shortName": "LA provider selection",
-      "summary": "Provider comparisons need to distinguish a project-specific framing supplier from builders, installers, and kit sellers.",
-      "purpose": "Help buyers compare providers on scope and project fit, so they understand where Wheeler fits before making a shortlist.",
+      "shortName": "Los Angeles provider evaluation",
+      "summary": "Help Los Angeles custom-home teams understand delivery models, select a suitable framing supplier and verify relevant credentials.",
+      "purpose": "Separate articles compare delivery approaches, evaluate supplier fit and explain product and contractor verification. Framing material and off-site delivery methods are distinguished.",
       "audiences": [
         "Los Angeles custom-home owners",
-        "architects",
-        "custom-home builders"
+        "Architects",
+        "Custom-home builders"
       ],
       "jobs": [
-        "Identify suitable providers",
-        "Compare roles, scope, and project fit"
+        "Explain the differences between material, off-site preparation and whole-home delivery methods.",
+        "Provide a supplier-fit comparison matrix tied to an actual residential design.",
+        "Explain what each credential establishes and how to verify the relevant party."
       ],
-      "stages": [
-        "discovery",
-        "evaluation"
-      ],
-      "coverage": "expand",
+      "stages": [],
+      "coverage": "approved",
       "onHold": false,
-      "editorialNote": "Provider fit belongs here; rebuild decisions, code questions, and quote analysis belong in their respective clusters. Review the existing local framing page before proposing a separate page with the same intent.",
-      "centralPage": "https://getwheelersteel.com/residential-steel-framing-los-angeles",
+      "editorialNote": "",
+      "centralPage": "",
       "topics": [
         {
-          "id": "2315fcf5-7073-44ac-b8b1-fa3f9e6a6880",
-          "title": "Residential Steel Framing in Los Angeles: Supplier, Builder, Installer or Kit Provider?",
-          "date": "2026-09-29",
-          "status": "draft_ready",
-          "audience": "Custom-home owners and builders",
-          "format": "comparison",
-          "checks": [
-            "Verify Wheeler's precise supply scope and responsibility boundaries."
-          ]
+          "id": "691cedc7-a614-4939-a25e-4b8cba4217c2",
+          "title": "Custom Steel Framing vs. Panelized and Modular Homes in Los Angeles",
+          "date": "2026-10-15",
+          "status": "planned",
+          "audience": "Custom-home owners, architects and builders evaluating delivery models",
+          "format": "",
+          "checks": []
         },
         {
           "id": "a50fa511-f913-4f30-9793-17e89d7d479b",
-          "title": "How to Shortlist a Steel Framing Supplier for a Los Angeles Custom Home",
-          "date": "2026-10-16",
+          "title": "Selecting a Steel Framing Supplier for a Los Angeles Custom Home",
+          "date": "2026-10-28",
           "status": "planned",
-          "audience": "Architects and custom-home owners",
-          "format": "evaluation checklist",
-          "checks": [
-            "Confirm which project examples and coordination practices Wheeler can substantiate."
-          ]
-        }
-      ],
-      "possibleTopics": [
-        {
-          "title": "Checking Credentials When Hiring a California Steel Framing Supplier or Contractor",
-          "rationale": "A tested provider question explicitly asks how to verify credentials."
-        }
-      ],
-      "exampleTopics": [
-        "Provider-selection criteria that distinguish supplier, builder, and installation responsibilities"
-      ],
-      "existingPages": [
-        {
-          "title": "Residential Steel Framing Los Angeles | Wheeler Residential Steel Supply",
-          "url": "https://getwheelersteel.com/"
+          "audience": "Custom-home owners and builders preparing a supplier shortlist",
+          "format": "",
+          "checks": []
         },
         {
-          "title": "Residential Cold-Formed Steel Framing in Los Angeles",
-          "url": "https://getwheelersteel.com/residential-steel-framing-los-angeles"
+          "id": "c49b484a-97d1-46e1-b37a-337b674a7426",
+          "title": "Steel Framing Credentials: Product and Contractor Verification",
+          "date": "2026-11-30",
+          "status": "planned",
+          "audience": "Homeowners evaluating evidence supplied by project participants",
+          "format": "",
+          "checks": []
         }
-      ]
+      ],
+      "possibleTopics": [],
+      "exampleTopics": [],
+      "existingPages": []
     },
     {
       "key": "wildfire-rebuild-framing-decisions",
       "name": "Wildfire rebuild framing decisions",
-      "shortName": "Wildfire rebuild decisions",
-      "summary": "Rebuild clients need to decide where project-specific steel framing fits within a broader fire-resilient design, without treating framing alone as a fireproof house.",
-      "purpose": "Connect Wheeler’s rebuild experience to practical framing decisions within a broader whole-home resilience plan.",
+      "shortName": "Wildfire rebuild framing decisions",
+      "summary": "Help rebuilding homeowners evaluate framing within a whole-home resilience plan and understand the project team and property designation process.",
+      "purpose": "Four articles cover framing choice, a whole-home planning checklist, rebuild-team roles and the IBHS designation roadmap. Existing Pacific Palisades and fire-resilience pages remain relevant destinations.",
       "audiences": [
         "Southern California homeowners rebuilding after wildfire",
-        "their architects and builders"
+        "Their architects and builders"
       ],
       "jobs": [
-        "Evaluate framing options during a rebuild",
-        "Prepare decisions and questions for the project team"
+        "Explain the material and planning factors that shape a rebuild framing decision.",
+        "Record the whole-home resilience decisions and evidence a homeowner’s rebuild team must coordinate alongside the steel framing.",
+        "Plan and complete the whole-property measures needed for an IBHS Wildfire Prepared Home designation.",
+        "Explain which party leads each design, supply and construction responsibility."
       ],
-      "stages": [
-        "planning",
-        "evaluation"
-      ],
-      "coverage": "expand",
+      "stages": [],
+      "coverage": "approved",
       "onHold": false,
-      "editorialNote": "Keep Pacific Palisades-specific material on the existing local pages; check their distinct intents before adding or changing either. Assembly ratings and code interpretation belong in technical evaluation.",
-      "centralPage": "https://getwheelersteel.com/rebuild",
+      "editorialNote": "",
+      "centralPage": "",
       "topics": [
         {
           "id": "c2b697d1-8ae4-43ea-a98e-ccf7aff7cc33",
-          "title": "Steel or Wood Framing for a Wildfire Rebuild? Questions to Resolve With Your Design Team",
-          "date": "2026-10-20",
+          "title": "Steel vs. Wood Framing for a Wildfire Rebuild",
+          "date": "2026-10-16",
           "status": "planned",
-          "audience": "Homeowners choosing a rebuild design",
-          "format": "decision comparison",
-          "checks": [
-            "Source qualified comparisons and avoid unverified cost, safety or insurance outcomes."
-          ]
+          "audience": "Southern California homeowners rebuilding after wildfire",
+          "format": "",
+          "checks": []
         },
         {
           "id": "e75e66b4-cdcb-4517-b2de-2d52433d2b7d",
-          "title": "A Noncombustible Frame Is Not a Fireproof Home: Questions for a Rebuild Team",
-          "date": "2026-10-28",
+          "title": "Steel Framing and Wildfire Resilience: A Rebuild Planning Checklist",
+          "date": "2026-10-23",
           "status": "planned",
-          "audience": "Homeowners rebuilding in fire-prone areas",
-          "format": "homeowner planning guide",
-          "checks": [
-            "Have qualified professionals review wildfire-design statements and current applicable guidance."
-          ]
-        }
-      ],
-      "possibleTopics": [
-        {
-          "title": "Who Does What on a Wildfire Rebuild? Architect, Builder and Framing Supplier",
-          "rationale": "Rebuild-partner prompts combine several provider types, creating a homeowner handoff question."
-        }
-      ],
-      "exampleTopics": [
-        "A homeowner decision path from rebuild design to framing-supplier discussion"
-      ],
-      "existingPages": [
-        {
-          "title": "Fire-Resistant Home Construction in Los Angeles | Wheeler",
-          "url": "https://getwheelersteel.com/fire-resistant-home-construction"
+          "audience": "Homeowners rebuilding in wildfire-exposed communities",
+          "format": "",
+          "checks": []
         },
         {
-          "title": "Rebuilding in Pacific Palisades: Steel Framing Guide | Wheeler",
-          "url": "https://getwheelersteel.com/pacific-palisades-fire-rebuilds"
+          "id": "63066716-0d0f-458c-ba18-a702c1681c4a",
+          "title": "IBHS Wildfire Prepared Home: Requirements and Designation",
+          "date": "2026-11-04",
+          "status": "planned",
+          "audience": "Rebuilding homeowners pursuing a property designation",
+          "format": "",
+          "checks": []
         },
         {
-          "title": "Pacific Palisades Fire Rebuild | Steel Framing | Wheeler",
-          "url": "https://getwheelersteel.com/rebuild"
+          "id": "38c8b034-0983-451c-a9e8-8f5b1a0fa9bc",
+          "title": "Wildfire Rebuild Team: Design, Construction and Framing Roles",
+          "date": "2026-11-06",
+          "status": "planned",
+          "audience": "Homeowners assembling a rebuild team",
+          "format": "",
+          "checks": []
         }
-      ]
+      ],
+      "possibleTopics": [],
+      "exampleTopics": [],
+      "existingPages": []
     },
     {
       "key": "architect-builder-design-coordination",
       "name": "Architect and builder design coordination",
-      "shortName": "Architect & builder coordination",
-      "summary": "Design teams need an early coordination path for project-specific framing on complex homes while keeping feasibility and engineering decisions with qualified professionals.",
-      "purpose": "Give architects and builders a clear way to involve Wheeler early, with the right questions and design information.",
+      "shortName": "Architect and builder design coordination",
+      "summary": "Help architects and builders coordinate the information needed for project-specific residential steel framing and custom geometry.",
+      "purpose": "Five distinct design tasks cover team inputs, open-plan layouts, complex roofs, hillside access and curved designs.",
       "audiences": [
         "Custom-home architects",
-        "structural engineers",
-        "custom-home builders"
+        "Structural engineers",
+        "Custom-home builders"
       ],
       "jobs": [
-        "Identify framing questions for complex roofs, open plans, and hillside sites",
-        "Coordinate design information and professional responsibilities"
+        "Provide a design-stage input and responsibility matrix.",
+        "Explain how architectural openness and the engineered framing are coordinated.",
+        "Explain the information flow for a custom roof design without component fabrication instructions.",
+        "Explain how access and site logistics connect to framing planning.",
+        "Explain the architectural information needed to evaluate nonstandard forms."
       ],
-      "stages": [
-        "design",
-        "specification"
-      ],
-      "coverage": "introduce",
+      "stages": [],
+      "coverage": "approved",
       "onHold": false,
-      "editorialNote": "Do not assert that a particular span, roof, or hillside scheme is feasible. Provider selection belongs in evaluation; approved-design-to-package handoffs belong in package planning. Check the existing benefits and projects pages before choosing a new-page angle.",
-      "centralPage": "Proposed: Architect and Builder Coordination for Custom-Home Steel Framing",
+      "editorialNote": "",
+      "centralPage": "",
       "topics": [
         {
           "id": "0737f9c8-d435-4b62-83f1-1b663ae7755d",
-          "title": "Architect and Builder Coordination for Custom-Home Steel Framing",
-          "date": "2026-10-01",
+          "title": "Custom-Home Steel Framing: Design Inputs and Team Responsibilities",
+          "date": "2026-10-21",
           "status": "planned",
-          "audience": "Custom-home architects and builders",
-          "format": "professional workflow",
-          "checks": [
-            "Verify Wheeler's actual design-coordination activities and obtain professional technical review."
-          ]
+          "audience": "Architects, engineers and custom-home builders",
+          "format": "",
+          "checks": []
         },
         {
           "id": "823d9903-1aac-41c7-9e5d-019f8ce2d355",
-          "title": "Open-Plan Custom Homes: Steel Framing Questions to Settle During Design",
-          "date": "2026-10-24",
+          "title": "Steel Framing for Open-Plan Homes: Layout and Trade Coordination",
+          "date": "2026-10-26",
           "status": "planned",
-          "audience": "Architects designing open-plan custom homes",
-          "format": "design-questions checklist",
-          "checks": [
-            "Professional review; do not claim achievable spans or structural feasibility."
-          ]
+          "audience": "Architects and builders designing open-plan homes",
+          "format": "",
+          "checks": []
         },
         {
           "id": "7cc66375-caff-4bea-ae13-aa2eb270e0e2",
-          "title": "Complex Custom Roofs: Early Steel Framing Coordination Questions",
-          "date": "2026-11-01",
+          "title": "Steel Framing for Complex Roofs: A Design Coordination Guide",
+          "date": "2026-11-05",
           "status": "planned",
-          "audience": "Architects and builders planning complex roofs",
-          "format": "design workflow",
-          "checks": [
-            "Confirm actual roof-related experience before using examples; obtain structural review."
-          ]
+          "audience": "Architects and builders designing complex residential roofs",
+          "format": "",
+          "checks": []
         },
         {
           "id": "3cba08d6-26e9-48e9-bac2-06ea5e32f5aa",
-          "title": "Hillside Custom Homes: What to Resolve Before Specifying Steel Framing",
-          "date": "2026-11-12",
+          "title": "Steel Framing for Hillside Homes: Access and Delivery Planning",
+          "date": "2026-11-13",
           "status": "planned",
-          "audience": "Architects and structural engineers working on hillside homes",
-          "format": "site-specific question set",
-          "checks": [
-            "Confirm relevant Wheeler experience if mentioned; qualified review of site and structural statements."
-          ]
-        }
-      ],
-      "possibleTopics": [
-        {
-          "title": "A Design Brief for Curved and Nonstandard Residential Steel Framing",
-          "rationale": "The business brief identifies architecturally sophisticated forms as a relevant need."
-        }
-      ],
-      "exampleTopics": [
-        "Design-stage coordination questions for an open-plan custom home"
-      ],
-      "existingPages": [
-        {
-          "title": "Benefits of Residential Steel Framing | Wheeler",
-          "url": "https://getwheelersteel.com/benefits-of-steel-framing"
+          "audience": "Architects and builders planning constrained hillside residential sites",
+          "format": "",
+          "checks": []
         },
         {
-          "title": "Residential Steel Project Experience | Wheeler Residential Steel Supply",
-          "url": "https://getwheelersteel.com/projects"
+          "id": "4ce15d08-c5e8-4824-9e60-1a3fda60c032",
+          "title": "Curved Steel Framing: Preparing a Custom-Home Design Brief",
+          "date": "2026-11-16",
+          "status": "planned",
+          "audience": "Architects developing unusual residential geometry",
+          "format": "",
+          "checks": []
         }
-      ]
+      ],
+      "possibleTopics": [],
+      "exampleTopics": [],
+      "existingPages": []
     },
     {
       "key": "fire-code-and-assembly-evaluation",
       "name": "Fire performance and code evaluation",
-      "shortName": "Fire performance & code",
-      "summary": "Project teams must separate noncombustible framing material from the performance, documentation, and approval requirements of the complete design.",
-      "purpose": "Build confidence through clear explanations of framing material, assembly performance and the role of qualified design professionals.",
+      "shortName": "Fire performance and code evaluation",
+      "summary": "Help design teams distinguish material combustibility, complete assembly performance, construction classification and the evidence supporting a project.",
+      "purpose": "Separate articles explain the core concepts, organize professional documentation and coordinate exterior-wall performance.",
       "audiences": [
         "Architects",
-        "structural engineers",
-        "builders",
-        "rebuilding homeowners"
+        "Structural engineers",
+        "Builders",
+        "Rebuilding homeowners"
       ],
       "jobs": [
-        "Frame fire-performance and code questions for qualified professionals",
-        "Identify assembly documentation to request"
+        "Clearly distinguish the three performance and classification concepts.",
+        "Provide a document-purpose and responsibility matrix distinct from the fire terminology explainer.",
+        "Explain the complete exterior-wall performance interfaces at a general design level."
       ],
-      "stages": [
-        "specification",
-        "permitting"
-      ],
-      "coverage": "expand",
+      "stages": [],
+      "coverage": "approved",
       "onHold": false,
-      "editorialNote": "Do not claim that steel framing alone establishes a fire rating, Type II classification, or permit compliance. General homeowner rebuild choices belong in the rebuild cluster; assess the existing fire-resistance page before extending its intent.",
-      "centralPage": "https://getwheelersteel.com/fire-resistant-home-construction",
+      "editorialNote": "",
+      "centralPage": "",
       "topics": [
         {
           "id": "24e0ea70-0d62-4fc2-bd94-0aba0d9e20a6",
-          "title": "Noncombustible Steel Framing vs. Fire-Rated Assemblies: What Design Teams Must Check",
-          "date": "2026-10-08",
+          "title": "Steel Framing, Fire-Rated Assemblies and Type II Construction",
+          "date": "2026-10-29",
           "status": "planned",
-          "audience": "Architects, engineers and builders",
-          "format": "technical explainer",
-          "checks": [
-            "Technical review and authoritative current code and assembly references."
-          ]
+          "audience": "Architects, engineers and builders evaluating fire performance",
+          "format": "",
+          "checks": []
         },
         {
           "id": "9491a14d-12e2-4a69-8afb-57c085df6412",
-          "title": "Can Steel Framing Support a Type II Design? Questions for the Architect and Code Team",
-          "date": "2026-11-08",
+          "title": "Fire and Code Documentation for Steel-Framed Homes",
+          "date": "2026-11-12",
           "status": "planned",
-          "audience": "Architects evaluating construction classifications",
-          "format": "professional question checklist",
-          "checks": [
-            "Current applicable code provisions and review by a qualified code professional."
-          ]
+          "audience": "Architects and builders organizing project evidence",
+          "format": "",
+          "checks": []
         },
         {
           "id": "84cc2a24-88a6-4033-847d-264e5c588597",
-          "title": "Wildfire-Exposed Home Design: Where Steel Framing Meets Exterior Requirements",
-          "date": "2026-11-23",
+          "title": "Steel-Framed Exterior Walls: Fire, Moisture and Thermal Performance",
+          "date": "2026-11-19",
           "status": "planned",
-          "audience": "Rebuild architects and builders",
-          "format": "design-interface checklist",
-          "checks": [
-            "Verify currently applicable local requirements and secure design-professional review."
-          ]
+          "audience": "Architects and builders coordinating the building envelope",
+          "format": "",
+          "checks": []
         }
       ],
-      "possibleTopics": [
-        {
-          "title": "Fire and Code Documentation for a Steel-Framed Home: Who Provides What?",
-          "rationale": "A tested Los Angeles County prompt asks which providers document fire resistance and code compliance."
-        }
-      ],
-      "exampleTopics": [
-        "Questions distinguishing framing material, rated assemblies, and construction type"
-      ],
-      "existingPages": [
-        {
-          "title": "Fire-Resistant Home Construction in Los Angeles | Wheeler",
-          "url": "https://getwheelersteel.com/fire-resistant-home-construction"
-        }
-      ]
+      "possibleTopics": [],
+      "exampleTopics": [],
+      "existingPages": []
     },
     {
       "key": "steel-framing-quote-comparison",
       "name": "Quote and cost evaluation",
-      "shortName": "Quotes & cost comparison",
-      "summary": "Buyers need comparable scopes and assumptions before treating framing quotes or steel-versus-wood costs as equivalent.",
-      "purpose": "Help buyers compare framing proposals on equivalent scopes and assumptions, and arrive prepared for a pricing conversation.",
+      "shortName": "Quote and cost evaluation",
+      "summary": "Help owners and builders evaluate complete costs, quotation terms, reported project comparisons and insurance information.",
+      "purpose": "Five financial articles and three insurance articles have distinct tasks. IBHS designation, material stability and resource tracking are placed in the clusters matching their reader purpose.",
       "audiences": [
         "Custom-home owners",
-        "builders preparing bids",
-        "small residential developers"
+        "Builders preparing bids",
+        "Homeowners evaluating insurance"
       ],
       "jobs": [
-        "Prepare a consistent pricing request",
-        "Compare inclusions, exclusions, and lifecycle-cost assumptions"
+        "Normalize two or more actual framing proposals for the same approved home design.",
+        "Compare the initial installed framing budget for equivalent engineered wood and steel designs.",
+        "Understand published California wildfire discount opportunities and calculate the premium component to which they apply.",
+        "Explain the insurance stage and covered-property categories relevant during construction.",
+        "Build a transparent post-occupancy cost comparison using the owner’s estimates and dated property-specific quotations.",
+        "Understand how the stated commercial terms of one framing proposal determine the price boundary and later adjustments.",
+        "Compare actual completed-home insurance quotations for the same property with different approved construction descriptions.",
+        "Interpret Wheeler’s three reported residential dollar-savings examples by keeping each project and comparison baseline separate."
       ],
-      "stages": [
-        "budgeting",
-        "evaluation"
-      ],
-      "coverage": "introduce",
+      "stages": [],
+      "coverage": "approved",
       "onHold": false,
-      "editorialNote": "Quote comparability is distinct from general steel-framing benefits and provider selection. Do not promise insurance outcomes; check the existing benefits page before publishing overlapping material.",
-      "centralPage": "Proposed: How to Compare Custom-Home Steel Framing Quotes in Southern California",
+      "editorialNote": "",
+      "centralPage": "",
       "topics": [
         {
           "id": "355306fb-aea7-44c6-865d-f313a2914d58",
           "title": "How to Compare Custom-Home Steel Framing Quotes in Southern California",
-          "date": "2026-10-04",
+          "date": "2026-10-09",
           "status": "planned",
-          "audience": "Homeowners and builders requesting bids",
-          "format": "quote-comparison worksheet",
-          "checks": [
-            "Validate worksheet categories with actual proposals; publish no invented Wheeler prices."
-          ]
+          "audience": "Homeowners and builders comparing proposals",
+          "format": "",
+          "checks": []
         },
         {
           "id": "b35e5a60-6923-4dbc-9c43-7c3f7d01f774",
-          "title": "Steel vs. Wood Framing Budgets: Compare the Same Project Scope",
-          "date": "2026-11-04",
+          "title": "Steel vs. Wood Framing Costs: Comparing the Installed Budget",
+          "date": "2026-10-14",
           "status": "planned",
-          "audience": "Owners and builders comparing wood and steel budgets",
-          "format": "budget framework",
-          "checks": [
-            "Validate budget categories; do not invent relative prices or savings."
-          ]
+          "audience": "Owners and builders comparing framing materials",
+          "format": "",
+          "checks": []
+        },
+        {
+          "id": "9d93fc4d-a219-4010-a896-d9ff6a2108d2",
+          "title": "California Wildfire Insurance Discounts: Programs and Calculations",
+          "date": "2026-10-22",
+          "status": "planned",
+          "audience": "Homeowners budgeting wildfire insurance",
+          "format": "",
+          "checks": []
+        },
+        {
+          "id": "cb7037b6-fc83-4ba2-83f7-d7818667c90c",
+          "title": "Builders’ Risk Insurance for Steel-Framed Homes: Coverage Basics",
+          "date": "2026-10-30",
+          "status": "planned",
+          "audience": "Homeowners and GCs arranging construction-period insurance",
+          "format": "",
+          "checks": []
         },
         {
           "id": "8ba5c5fd-cfaa-4882-b8b1-277490fd59b2",
-          "title": "Long-Term Costs of Steel- vs. Wood-Framed Homes: Assumptions to Test",
-          "date": "2026-11-19",
+          "title": "Wood vs. Steel Framing: A Long-Term Cost Worksheet",
+          "date": "2026-11-02",
           "status": "planned",
-          "audience": "Owners evaluating long-term costs",
-          "format": "assumptions worksheet",
-          "checks": [
-            "Source any comparative durability or repair claims; avoid numerical savings without data."
-          ]
-        }
-      ],
-      "possibleTopics": [
-        {
-          "title": "Will Steel Framing Affect Home Insurance? Questions to Ask Before Budgeting",
-          "rationale": "A tested provider question links resilience and insurance costs, while insurer outcomes remain unverified."
+          "audience": "Owners evaluating costs after occupancy",
+          "format": "",
+          "checks": []
         },
         {
-          "title": "Steel Framing Proposal Terms: Questions About Revisions, Exclusions and Added Costs",
-          "rationale": "Quote comparability extends to revision and exclusion terms, not just initial figures."
-        }
-      ],
-      "exampleTopics": [
-        "A scope-comparison worksheet for framing proposals"
-      ],
-      "existingPages": [
+          "id": "ae195cc7-7470-4114-9c77-b4021ac3c63d",
+          "title": "Steel Framing Proposal Terms: Allowances, Exclusions and Revisions",
+          "date": "2026-11-11",
+          "status": "planned",
+          "audience": "Builders and owners evaluating financial proposal terms",
+          "format": "",
+          "checks": []
+        },
         {
-          "title": "Benefits of Residential Steel Framing | Wheeler",
-          "url": "https://getwheelersteel.com/benefits-of-steel-framing"
+          "id": "8f9d5066-638d-436e-9757-91ff87f11cf4",
+          "title": "Comparing Insurance Quotes for a Wood- or Steel-Framed Home",
+          "date": "2026-11-18",
+          "status": "planned",
+          "audience": "Homeowners comparing property-specific insurance costs",
+          "format": "",
+          "checks": []
+        },
+        {
+          "id": "c3168124-e85c-490c-bfd1-df2b29cf6cb0",
+          "title": "Wheeler’s Reported Steel Framing Savings: Three Project Comparisons",
+          "date": "2026-11-23",
+          "status": "planned",
+          "audience": "Owners and builders assessing reported cost examples",
+          "format": "",
+          "checks": []
         }
-      ]
+      ],
+      "possibleTopics": [],
+      "exampleTopics": [],
+      "existingPages": []
     }
   ]
 }

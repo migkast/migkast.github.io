@@ -2,7 +2,8 @@
 import { workspace, type Cluster } from '../../lib/clients/wheeler';
 interface Props { cluster: Cluster; index: number }
 const { cluster, index } = Astro.props;
-const coverage = cluster.onHold ? 'Future opportunity' : cluster.coverage === 'expand' ? 'Build on existing content' : 'New content direction';
+const coverage = cluster.coverage === 'approved' ? 'Approved content direction' : cluster.onHold ? 'Future opportunity' : cluster.coverage === 'expand' ? 'Build on existing content' : 'New content direction';
+const topicDate = (date: string) => new Intl.DateTimeFormat('en-GB', {timeZone:'Europe/Lisbon',day:'numeric',month:'long'}).format(new Date(`${date}T12:00:00Z`));
 ---
 <article class="cluster-detail" id={`cluster-${cluster.key}`} data-cluster={cluster.key} aria-labelledby={`heading-${cluster.key}`} hidden={index !== 0}>
   <header class="detail-header">
@@ -17,19 +18,19 @@ const coverage = cluster.onHold ? 'Future opportunity' : cluster.coverage === 'e
   </section>
   {cluster.onHold && <div class="hold-note"><strong>Keep this direction on hold.</strong><p>Validate developer demand and Wheeler’s supported service scope first. No developer articles are currently planned.</p></div>}
   <div class="strategy-focus">
-    <section class="direction-purpose"><p class="eyebrow">THE DIRECTION</p><h3>Why this direction matters</h3><p>{cluster.purpose}</p></section>
+    <section class="direction-purpose"><p class="eyebrow">THE DIRECTION</p><h3>How we’ll cover this direction</h3><p>{cluster.purpose}</p></section>
     <section class="audience-needs"><p class="eyebrow">THE BUYER DECISION</p><h3>What the audience needs</h3><ul>{cluster.jobs.map(job => <li>{job}</li>)}</ul></section>
   </div>
-  <section class="supporting-pages" aria-labelledby={`pages-${cluster.key}`}>
+  {(cluster.existingPages.length > 0 || cluster.centralPage) && <section class="supporting-pages" aria-labelledby={`pages-${cluster.key}`}>
     <h3 id={`pages-${cluster.key}`}>Existing pages supporting this direction</h3>
     <p class="helper">We’ll review these pages and build on the relevant content.</p>
     <ul class="existing-pages">{cluster.existingPages.map(page => <li><a href={page.url} target="_blank" rel="noopener">{page.title} ↗</a></li>)}</ul>
-    {!cluster.centralPage.startsWith('https://') && <div class="proposed-guide"><h4>Guide we’ll consider</h4><p>{cluster.centralPage.replace(/^Proposed: /, '')}</p></div>}
-  </section>
+    {cluster.centralPage && !cluster.centralPage.startsWith('https://') && <div class="proposed-guide"><h4>Guide we’ll consider</h4><p>{cluster.centralPage.replace(/^Proposed: /, '')}</p></div>}
+  </section>}
   <section class="topic-section" aria-labelledby={`topics-${cluster.key}`}>
-    <div class="section-heading"><h3 id={`topics-${cluster.key}`}>How this could become blog content</h3><span>Examples</span></div>
-    <p class="helper">Illustrative working titles. We’ll build the publication plan after the clusters are reviewed.</p>
-    {cluster.topics.length > 0 ? <ol class="topic-list">{cluster.topics.map((topic, i) => <li><span class="topic-number">0{i + 1}</span><div><h4>{topic.title}</h4><p class="topic-meta">{topic.format}</p></div></li>)}</ol> : <div class="empty-topics"><p>No articles planned for this direction.</p><p>{cluster.exampleTopics[0]}</p></div>}
+    <div class="section-heading"><h3 id={`topics-${cluster.key}`}>Planned articles in this direction</h3><span>{cluster.topics.length} topics</span></div>
+    <p class="helper">Titles and dates are proposed. Article approval is separate from direction approval.</p>
+    {cluster.topics.length > 0 ? <ol class="topic-list">{cluster.topics.map((topic, i) => <li><span class="topic-number">0{i + 1}</span><div><h4>{topic.title}</h4><p class="topic-meta">{topic.date ? topicDate(topic.date) : topic.format}</p></div></li>)}</ol> : <div class="empty-topics"><p>No articles planned for this direction.</p><p>{cluster.exampleTopics[0]}</p></div>}
     {cluster.possibleTopics.length > 0 && <details class="additional-topics"><summary>Another topic to consider</summary>{cluster.possibleTopics.map(topic => <div><h4>{topic.title}</h4><p>{topic.rationale}</p></div>)}</details>}
   </section>
   <section class="decision-box" aria-labelledby={`decision-${cluster.key}`}>
