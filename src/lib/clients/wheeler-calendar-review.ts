@@ -43,6 +43,8 @@ export function initCalendarReview(queue: (change: ReviewChange) => void, pendin
     if (status !== 'pending') reviewed++;
     const badge = row.querySelector<HTMLElement>('[data-topic-status]')!;
     badge.dataset.state = status;
+    const gridStatus = document.querySelector<HTMLElement>(`[data-grid-topic-status="${key}"]`);
+    if (gridStatus) gridStatus.textContent = status === 'approved' ? 'Approved' : status === 'changes' ? 'Changes requested' : 'Awaiting review';
     badge.textContent = (status === 'approved' ? 'Approved' : status === 'changes' ? 'Changes requested' : 'Awaiting review') + (pending(key) ? ' · saving…' : '');
     const button = row.querySelector<HTMLButtonElement>('[data-topic-approve]')!;
     button.textContent = status === 'changes' ? 'Review changes' : status === 'approved' ? 'Approved' : 'Approve topic';

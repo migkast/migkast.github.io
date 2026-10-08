@@ -5,11 +5,31 @@ const weeks = [...new Set(articles.map(a => {
  d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7);
  return d.toISOString().slice(0,10);
 }))];
+const months = ['2026-10', '2026-11'];
+const weekdays = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 const dateLabel = (date: string, options: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat('en-GB', {timeZone:'Europe/Lisbon', ...options}).format(new Date(`${date}T12:00:00Z`));
 ---
 <div class="publication-list">
  <header class="publication-heading"><div><h2>Topics for your review</h2><p>13 planned topics · 9 October to 4 November 2026</p></div><strong id="calendar-review-progress" aria-live="polite">0 of 13 reviewed</strong></header>
  <p class="publication-intro">Approve a topic or open it to share feedback. These are proposed publication dates; articles have not been written or published.</p>
+ <div class="publication-view-switch" role="group" aria-label="Publication display"><button type="button" data-publication-view="list" aria-pressed="true">List</button><button type="button" data-publication-view="calendar" aria-pressed="false">Calendar</button></div>
+ <div class="publication-month-view" hidden>
+  <header class="month-navigation"><h3 id="publication-month-label">October 2026</h3><div><button type="button" data-month-previous aria-label="Previous month" disabled>←</button><button type="button" data-month-next aria-label="Next month">→</button></div></header>
+  {months.map((month, index) => {
+   const first = new Date(`${month}-01T12:00:00Z`);
+   const offset = (first.getUTCDay()+6)%7;
+   const count = new Date(first.getUTCFullYear(),first.getUTCMonth()+1,0).getDate();
+   return <div class="month-grid-scroll" data-publication-month={month} hidden={index!==0}><div class="month-grid" role="table" aria-label={dateLabel(`${month}-01`,{month:'long',year:'numeric'})}>
+   <div role="row" class="month-weekdays">{weekdays.map(day=><div role="columnheader">{day}</div>)}</div>
+   {Array.from({length:Math.ceil((offset+count)/7)},(_,week)=><div role="row" class="month-week">{weekdays.map((_,day)=>{
+    const number=week*7+day-offset+1;
+    const date=`${month}-${String(number).padStart(2,'0')}`;
+    return <div role="cell" class:list={['month-day',{'empty-day':number<1||number>count}]}>{number>=1&&number<=count&&<><time datetime={date}>{number}</time>{articles.filter(a=>a.scheduledDate===date).map(a=><button type="button" data-calendar-open={`article:${a.id}`}><span>{a.title}</span><small data-grid-topic-status={`article:${a.id}`}>Awaiting review</small></button>)}</>}</div>;
+   })}</div>)}
+   </div></div>;
+  })}
+  <button type="button" class="calendar-back" data-calendar-back hidden>← Back to calendar</button>
+ </div>
  <div class="calendar-sync" hidden><p data-calendar-sync role="status"></p><button type="button" data-calendar-retry hidden>Retry saving</button></div>
  {weeks.map(week => {
  const end = new Date(`${week}T12:00:00Z`); end.setUTCDate(end.getUTCDate()+6);
@@ -27,9 +47,52 @@ const dateLabel = (date: string, options: Intl.DateTimeFormatOptions) => new Int
  </article>)}
  </section>;
  })}
- <footer><button type="button" data-back-to-clusters>Review topic clusters ↗</button><p>Dates have no assigned publication times. The final week has two topics; additional topics can be agreed separately.</p><p>Building with steel for GCs remains an approved direction, with no dated topics in this calendar yet.</p><p>Decisions are shared with Miguel. Approval here does not automatically publish an article.</p></footer>
+ <footer><button type="button" data-back-to-clusters>Review topic clusters ↗</button></footer>
 </div>
+<script>
+ const root = document.querySelector<HTMLElement>('.publication-list')!;
+ const viewButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-publication-view]'));
+ const monthView = root.querySelector<HTMLElement>('.publication-month-view')!;
+ const weeks = Array.from(root.querySelectorAll<HTMLElement>('.publication-week'));
+ const rows = Array.from(root.querySelectorAll<HTMLElement>('[data-calendar-key]'));
+ const back = root.querySelector<HTMLButtonElement>('[data-calendar-back]')!;
+ let view = 'list';
+ let selected = '';
+ function renderView() {
+  monthView.hidden = view !== 'calendar';
+  viewButtons.forEach(button => button.setAttribute('aria-pressed',String(button.dataset.publicationView===view)));
+  rows.forEach(row => row.hidden = view === 'calendar' && row.dataset.calendarKey !== selected);
+  weeks.forEach(week => {
+   week.hidden = view === 'calendar' && !Array.from(week.querySelectorAll<HTMLElement>('[data-calendar-key]')).some(row => !row.hidden);
+   week.querySelector<HTMLElement>(':scope > header')!.hidden = view === 'calendar';
+  });
+  back.hidden = !selected || view !== 'calendar';
+ }
+ viewButtons.forEach(button => button.addEventListener('click',()=>{view=button.dataset.publicationView!;selected='';renderView();}));
+ root.querySelectorAll<HTMLButtonElement>('[data-calendar-open]').forEach(button=>button.addEventListener('click',()=>{
+  selected=button.dataset.calendarOpen!;renderView();
+  const row=rows.find(row=>row.dataset.calendarKey===selected)!;
+  row.querySelector<HTMLDetailsElement>('details')!.open=true;
+  row.scrollIntoView({block:'start'});
+  row.querySelector<HTMLElement>('summary')!.focus({preventScroll:true});
+ }));
+ back.addEventListener('click',()=>{selected='';renderView();root.querySelector<HTMLElement>('.month-navigation')!.scrollIntoView({block:'start'});viewButtons[1].focus({preventScroll:true});});
+ const months = Array.from(root.querySelectorAll<HTMLElement>('[data-publication-month]'));
+ const previous=root.querySelector<HTMLButtonElement>('[data-month-previous]')!;
+ const next=root.querySelector<HTMLButtonElement>('[data-month-next]')!;
+ let month=0;
+ function changeMonth(index:number){
+  month=index;selected='';renderView();
+  months.forEach((panel,i)=>panel.hidden=i!==month);
+  root.querySelector('#publication-month-label')!.textContent=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Lisbon',month:'long',year:'numeric'}).format(new Date(`${months[month].dataset.publicationMonth}-01T12:00:00Z`));
+  previous.disabled=month===0;next.disabled=month===months.length-1;
+ }
+ previous.addEventListener('click',()=>changeMonth(month-1));next.addEventListener('click',()=>changeMonth(month+1));
+</script>
 <style>
+ .publication-view-switch{display:flex;gap:4px;margin-bottom:24px;}.publication-view-switch button{font-size:13px;min-width:90px;}.publication-view-switch button[aria-pressed=true]{background:var(--green);color:white;border-color:var(--green);}
+ .month-navigation{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}.month-navigation h3{font-size:22px;}.month-navigation>div{display:flex;gap:8px;}.month-grid-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:white;margin-bottom:24px;}.month-grid{min-width:840px;}.month-weekdays,.month-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));}.month-weekdays>div{padding:12px;color:var(--muted);font-size:12px;background:#e8eee8;border-bottom:1px solid var(--line);}.month-day{min-height:130px;padding:10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);}.month-day:last-child{border-right:0;}.month-week:last-child .month-day{border-bottom:0;}.empty-day{background:#f4f5f2;}.month-day time{display:block;font-size:12px;color:var(--muted);margin-bottom:8px;}.month-day button{display:block;width:100%;min-height:44px;padding:10px 8px;text-align:left;font-size:12px;line-height:1.5;background:#edf3ef;border-color:#cedbd0;}.month-day button+button{margin-top:8px;}.month-day button small{display:block;font-size:10px;font-weight:400;color:var(--muted);margin-top:8px;}.calendar-back{margin-bottom:20px;}
+
  .publication-heading{display:flex;align-items:start;justify-content:space-between;gap:24px;margin:28px 0 12px;}.publication-heading h2{font-size:26px;}.publication-heading p,.publication-heading>strong{font-size:13px;color:var(--muted);margin-top:8px;}.publication-intro{font-size:14px;color:var(--muted);max-width:760px;margin-bottom:28px;}.publication-week{margin-bottom:28px;}.publication-week>header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}.publication-week h3{font-size:16px;}.publication-week>header span{font-size:12px;color:var(--muted);}.publication-topic{background:#fff;border:1px solid var(--line);border-radius:8px;margin-bottom:12px;overflow:hidden;}.publication-row{display:grid;grid-template-columns:76px minmax(0,1fr) 164px;gap:24px;padding:24px;}.publication-row time{display:flex;flex-direction:column;font-size:12px;color:var(--muted);padding-top:4px;}.publication-row time strong{font-size:17px;color:var(--green);}.publication-topic summary{cursor:pointer;list-style:none;}.publication-topic summary::-webkit-details-marker{display:none;}.publication-topic h4{font-size:18px;font-weight:600;line-height:1.4;}.topic-direction{display:block;font-size:12px;color:var(--muted);margin-top:8px;}.topic-detail-label{display:block;font-size:12px;color:var(--green);margin-top:12px;}.topic-brief{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;}.topic-brief dl{margin:0;}.topic-brief dl>div{margin-bottom:16px;}.topic-brief dt,.topic-brief h5{font-size:12px;font-weight:600;margin:0 0 4px;}.topic-brief dd{margin:0;color:var(--muted);white-space:pre-line;}.topic-brief ul{padding-left:18px;color:var(--muted);}.topic-brief li+li{margin-top:8px;}.topic-controls{display:flex;flex-direction:column;align-items:stretch;gap:8px;}.topic-status{font-size:12px;color:var(--muted);margin-bottom:4px;text-align:right;}.topic-status[data-state=approved]{color:var(--green);font-weight:600;}.topic-status[data-state=changes]{color:var(--amber);font-weight:600;}.topic-controls button{font-size:12px;}.topic-controls .topic-feedback-button{border:0;background:none;font-weight:400;}.topic-saved-feedback{background:#f5f1e8;border-top:1px solid #e2d8c6;padding:20px 24px;font-size:13px;}.topic-saved-feedback p{white-space:pre-wrap;margin-top:6px;}.topic-saved-feedback small{display:block;color:var(--muted);margin-top:8px;}.topic-feedback-form{padding:20px 24px;border-top:1px solid var(--line);}.topic-feedback-form label{display:block;font-size:13px;font-weight:600;margin-bottom:8px;}.topic-feedback-form textarea{width:100%;font-size:16px;padding:12px;border:1px solid var(--line);border-radius:8px;resize:vertical;}.topic-feedback-form>div{display:flex;gap:8px;margin-top:12px;}.topic-feedback-form [role=alert]{color:var(--amber);font-size:13px;margin-top:8px;}.calendar-sync{padding:16px;background:#f5f1e8;border-radius:8px;margin-bottom:20px;font-size:13px;}.publication-list footer{border-top:1px solid var(--line);padding-top:20px;font-size:12px;color:var(--muted);}.publication-list footer p+p{margin-top:8px;}
  @media(max-width:700px){.publication-heading{display:block;}.publication-row{grid-template-columns:64px minmax(0,1fr);gap:16px;padding:20px;}.topic-controls{grid-column:2;flex-direction:row;flex-wrap:wrap;align-items:center;margin-top:8px;}.topic-status{flex-basis:100%;text-align:left;}.publication-topic h4{font-size:16px;}.topic-saved-feedback,.topic-feedback-form{padding:20px;}}
 </style>
