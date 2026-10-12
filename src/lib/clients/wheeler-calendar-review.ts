@@ -1,3 +1,4 @@
+import { resolvedFeedback } from './wheeler-content-updates';
 import type { ReviewChange, SharedReviewState } from './wheeler-review';
 import type { SyncStatus } from './wheeler-review-sync';
 export function initCalendarReview(queue: (change: ReviewChange) => void, pending: (key: string) => boolean, retry: () => void) {
@@ -42,11 +43,15 @@ export function initCalendarReview(queue: (change: ReviewChange) => void, pendin
     const key = row.dataset.calendarKey!; const decision = decisions[key]; const status = decision?.status || 'pending';
     if (status !== 'pending') reviewed++;
     const badge = row.querySelector<HTMLElement>('[data-topic-status]')!;
+    const answer = resolvedFeedback(key, decision);
+    row.querySelector<HTMLElement>('[data-feedback-resolved]')!.hidden = !answer;
+    row.querySelector<HTMLElement>('[data-feedback-answer]')!.hidden = !answer;
+    row.querySelector<HTMLElement>('[data-feedback-answer-text]')!.textContent = answer || '';
     badge.dataset.state = status;
     badge.hidden = status === 'pending' && row.dataset.hasDraft === 'true' && !pending(key);
     const gridStatus = document.querySelector<HTMLElement>(`[data-grid-topic-status="${key}"]`);
-    if (gridStatus) gridStatus.textContent = status === 'approved' ? 'Approved' : status === 'changes' ? 'Changes requested' : 'Awaiting review';
-    badge.textContent = (status === 'approved' ? 'Approved' : status === 'changes' ? 'Changes requested' : 'Awaiting review') + (pending(key) ? ' · saving…' : '');
+    if (gridStatus) gridStatus.textContent = answer && status === 'changes' ? 'Updated · review revision' : status === 'approved' ? 'Approved' : status === 'changes' ? 'Changes requested' : 'Awaiting review';
+    badge.textContent = (answer && status === 'changes' ? 'Updated · review revision' : status === 'approved' ? 'Approved' : status === 'changes' ? 'Changes requested' : 'Awaiting review') + (pending(key) ? ' · saving…' : '');
     const button = row.querySelector<HTMLButtonElement>('[data-topic-approve]')!;
     button.textContent = status === 'changes' ? 'Review changes' : status === 'approved' ? 'Approved' : 'Approve topic';
     button.disabled = status === 'approved' || pending(key);

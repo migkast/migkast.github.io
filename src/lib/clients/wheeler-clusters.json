@@ -337,7 +337,7 @@
       "name": "Quote and cost evaluation",
       "shortName": "Quote and cost evaluation",
       "summary": "Help owners and builders evaluate complete costs, quotation terms, reported project comparisons and insurance information.",
-      "purpose": "Five financial articles and three insurance articles have distinct tasks. IBHS designation, material stability and resource tracking are placed in the clusters matching their reader purpose.",
+      "purpose": "Financial and insurance articles cover distinct tasks: comparing installation and ownership costs, understanding proposal terms, qualifying for insurance programs, understanding construction-related insurance costs and comparing actual policy quotes.",
       "audiences": [
         "Custom-home owners",
         "Builders preparing bids",
@@ -347,10 +347,10 @@
         "Normalize two or more actual framing proposals for the same approved home design.",
         "Compare the initial installed framing budget for equivalent engineered wood and steel designs.",
         "Understand published California wildfire discount opportunities and calculate the premium component to which they apply.",
-        "Explain the insurance stage and covered-property categories relevant during construction.",
+        "Explain how complete-home construction, documented resilience measures and insurer-recognized classifications can affect homeowners’ insurance costs.",
         "Build a transparent post-occupancy cost comparison using the owner’s estimates and dated property-specific quotations.",
         "Understand how the stated commercial terms of one framing proposal determine the price boundary and later adjustments.",
-        "Compare actual completed-home insurance quotations for the same property with different approved construction descriptions.",
+        "Help homeowners compare actual insurance offers on equivalent terms and identify differences in coverage, deductibles and total cost.",
         "Interpret Wheeler’s three reported residential dollar-savings examples by keeping each project and comparison baseline separate."
       ],
       "stages": [],
@@ -388,10 +388,10 @@
         },
         {
           "id": "cb7037b6-fc83-4ba2-83f7-d7818667c90c",
-          "title": "Builders’ Risk Insurance for Steel-Framed Homes: Coverage Basics",
+          "title": "How Fire-Resistive Home Construction Can Affect Insurance Costs",
           "date": "2026-10-30",
           "status": "planned",
-          "audience": "Homeowners and GCs arranging construction-period insurance",
+          "audience": "Homeowners evaluating insurance for a new home or wildfire rebuild",
           "format": "",
           "checks": []
         },
@@ -415,10 +415,10 @@
         },
         {
           "id": "8f9d5066-638d-436e-9757-91ff87f11cf4",
-          "title": "Comparing Insurance Quotes for a Wood- or Steel-Framed Home",
+          "title": "Comparing Home Insurance Quotes for Steel- and Wood-Framed Homes",
           "date": "2026-11-18",
           "status": "planned",
-          "audience": "Homeowners comparing property-specific insurance costs",
+          "audience": "Homeowners comparing written insurance quotations for the same property",
           "format": "",
           "checks": []
         },

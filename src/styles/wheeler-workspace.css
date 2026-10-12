@@ -367,3 +367,7 @@
 .backlink-tabs{margin-bottom:24px;}
 .backlink-tab-intro{font-size:13px;color:var(--muted);margin-bottom:24px!important;}
 #panel-backlink-actions .audit-priorities{margin-top:0;}
+
+.content-updated-badge{display:inline-flex;align-items:center;padding:3px 9px;border:1px solid #b7cbbb;border-radius:999px;background:#edf3ef;color:#245340;font-size:11px;font-weight:600;line-height:1.4;margin-top:6px;vertical-align:middle;}
+.cluster-select.selected .content-updated-badge{background:#e7f0e9;color:#174331;}
+.feedback-answer{margin-top:16px;padding-top:12px;border-top:1px solid #ded6c8;}

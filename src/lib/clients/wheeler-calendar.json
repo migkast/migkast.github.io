@@ -134,13 +134,13 @@
     },
     {
       "id": "cb7037b6-fc83-4ba2-83f7-d7818667c90c",
-      "title": "Builders’ Risk Insurance for Steel-Framed Homes: Coverage Basics",
+      "title": "How Fire-Resistive Home Construction Can Affect Insurance Costs",
       "scheduledDate": "2026-10-30",
       "clusterName": "Quote and cost evaluation",
-      "audience": "Homeowners and GCs arranging construction-period insurance",
-      "purpose": "Explain the insurance stage and covered-property categories relevant during construction.",
-      "practicalOutput": "A construction-stage coverage table explaining the structure, project materials, locations/timing and policy-dependent covered-loss categories, followed by a clear transition to completed-home insurance.",
-      "scope": "Structure and materials; on-site and transit cover; installed or awaiting-installation equipment; covered causes and project duration; policy-specific scope; distinction from completed-home insurance."
+      "audience": "Homeowners evaluating insurance for a new home or wildfire rebuild",
+      "purpose": "Explain how complete-home construction, documented resilience measures and insurer-recognized classifications can affect homeowners’ insurance costs.",
+      "practicalOutput": "A homeowner guide connecting construction features, supporting documentation and insurer assessment, with a clear explanation of Wheeler’s contribution within the complete home.",
+      "scope": "Homeowners’ insurance rather than construction-period builders’ risk. Explain construction-related underwriting factors and potential premium benefits using current, supported information. Steel framing alone does not establish a discount, coverage eligibility or whole-home classification. Keep program qualification, the IBHS application and actual quote comparison in their separate articles."
     },
     {
       "id": "8ba5c5fd-cfaa-4882-b8b1-277490fd59b2",
@@ -234,13 +234,13 @@
     },
     {
       "id": "8f9d5066-638d-436e-9757-91ff87f11cf4",
-      "title": "Comparing Insurance Quotes for a Wood- or Steel-Framed Home",
+      "title": "Comparing Home Insurance Quotes for Steel- and Wood-Framed Homes",
       "scheduledDate": "2026-11-18",
       "clusterName": "Quote and cost evaluation",
-      "audience": "Homeowners comparing property-specific insurance costs",
-      "purpose": "Compare actual completed-home insurance quotations for the same property with different approved construction descriptions.",
-      "practicalOutput": "A policy-comparison worksheet matching property, reconstruction-value basis, coverage limits, deductibles, exclusions, period, mitigation evidence and total quoted premium.",
-      "scope": "Record the construction description accepted by each insurer; hold coverage and deductible assumptions consistent; distinguish total premium from any wildfire component; reconcile terms and remaining coverage differences; record quote dates and continuing conditions."
+      "audience": "Homeowners comparing written insurance quotations for the same property",
+      "purpose": "Help homeowners compare actual insurance offers on equivalent terms and identify differences in coverage, deductibles and total cost.",
+      "practicalOutput": "A side-by-side policy comparison worksheet recording reconstruction value, coverage limits, deductibles, exclusions, premium, quotation date and assumptions still to confirm with the insurer.",
+      "scope": "Use actual written quotes or clearly labeled blank input fields. Match property and coverage assumptions, identify remaining differences and distinguish total premium from a wildfire-related component. This is a practical quote-comparison task; do not repeat October 30’s construction-and-underwriting explanation, program eligibility guidance or designation requirements. Do not invent prices or promise steel-only savings."
     },
     {
       "id": "84cc2a24-88a6-4033-847d-264e5c588597",
