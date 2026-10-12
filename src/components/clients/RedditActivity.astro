@@ -1,0 +1,38 @@
+---
+import { redditActivity } from '../../lib/clients/wheeler-reddit';
+---
+<div class="reddit-activity">
+  <header class="workspace-heading reddit-heading">
+    <div><p class="eyebrow">COMMUNITY VISIBILITY</p><h1>Reddit AI Agent</h1></div>
+    <div class="reddit-log-count"><strong>{redditActivity.length}</strong><span>replies logged</span></div>
+  </header>
+  <p class="reddit-intro">Finds relevant Reddit posts and answers buyer questions to strengthen Wheeler’s brand presence and support its visibility in Google Search and AI engines.</p>
+  <aside class="reddit-context-note"><span aria-hidden="true">◎</span><p><strong>Relevance sets the pace.</strong> Activity is capped by the number of threads that genuinely fit Wheeler’s business context.</p></aside>
+  <div class="reddit-timeline-heading"><h2>Threads &amp; replies</h2><span>Posted activity</span></div>
+  <ol class="reddit-timeline" aria-label="Reddit threads found and replied to">
+    {redditActivity.map((item,index) => <li>
+      <span class="reddit-timeline-node" aria-hidden="true"><img src="/platforms/reddit.svg" width="20" height="20" alt="" /></span>
+      <article class="reddit-entry" aria-labelledby={`reddit-heading-${item.id}`}>
+        <header class="reddit-entry-header">
+          <div><div class="reddit-entry-meta"><span>{String(index+1).padStart(2,'0')}</span><strong>{item.subreddit}</strong></div><h3 id={`reddit-heading-${item.id}`}>{item.title}</h3><p class="reddit-thread-context">{item.context}</p></div>
+          <a class="reddit-thread-link" href={item.url} target="_blank" rel="noopener noreferrer" aria-label={`Open Reddit thread: ${item.title}`}>Open thread <span aria-hidden="true">↗</span></a>
+        </header>
+        <div class="reddit-entry-progress" aria-label="Thread found and reply posted"><span><span aria-hidden="true">✓</span> Thread found</span><span class="reddit-progress-connector" aria-hidden="true"></span><span><span aria-hidden="true">✓</span> Reply posted</span></div>
+        <section class="reddit-posted-reply" aria-labelledby={`reddit-reply-${item.id}`}><h4 id={`reddit-reply-${item.id}`}>Our reply</h4><blockquote>{item.reply.map(paragraph => <p>{paragraph}</p>)}</blockquote></section>
+      </article>
+    </li>)}
+  </ol>
+</div>
+<style>
+.reddit-activity{max-width:1120px;margin:auto;}
+.reddit-heading{margin-bottom:12px;}.reddit-heading .eyebrow{margin-bottom:12px;}.reddit-heading h1{margin-bottom:0;}
+.reddit-log-count{display:flex;align-items:center;gap:12px;flex:none;}.reddit-log-count strong{font-size:32px;color:var(--green);line-height:1;}.reddit-log-count span{font-size:13px;color:var(--muted);}
+.reddit-intro{max-width:760px;color:var(--muted);font-size:16px;margin-top:20px!important;}
+.reddit-context-note{display:flex;align-items:flex-start;gap:12px;padding:16px 20px;background:#e6ece6;border:1px solid var(--line);border-radius:8px;margin:24px 0 36px;font-size:13px;}.reddit-context-note>span{font-size:20px;color:var(--green);line-height:1.3;}.reddit-context-note strong{color:var(--green);}
+.reddit-timeline-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px;}.reddit-timeline-heading h2{font-size:22px;}.reddit-timeline-heading>span{font-size:12px;color:var(--muted);}
+.reddit-timeline{list-style:none;margin:0;padding:0;}.reddit-timeline>li{position:relative;padding-left:56px;padding-bottom:28px;}.reddit-timeline>li:not(:last-child)::before{content:'';position:absolute;left:17px;top:36px;bottom:0;width:1px;background:var(--line);}.reddit-timeline-node{position:absolute;left:0;top:24px;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:#d7430c;}.reddit-timeline-node img{display:block;}
+.reddit-entry{background:white;border:1px solid var(--line);border-radius:8px;overflow:hidden;}.reddit-entry-header{display:flex;justify-content:space-between;align-items:start;gap:24px;padding:24px;}.reddit-entry-header>div{min-width:0;}.reddit-entry-meta{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--green);margin-bottom:12px;}.reddit-entry-meta>span{color:var(--muted);}.reddit-entry h3{font-size:22px;line-height:1.35;}.reddit-thread-context{font-size:12px;color:var(--muted);margin-top:12px!important;}.reddit-thread-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;flex:none;padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:12px;font-weight:500;text-decoration:none;}.reddit-thread-link:active{transform:translateY(1px);}
+.reddit-entry-progress{display:flex;align-items:center;gap:12px;padding:12px 24px;background:#f2f5f1;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:12px;color:var(--green);}.reddit-entry-progress>span:not(.reddit-progress-connector){display:flex;align-items:center;gap:8px;}.reddit-progress-connector{width:28px;height:1px;background:#9eb4a5;}
+.reddit-posted-reply{padding:24px;}.reddit-posted-reply h4{font-size:12px;font-weight:600;color:var(--green);margin-bottom:16px;}.reddit-posted-reply blockquote{margin:0;max-width:80ch;font-size:14px;line-height:1.8;}.reddit-posted-reply blockquote p+p{margin-top:16px;}
+@media(max-width:600px){.reddit-heading{display:flex;gap:16px;align-items:start;}.reddit-log-count{flex-direction:column;align-items:end;gap:4px;}.reddit-log-count strong{font-size:24px;}.reddit-log-count span{font-size:11px;white-space:nowrap;}.reddit-intro{font-size:14px;}.reddit-context-note{padding:16px;margin-bottom:28px;}.reddit-timeline>li{padding-left:24px;padding-bottom:20px;}.reddit-timeline-node{width:20px;height:20px;top:20px;}.reddit-timeline-node img{width:14px;height:14px;}.reddit-timeline>li:not(:last-child)::before{left:9px;top:40px;}.reddit-entry-header{padding:20px;flex-direction:column;gap:16px;}.reddit-entry h3{font-size:20px;}.reddit-thread-link{width:100%;}.reddit-entry-progress{padding:12px 20px;gap:8px;font-size:11px;}.reddit-progress-connector{width:16px;}.reddit-posted-reply{padding:20px;}.reddit-posted-reply blockquote{font-size:14px;}.reddit-timeline-heading>span{display:none;}}
+</style>

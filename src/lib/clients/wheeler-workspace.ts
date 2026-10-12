@@ -114,11 +114,12 @@ document.querySelectorAll<HTMLAnchorElement>('.backlink-audit a[href^="#backlink
 const sectionLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-workspace-section]'));
 function selectWorkspaceSection() {
   if (location.hash.startsWith('#backlink-opportunit')) selectBacklinkTab(backlinkTabs[1]);
-  const section = location.hash === '#backlinks' || location.hash.startsWith('#backlink-') ? 'backlinks' : 'content';
+  const section = location.hash === '#reddit' ? 'reddit' : location.hash === '#backlinks' || location.hash.startsWith('#backlink-') ? 'backlinks' : 'content';
   document.body.classList.toggle('backlink-view', section === 'backlinks');
   document.querySelector<HTMLElement>('#workspace-section-content')!.hidden = section !== 'content';
   document.querySelector<HTMLElement>('#workspace-section-backlinks')!.hidden = section !== 'backlinks';
-  document.querySelector('#workspace-section-label')!.textContent = section === 'backlinks' ? 'Backlinks' : 'Content';
+  document.querySelector<HTMLElement>('#workspace-section-reddit')!.hidden = section !== 'reddit';
+  document.querySelector('#workspace-section-label')!.textContent = section === 'reddit' ? 'Reddit AI Agent' : section === 'backlinks' ? 'Backlinks' : 'Content';
   sectionLinks.forEach(link => {
     const active = link.dataset.workspaceSection === section;
     link.classList.toggle('active', active);
