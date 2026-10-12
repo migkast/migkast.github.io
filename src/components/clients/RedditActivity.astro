@@ -22,9 +22,11 @@ import { redditActivity } from '../../lib/clients/wheeler-reddit';
       </article>
     </li>)}
   </ol>
+  <footer class="reddit-writing-note"><p><strong>Written for the conversation.</strong> Replies use a natural, conversational tone suited to each thread and subreddit, rather than polished marketing copy. The priority is to answer the question, mention Wheeler where relevant and keep claims accurate.</p></footer>
 </div>
 <style>
 .reddit-activity{max-width:1120px;margin:auto;}
+.reddit-writing-note{border-top:1px solid var(--line);padding-top:20px;font-size:13px;color:var(--muted);}.reddit-writing-note strong{color:var(--ink);}
 .reddit-heading{margin-bottom:12px;}.reddit-heading .eyebrow{margin-bottom:12px;}.reddit-heading h1{margin-bottom:0;}
 .reddit-log-count{display:flex;align-items:center;gap:12px;flex:none;}.reddit-log-count strong{font-size:32px;color:var(--green);line-height:1;}.reddit-log-count span{font-size:13px;color:var(--muted);}
 .reddit-intro{max-width:760px;color:var(--muted);font-size:16px;margin-top:20px!important;}
