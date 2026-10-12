@@ -156,6 +156,15 @@ function renderBacklinks() {
     badge.textContent = status;
     badge.className = `audit-status ${done ? 'done' : status === 'No action' ? 'no-action' : status === 'Open' ? 'open' : 'check'}`;
   });
+  const tableBody = document.querySelector<HTMLElement>('.audit-opportunity-table tbody')!;
+  const focused = document.activeElement as HTMLElement | null;
+  const rows = Array.from(tableBody.querySelectorAll<HTMLTableRowElement>('[data-backlink-id]'));
+  rows.sort((a,b) => Number(b.dataset.backlinkStatus === 'Done') - Number(a.dataset.backlinkStatus === 'Done') || Number(a.dataset.backlinkOrder) - Number(b.dataset.backlinkOrder));
+  rows.forEach((row,index) => {
+    if (tableBody.children[index] !== row) tableBody.insertBefore(row, tableBody.children[index] || null);
+    row.querySelector<HTMLElement>('.audit-number')!.textContent = String(index+1).padStart(2,'0');
+  });
+  if (focused && tableBody.contains(focused) && document.activeElement !== focused) focused.focus({preventScroll:true});
   filterBacklinks();
 }
 document.querySelectorAll<HTMLInputElement>('[data-backlink-checkbox]').forEach(checkbox => {

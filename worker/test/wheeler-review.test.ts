@@ -68,18 +68,18 @@ describe('Wheeler shared approvals', () => {
     expect((await app.request('review', 'POST', decision('article:' + crypto.randomUUID()), token)).status).toBe(400);
   });
 
-  it('shares backlink completion and reopening while preserving feedback', async () => {
+  it.each([1,20,21])('shares backlink %s completion and reopening while preserving feedback', async (backlinkId) => {
     const app = setup(), token = await app.login();
     await app.request('review', 'POST', decision(key1, 'Keep this feedback.', 'changes'), token);
     for (const done of [true, false]) {
-      const operation = { id: crypto.randomUUID(), reviewer: 'Stacie Morris', change: { kind: 'backlink', id: 1, done } };
+      const operation = { id: crypto.randomUUID(), reviewer: 'Stacie Morris', change: { kind: 'backlink', id: backlinkId, done } };
       expect((await app.request('review', 'POST', operation, token)).status).toBe(201);
       const response = await app.request('review', 'GET', undefined, await app.login());
       const state = reduceReview((await response.json() as { events: ReviewEvent[] }).events);
-      expect(state.backlinks['1']).toBe(done);
+      expect(state.backlinks[String(backlinkId)]).toBe(done);
       expect(state.decisions[key1]?.note).toBe('Keep this feedback.');
     }
-    for (const change of [{ kind: 'backlink', id: 20, done: true }, { kind: 'backlink', id: 1, done: 'yes' }]) {
+    for (const change of [{ kind: 'backlink', id: 22, done: true }, { kind: 'backlink', id: 1, done: 'yes' }]) {
       expect((await app.request('review', 'POST', { id: crypto.randomUUID(), reviewer: 'Miguel', change }, token)).status).toBe(400);
     }
   });

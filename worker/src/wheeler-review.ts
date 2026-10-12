@@ -108,7 +108,7 @@ function validateOperation(input: Record<string, unknown>): ReviewOperation {
     return { ...base, change: { kind: 'decision', key: change.key, status: change.status as 'pending' | 'approved' | 'changes' | 'hold', note: change.note.trim() } };
   }
   if (change?.kind === 'backlink') {
-    if (typeof change.id !== 'number' || !Number.isInteger(change.id) || change.id < 1 || change.id > 19 || typeof change.done !== 'boolean') throw new HttpError(400, 'Invalid backlink completion');
+    if (typeof change.id !== 'number' || !Number.isInteger(change.id) || change.id < 1 || change.id > 21 || typeof change.done !== 'boolean') throw new HttpError(400, 'Invalid backlink completion');
     return { ...base, change: { kind: 'backlink', id: change.id, done: change.done } };
   }
   if (change?.kind === 'idea') {
