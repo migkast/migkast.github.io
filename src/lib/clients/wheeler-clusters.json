@@ -1,13 +1,13 @@
 {
   "version": "2026-09-30-v1",
-  "updated": "8 October 2026",
+  "updated": "12 October 2026",
   "clusters": [
     {
       "key": "project-specific-package-handoffs",
       "name": "Building with steel for GCs",
       "shortName": "Building with steel for GCs",
       "summary": "Help general contractors evaluate residential steel, prepare their crews and manage a project with Wheeler framing.",
-      "purpose": "The GC introduction is scheduled October 8, crew preparation October 12 and first-job readiness October 19. Later articles cover finish coordination, panelized-project integration and resource tracking.",
+      "purpose": "The GC introduction and crew preparation lead into high-level first-project planning. Later articles cover material movement and finishes, complementary panelized construction, and waste and delivery measurements without exposing proprietary methods.",
       "audiences": [
         "General contractors",
         "Custom-home builders",
@@ -16,10 +16,10 @@
       "jobs": [
         "Decide whether adding project-specific residential steel framing is a suitable option for the GC’s work.",
         "Prepare a wood-framing crew to understand the material-specific knowledge required for cold-formed steel.",
-        "Confirm the actual project is ready for framing delivery and crew assembly.",
-        "Understand how the chosen framing material affects dimensional consistency and coordination of finished surfaces.",
-        "Explain the roles and information needed when custom framing complements a panelized approach.",
-        "Track framing resource use during the job so delivery, waste and cleanup performance can be evaluated consistently."
+        "Give general contractors a high-level overview of the coordination needed before their first residential steel-framing project.",
+        "Explain framing-material behavior and its relevance to finished surfaces.",
+        "Explain the complementary use of Wheeler’s custom framing alongside panelized construction that Stacie described.",
+        "Explain useful measurements for assessing framing waste and deliveries."
       ],
       "stages": [],
       "coverage": "approved",
@@ -47,7 +47,7 @@
         },
         {
           "id": "d71ccbd9-4c61-40b6-abdc-a48543fd7718",
-          "title": "First Residential Steel-Framing Job: A Site-Readiness Checklist",
+          "title": "Planning Your First Residential Steel-Framing Project",
           "date": "2026-10-19",
           "status": "planned",
           "audience": "GCs planning their first residential steel job",
@@ -56,7 +56,7 @@
         },
         {
           "id": "4efec579-2af8-43dd-a5df-e970ae5e91fd",
-          "title": "Wood vs. Steel Framing: Material Stability and Finish Coordination",
+          "title": "Wood vs. Steel Framing: How Material Movement Affects Finishes",
           "date": "2026-11-09",
           "status": "planned",
           "audience": "General contractors and custom-home builders coordinating material selection and finished surfaces",
@@ -65,7 +65,7 @@
         },
         {
           "id": "c711725e-ccf0-4c23-8f45-257d1d7f273d",
-          "title": "Custom Steel Framing in Panelized Homes: Scope and Coordination",
+          "title": "How Wheeler’s Custom Steel Framing Can Complement Panelized Construction",
           "date": "2026-11-20",
           "status": "planned",
           "audience": "GCs coordinating custom requirements alongside panelized work",
@@ -74,7 +74,7 @@
         },
         {
           "id": "1cd2bfae-9187-4cba-b5e6-a274652af714",
-          "title": "Steel Framing Waste and Deliveries: A Contractor’s Tracking Guide",
+          "title": "Tracking Waste and Deliveries on a Steel-Framing Project",
           "date": "2026-11-27",
           "status": "planned",
           "audience": "General contractors managing residential framing deliveries, site waste and hauling",
@@ -99,8 +99,8 @@
       ],
       "jobs": [
         "Explain the differences between material, off-site preparation and whole-home delivery methods.",
-        "Provide a supplier-fit comparison matrix tied to an actual residential design.",
-        "Explain what each credential establishes and how to verify the relevant party."
+        "Help custom-home owners and builders evaluate a framing supplier’s suitability for their project.",
+        "Help homeowners verify relevant documents and understand what each credential establishes."
       ],
       "stages": [],
       "coverage": "approved",
@@ -119,7 +119,7 @@
         },
         {
           "id": "a50fa511-f913-4f30-9793-17e89d7d479b",
-          "title": "Selecting a Steel Framing Supplier for a Los Angeles Custom Home",
+          "title": "Selecting a Supplier to Frame Your Los Angeles Custom Home",
           "date": "2026-10-28",
           "status": "planned",
           "audience": "Custom-home owners and builders preparing a supplier shortlist",
@@ -128,7 +128,7 @@
         },
         {
           "id": "c49b484a-97d1-46e1-b37a-337b674a7426",
-          "title": "Steel Framing Credentials: Product and Contractor Verification",
+          "title": "Choosing a Framing Supplier: Checking Certifications and Credentials",
           "date": "2026-11-30",
           "status": "planned",
           "audience": "Homeowners evaluating evidence supplied by project participants",
@@ -153,8 +153,8 @@
       "jobs": [
         "Explain the material and planning factors that shape a rebuild framing decision.",
         "Record the whole-home resilience decisions and evidence a homeowner’s rebuild team must coordinate alongside the steel framing.",
-        "Plan and complete the whole-property measures needed for an IBHS Wildfire Prepared Home designation.",
-        "Explain which party leads each design, supply and construction responsibility."
+        "Explain the requirements and process for this specific whole-property designation.",
+        "Help homeowners understand the roles of the architect, engineer, builder, framing supplier and installing crew."
       ],
       "stages": [],
       "coverage": "approved",
@@ -191,7 +191,7 @@
         },
         {
           "id": "38c8b034-0983-451c-a9e8-8f5b1a0fa9bc",
-          "title": "Wildfire Rebuild Team: Design, Construction and Framing Roles",
+          "title": "Who Does What on a Wildfire Rebuild?",
           "date": "2026-11-06",
           "status": "planned",
           "audience": "Homeowners assembling a rebuild team",
@@ -208,18 +208,18 @@
       "name": "Architect and builder design coordination",
       "shortName": "Architect and builder design coordination",
       "summary": "Help architects and builders coordinate the information needed for project-specific residential steel framing and custom geometry.",
-      "purpose": "Five distinct design tasks cover team inputs, open-plan layouts, complex roofs, hillside access and curved designs.",
+      "purpose": "An approachable Wheeler process walkthrough and distinct design articles cover custom-home layouts, complex roofs, hillside access and curved architectural features.",
       "audiences": [
         "Custom-home architects",
         "Structural engineers",
         "Custom-home builders"
       ],
       "jobs": [
-        "Provide a design-stage input and responsibility matrix.",
-        "Explain how architectural openness and the engineered framing are coordinated.",
-        "Explain the information flow for a custom roof design without component fabrication instructions.",
-        "Explain how access and site logistics connect to framing planning.",
-        "Explain the architectural information needed to evaluate nonstandard forms."
+        "Explain Wheeler’s customer process through an inviting, plain-language walkthrough.",
+        "Explain how a custom home’s layout, openings, service routes and finishes are coordinated with project-specific steel framing.",
+        "Explain coordination of roof geometry, room volumes, services and finishes at design level.",
+        "Explain high-level access and delivery considerations for constrained hillside residential sites.",
+        "Discuss overall architectural possibilities and the design coordination needed to evaluate them."
       ],
       "stages": [],
       "coverage": "approved",
@@ -229,7 +229,7 @@
       "topics": [
         {
           "id": "0737f9c8-d435-4b62-83f1-1b663ae7755d",
-          "title": "Custom-Home Steel Framing: Design Inputs and Team Responsibilities",
+          "title": "How a Custom-Home Steel Framing Project Comes Together",
           "date": "2026-10-21",
           "status": "planned",
           "audience": "Architects, engineers and custom-home builders",
@@ -238,7 +238,7 @@
         },
         {
           "id": "823d9903-1aac-41c7-9e5d-019f8ce2d355",
-          "title": "Steel Framing for Open-Plan Homes: Layout and Trade Coordination",
+          "title": "Steel Framing for Custom Homes",
           "date": "2026-10-26",
           "status": "planned",
           "audience": "Architects and builders designing open-plan homes",
@@ -265,7 +265,7 @@
         },
         {
           "id": "4ce15d08-c5e8-4824-9e60-1a3fda60c032",
-          "title": "Curved Steel Framing: Preparing a Custom-Home Design Brief",
+          "title": "Planning Curves and Custom Architectural Features with Steel Framing",
           "date": "2026-11-16",
           "status": "planned",
           "audience": "Architects developing unusual residential geometry",
@@ -291,8 +291,8 @@
       ],
       "jobs": [
         "Clearly distinguish the three performance and classification concepts.",
-        "Provide a document-purpose and responsibility matrix distinct from the fire terminology explainer.",
-        "Explain the complete exterior-wall performance interfaces at a general design level."
+        "Explain what relevant documents establish and who provides or reviews them.",
+        "Explain whole-wall performance at a general design level."
       ],
       "stages": [],
       "coverage": "approved",
@@ -311,7 +311,7 @@
         },
         {
           "id": "9491a14d-12e2-4a69-8afb-57c085df6412",
-          "title": "Fire and Code Documentation for Steel-Framed Homes",
+          "title": "Steel-Framed Homes: Understanding Fire and Building Code Documents",
           "date": "2026-11-12",
           "status": "planned",
           "audience": "Architects and builders organizing project evidence",
@@ -345,13 +345,13 @@
       ],
       "jobs": [
         "Normalize two or more actual framing proposals for the same approved home design.",
-        "Compare the initial installed framing budget for equivalent engineered wood and steel designs.",
-        "Understand published California wildfire discount opportunities and calculate the premium component to which they apply.",
+        "Compare equivalent residential installation costs across wood, cold-formed steel and a clearly identified concrete system.",
+        "Help homeowners understand available wildfire-insurance programs and how to pursue qualification.",
         "Explain how complete-home construction, documented resilience measures and insurer-recognized classifications can affect homeowners’ insurance costs.",
-        "Build a transparent post-occupancy cost comparison using the owner’s estimates and dated property-specific quotations.",
-        "Understand how the stated commercial terms of one framing proposal determine the price boundary and later adjustments.",
+        "Explain initial and ongoing ownership-cost categories and the assumptions needed for a useful comparison.",
+        "Explain individual quotation terms and how they affect the price boundary.",
         "Help homeowners compare actual insurance offers on equivalent terms and identify differences in coverage, deductibles and total cost.",
-        "Interpret Wheeler’s three reported residential dollar-savings examples by keeping each project and comparison baseline separate."
+        "Explain three supported Wheeler-reported project comparisons without blending their baselines."
       ],
       "stages": [],
       "coverage": "approved",
@@ -370,7 +370,7 @@
         },
         {
           "id": "b35e5a60-6923-4dbc-9c43-7c3f7d01f774",
-          "title": "Steel vs. Wood Framing Costs: Comparing the Installed Budget",
+          "title": "Steel vs. Wood vs. Concrete: Comparing Installation Costs",
           "date": "2026-10-14",
           "status": "planned",
           "audience": "Owners and builders comparing framing materials",
@@ -379,7 +379,7 @@
         },
         {
           "id": "9d93fc4d-a219-4010-a896-d9ff6a2108d2",
-          "title": "California Wildfire Insurance Discounts: Programs and Calculations",
+          "title": "Qualifying for California Wildfire Insurance Discounts",
           "date": "2026-10-22",
           "status": "planned",
           "audience": "Homeowners budgeting wildfire insurance",
@@ -397,7 +397,7 @@
         },
         {
           "id": "8ba5c5fd-cfaa-4882-b8b1-277490fd59b2",
-          "title": "Wood vs. Steel Framing: A Long-Term Cost Worksheet",
+          "title": "Wood vs. Steel Framing: Comparing Long-Term Ownership Costs",
           "date": "2026-11-02",
           "status": "planned",
           "audience": "Owners evaluating costs after occupancy",
@@ -406,7 +406,7 @@
         },
         {
           "id": "ae195cc7-7470-4114-9c77-b4021ac3c63d",
-          "title": "Steel Framing Proposal Terms: Allowances, Exclusions and Revisions",
+          "title": "Understanding Steel Framing Quotes: Allowances, Exclusions and Changes",
           "date": "2026-11-11",
           "status": "planned",
           "audience": "Builders and owners evaluating financial proposal terms",
@@ -424,7 +424,7 @@
         },
         {
           "id": "c3168124-e85c-490c-bfd1-df2b29cf6cb0",
-          "title": "Wheeler’s Reported Steel Framing Savings: Three Project Comparisons",
+          "title": "Steel Framing Cost Savings: Three Wheeler Project Comparisons",
           "date": "2026-11-23",
           "status": "planned",
           "audience": "Owners and builders assessing reported cost examples",

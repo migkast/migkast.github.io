@@ -1,4 +1,4 @@
-import { resolvedFeedback } from './wheeler-content-updates';
+import { resolvedFeedback, feedbackResolutionLabel } from './wheeler-content-updates';
 import type { ReviewChange, SharedReviewState } from './wheeler-review';
 import type { SyncStatus } from './wheeler-review-sync';
 export function initCalendarReview(queue: (change: ReviewChange) => void, pending: (key: string) => boolean, retry: () => void) {
@@ -44,7 +44,9 @@ export function initCalendarReview(queue: (change: ReviewChange) => void, pendin
     if (status !== 'pending') reviewed++;
     const badge = row.querySelector<HTMLElement>('[data-topic-status]')!;
     const answer = resolvedFeedback(key, decision);
-    row.querySelector<HTMLElement>('[data-feedback-resolved]')!.hidden = !answer;
+    const feedbackLabel = row.querySelector<HTMLElement>('[data-feedback-resolved]')!;
+    feedbackLabel.hidden = !answer;
+    feedbackLabel.textContent = feedbackResolutionLabel(key);
     row.querySelector<HTMLElement>('[data-feedback-answer]')!.hidden = !answer;
     row.querySelector<HTMLElement>('[data-feedback-answer-text]')!.textContent = answer || '';
     badge.dataset.state = status;
