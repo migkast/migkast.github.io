@@ -97,3 +97,8 @@
 .ai-answer-body th,.ai-answer-body td{border:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top;min-width:160px;line-height:1.6;}.ai-answer-body th{background:#eaf0ec;font-weight:600;}.ai-answer-body tr:nth-child(even) td{background:#f7f9f7;}
 .ai-answer-body blockquote{border-left:3px solid var(--line);padding-left:16px;margin:20px 0;color:var(--muted);}.ai-answer-body code{font-size:12px;background:#e9eeea;padding:2px 4px;}.ai-answer-body pre{background:#edf1ee;padding:16px;border-radius:8px;overflow:auto;}.ai-answer-body hr{border:0;border-top:1px solid var(--line);margin:24px 0;}
 @media(max-width:600px){#ai-view-0 .visibility-chart svg{height:190px;}.ai-answer-body table{font-size:12px;}.ai-answer-body th,.ai-answer-body td{padding:10px;}}
+/* Canvas charts fill their container without shrinking their label typography. */
+.visibility-plot{position:relative;width:100%;min-width:0;height:300px;background:#f7f9f8;border:1px solid #e3e9e5;border-radius:8px;padding:12px;margin:8px 0 16px;}
+#ai-view-2 .visibility-plot{grid-column:2;grid-row:3;height:320px;align-self:center;margin:0;}
+.ai-prompt-competitors .ai-competitor-initial{display:block;width:auto;height:auto;max-width:90px;border:0;border-radius:0;background:transparent;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;font-weight:400;}
+@media(max-width:700px){.visibility-plot,#ai-view-2 .visibility-plot{height:260px;padding:8px;margin-top:16px;}}
