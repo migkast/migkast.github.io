@@ -1,0 +1,31 @@
+---
+import { percentage } from '../../lib/clients/wheeler-visibility';
+interface Props { id:string; title:string; description:string; dates:string[]; latestLegend?:boolean; series:{key:string;label:string;icon?:string;own?:boolean;color:string;counts:number[];total:number}[] }
+const {id,title,description,dates,series,latestLegend=false}=Astro.props;
+const y=(value:number)=>210-value*1.65;
+---
+<section id={id} class="visibility-chart" aria-labelledby={`${id}-title`}>
+ <h2 id={`${id}-title`}>{title}</h2><p>{description}</p>
+ <svg viewBox="0 0 640 260" role="img" aria-labelledby={`${id}-title ${id}-description`}>
+  <desc id={`${id}-description`}>Two test snapshots. Exact values for each series are listed below the chart.</desc>
+  {[0,25,50,75,100].map(value=><g><line x1="64" x2="574" y1={y(value)} y2={y(value)} stroke="#dbe2dc" /><text x="52" y={y(value)+4} text-anchor="end" fill="#46534b" font-size="12">{value}%</text></g>)}
+  {[...series].sort((a,b)=>Number(a.own||false)-Number(b.own||false)).map(item=><g data-chart-series={item.key}><line x1="84" x2="556" y1={y(percentage(item.counts[0],item.total))} y2={y(percentage(item.counts[1],item.total))} stroke={item.color} stroke-width={item.own?5:3} />{item.counts.map((count,index)=><circle cx={index===0?84:556} cy={y(percentage(count,item.total))} r={item.own?6:5} fill={item.color} stroke="white" stroke-width="2"><title>{item.label}: {count} of {item.total} answers ({percentage(count,item.total)}%) on {dates[index]}</title></circle>)}</g>)}
+  <text x="84" y="240" text-anchor="middle" fill="#46534b" font-size="13">{dates[0]}</text><text x="556" y="240" text-anchor="middle" fill="#46534b" font-size="13">{dates[1]}</text>
+ </svg>
+ <div class="visibility-chart-legend" aria-label={`${title} series`}>{latestLegend&&<button type="button" class="ai-chart-all" data-chart-all aria-pressed="true">All companies</button>}{series.map(item=><button type="button" class={item.own?'ai-chart-own':undefined} data-chart-toggle={item.key} aria-pressed="true"><span class="visibility-swatch" style={`background:${item.color}`} aria-hidden="true"></span><span><strong>{item.icon&&<img class="ai-engine-logo" src={item.icon} alt="" width="20" height="20" />}{item.label}{item.own&&<span class="ai-your-brand">YOUR BRAND</span>}</strong><small>{latestLegend?<>{percentage(item.counts[item.counts.length-1],item.total)}% <span>({item.counts[item.counts.length-1]} of {item.total})</span></>:<>{percentage(item.counts[0],item.total)}% → {percentage(item.counts[1],item.total)}%</>}</small></span></button>)}</div>
+</section>
+<script>
+ document.querySelectorAll<HTMLElement>('.visibility-chart').forEach(chart=>{
+  const buttons=Array.from(chart.querySelectorAll<HTMLButtonElement>('[data-chart-toggle]'));
+  function select(key?:string){
+   buttons.forEach(button=>{
+    const active=!key||button.dataset.chartToggle===key;
+    button.setAttribute('aria-pressed',String(active));
+    chart.querySelector<SVGGElement>(`[data-chart-series="${button.dataset.chartToggle}"]`)!.style.display=active?'':'none';
+   });
+   chart.querySelector('[data-chart-all]')?.setAttribute('aria-pressed',String(!key));
+  }
+  buttons.forEach(button=>button.addEventListener('click',()=>select(button.dataset.chartToggle)));
+  chart.querySelector('[data-chart-all]')?.addEventListener('click',()=>select());
+ });
+</script>

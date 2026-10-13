@@ -1,0 +1,3 @@
+AI engine marks from LobeHub Icons (MIT licensed): https://github.com/lobehub/lobe-icons
+Static SVG package: https://unpkg.com/@lobehub/icons-static-svg@latest/icons/
+OpenAI: openai.svg; Claude: claude-color.svg; Gemini: gemini-color.svg; Perplexity: perplexity-color.svg
