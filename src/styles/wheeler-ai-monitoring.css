@@ -102,3 +102,6 @@
 #ai-view-2 .visibility-plot{grid-column:2;grid-row:3;height:320px;align-self:center;margin:0;}
 .ai-prompt-competitors .ai-competitor-initial{display:block;width:auto;height:auto;max-width:90px;border:0;border-radius:0;background:transparent;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;font-weight:400;}
 @media(max-width:700px){.visibility-plot,#ai-view-2 .visibility-plot{height:260px;padding:8px;margin-top:16px;}}
+
+/* Six prompt columns after removing the competitor preview. */
+.ai-prompt-table thead th:first-child{width:39%;}.ai-prompt-table thead th:nth-child(2){width:9%;}.ai-prompt-table thead th:nth-child(3){width:20%;}.ai-prompt-table thead th:nth-child(4){width:9%;}.ai-prompt-table thead th:nth-child(5){width:10%;}.ai-prompt-table thead th:nth-child(6){width:13%;}
