@@ -1,6 +1,6 @@
 import { engines, type Engine } from './wheeler-visibility';
-// The answer payload lives in inert JSON. Render untrusted AI text with textContent only.
-type Answer = {answer:string;appears:boolean;rank:number|null;model:string;identity:{verdict:string;reason:string};citations:{url:string;title:string;domain:string}[]};
+// Answer HTML is rendered and sanitized at build time; other model text uses textContent.
+type Answer = {answer:string;renderedAnswer:string;appears:boolean;rank:number|null;model:string;identity:{verdict:string;reason:string};citations:{url:string;title:string;domain:string}[]};
 type Prompt = {prompt:string;recordedAt:string;results:Record<Engine,Answer>};
 const root=document.querySelector<HTMLElement>('.ai-monitoring')!;
 const prompts=JSON.parse(root.querySelector('#ai-monitoring-data')!.textContent!) as Prompt[];
@@ -29,7 +29,7 @@ root.querySelectorAll<HTMLButtonElement>('[data-ai-open]').forEach(button=>butto
  row.querySelector('[data-ai-answer-meta]')!.textContent=`Recorded ${date} · Model: ${answer.model} · ${answer.rank===null?'No comparison rank recorded':`Recorded rank: ${answer.rank}`}`;
  row.querySelector('[data-ai-identity-label]')!.textContent=answer.appears?'Mentioned':'Not mentioned';
  row.querySelector('[data-ai-identity-reason]')!.textContent=answer.identity.reason;
- row.querySelector('[data-ai-answer-text]')!.textContent=answer.answer;
+ row.querySelector('[data-ai-answer-text]')!.innerHTML=answer.renderedAnswer;
  const sources=row.querySelector('[data-ai-answer-sources]')!;sources.replaceChildren();
  for(const citation of answer.citations){if(!/^https?:\/\//i.test(citation.url))continue;const li=document.createElement('li'),a=document.createElement('a');a.href=citation.url;a.textContent=citation.title;a.target='_blank';a.rel='noopener noreferrer';li.append(a);sources.append(li);}
  row.querySelector<HTMLElement>('[data-ai-no-sources]')!.hidden=sources.children.length>0;

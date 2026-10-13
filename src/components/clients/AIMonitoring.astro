@@ -1,5 +1,6 @@
 ---
 import VisibilityChart from './VisibilityChart.astro';
+import { formatRecordedAnswer } from '../../lib/clients/wheeler-answer-format';
 import { engines, visibility, categories, percentage, competitorCounts, identifiedCount } from '../../lib/clients/wheeler-visibility';
 const latest=visibility.runs[visibility.runs.length-1];
 const first=visibility.runs[0];
@@ -47,7 +48,7 @@ const groupedPrompts=Object.keys(categories).flatMap(category=>visibility.latest
  <td class="ai-prompt-citation" title={cited?'Wheeler website appears in saved source links':'No Wheeler website citation in saved source links'}>{cited?'✓ Cited':'−'}</td>
  <td class="ai-prompt-competitors"><div>{prompt.competitors.slice(0,2).map(name=><span title={name} class="ai-competitor-initial">{name.split(' ').map(word=>word[0]).slice(0,2).join('')}</span>)}{prompt.competitors.length>2&&<span class="ai-more-competitors" title={prompt.competitors.slice(2).join(', ')}>+{prompt.competitors.length-2}</span>}{prompt.competitors.length===0&&'−'}</div></td>
  <td class="ai-prompt-date"><span>Last tested</span><time datetime={prompt.recordedAt}>{dates[1]}</time></td>
- <td class="ai-prompt-action"><button type="button" data-ai-open={index} data-ai-engine={firstEngine.id} aria-expanded="false" aria-controls={`ai-answer-${index}`}>See answer</button></td></tr><tr class="ai-answer-row" data-ai-answer-row={index} hidden><td colspan="7"><section class="ai-answer-panel" id={`ai-answer-${index}`} aria-label={`Saved answer for prompt ${index+1}`}><header><div><h3 data-ai-answer-title></h3><p data-ai-answer-meta></p></div><button type="button" data-ai-close={index}>Close answer</button></header><div class="ai-identity-note"><strong data-ai-identity-label></strong><p data-ai-identity-reason></p></div><h4>Full recorded answer</h4><p class="ai-answer-context">AI-generated text from the saved test, not Wheeler-approved claims.</p><pre data-ai-answer-text></pre><section class="ai-answer-sources"><h4>Cited sources</h4><ul data-ai-answer-sources></ul><p data-ai-no-sources hidden>No structured source links were saved for this answer.</p></section></section></td></tr></>;})}</tbody></table></div>
+ <td class="ai-prompt-action"><button type="button" data-ai-open={index} data-ai-engine={firstEngine.id} aria-expanded="false" aria-controls={`ai-answer-${index}`}>See answer</button></td></tr><tr class="ai-answer-row" data-ai-answer-row={index} hidden><td colspan="7"><section class="ai-answer-panel" id={`ai-answer-${index}`} aria-label={`Saved answer for prompt ${index+1}`}><header><div><h3 data-ai-answer-title></h3><p data-ai-answer-meta></p></div><button type="button" data-ai-close={index}>Close answer</button></header><div class="ai-identity-note"><strong data-ai-identity-label></strong><p data-ai-identity-reason></p></div><h4>Full recorded answer</h4><div class="ai-answer-body" data-ai-answer-text></div><section class="ai-answer-sources"><h4>Cited sources</h4><ul data-ai-answer-sources></ul><p data-ai-no-sources hidden>No structured source links were saved for this answer.</p></section></section></td></tr></>;})}</tbody></table></div>
  <p class="ai-empty-results" id="ai-empty-results" hidden>No prompts match these filters.</p>
  </section>
  </section>
@@ -59,7 +60,7 @@ const groupedPrompts=Object.keys(categories).flatMap(category=>visibility.latest
  <p class="ai-chart-method">Visibility is the share of tested answers mentioning a name. Each name counts once per answer; several names can appear together. Names are shown as recorded.</p>
  </section>
  <footer class="ai-monitoring-footer">Results reflect the saved answers in these tests. A mention is not a lead, a quotation or a guaranteed future recommendation.</footer>
- <script is:inline type="application/json" id="ai-monitoring-data" set:html={JSON.stringify(visibility.latestPrompts).replace(/</g,String.fromCharCode(92)+'u003c')}></script>
+ <script is:inline type="application/json" id="ai-monitoring-data" set:html={JSON.stringify(visibility.latestPrompts.map(prompt=>({...prompt,results:Object.fromEntries(engines.map(engine=>[engine.id,{...prompt.results[engine.id],renderedAnswer:formatRecordedAnswer(prompt.results[engine.id].answer)}]))}))).replace(/</g,String.fromCharCode(92)+'u003c')}></script>
 </div>
 <script>
  import '../../lib/clients/wheeler-ai-monitoring';

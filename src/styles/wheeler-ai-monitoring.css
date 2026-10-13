@@ -85,3 +85,15 @@
 .ai-monitoring .ai-chart-all{font-weight:600;border-bottom:1px solid var(--line)!important;border-radius:0!important;margin-bottom:8px;}
 @media(max-width:1100px){.ai-prompt-table tr[data-ai-prompt]{grid-template-columns:1fr 1fr;gap:16px;}.ai-prompt-table tr[data-ai-prompt]>th{grid-column:1/-1;}.ai-prompt-score{grid-column:auto;}.ai-prompt-models{grid-column:2;}.ai-monitoring .ai-model-result{width:36px;height:44px;min-height:44px;border-radius:8px;}.ai-prompt-date{grid-column:auto;}.ai-prompt-action{grid-column:1/-1;}.ai-monitoring .ai-prompt-action button{min-height:44px;}.ai-prompt-citation:before{content:'Citation: ';}.ai-prompt-competitors:before{content:'Competing names';display:block;font-size:10px;color:var(--muted);margin-bottom:6px;}}
 @media(max-width:600px){#ai-view-0 .visibility-chart-legend{grid-template-columns:repeat(2,minmax(0,1fr));}.ai-prompt-table tr[data-ai-prompt]{grid-template-columns:56px minmax(0,1fr);}.ai-prompt-models>div{gap:6px;}.ai-prompt-competitors{grid-column:2;}}
+
+/* Keep two-point charts proportionate to the information they contain. */
+#ai-view-0 .visibility-chart svg{height:230px;width:100%;}
+.ai-monitoring .visibility-chart{padding:20px;}.visibility-chart h2{font-size:18px;}.visibility-chart>p{margin:8px 0 12px;}
+.ai-latest-summary>div>strong{font-size:28px;}.ai-engine-cards section>strong{font-size:24px;}
+.ai-answer-body{font-size:14px;line-height:1.75;margin:20px 0 24px;overflow-wrap:anywhere;}
+.ai-answer-body p{margin:0 0 16px!important;max-width:90ch;}.ai-answer-body h1,.ai-answer-body h2,.ai-answer-body h3{font-size:19px;line-height:1.4;margin:24px 0 12px;}.ai-answer-body h4,.ai-answer-body h5,.ai-answer-body h6{font-size:15px;margin:20px 0 10px;}
+.ai-answer-body ul,.ai-answer-body ol{padding-left:24px;margin:12px 0 20px;}.ai-answer-body li+li{margin-top:8px;}.ai-answer-body a{color:var(--green);text-decoration:underline;text-underline-offset:3px;}
+.ai-answer-body table{display:block;overflow-x:auto;border-collapse:collapse;width:100%;margin:20px 0;font-size:13px;background:white;}
+.ai-answer-body th,.ai-answer-body td{border:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top;min-width:160px;line-height:1.6;}.ai-answer-body th{background:#eaf0ec;font-weight:600;}.ai-answer-body tr:nth-child(even) td{background:#f7f9f7;}
+.ai-answer-body blockquote{border-left:3px solid var(--line);padding-left:16px;margin:20px 0;color:var(--muted);}.ai-answer-body code{font-size:12px;background:#e9eeea;padding:2px 4px;}.ai-answer-body pre{background:#edf1ee;padding:16px;border-radius:8px;overflow:auto;}.ai-answer-body hr{border:0;border-top:1px solid var(--line);margin:24px 0;}
+@media(max-width:600px){#ai-view-0 .visibility-chart svg{height:190px;}.ai-answer-body table{font-size:12px;}.ai-answer-body th,.ai-answer-body td{padding:10px;}}
