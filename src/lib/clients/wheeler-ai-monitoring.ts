@@ -26,7 +26,7 @@ root.querySelectorAll<HTMLButtonElement>('[data-ai-open]').forEach(button=>butto
  const name=engines.find(engine=>engine.id===provider)!.label;
  row.querySelector('[data-ai-answer-title]')!.textContent=`${name} answer`;
  const date=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Lisbon',day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(prompt.recordedAt));
- row.querySelector('[data-ai-answer-meta]')!.textContent=`Recorded ${date} · Model: ${answer.model} · ${answer.rank===null?'No comparison rank recorded':`Recorded rank: ${answer.rank}`}`;
+ row.querySelector('[data-ai-answer-meta]')!.textContent=`Recorded ${date} · ${answer.rank===null?'No comparison rank recorded':`Recorded rank: ${answer.rank}`}`;
  row.querySelector('[data-ai-identity-label]')!.textContent=answer.appears?'Mentioned':'Not mentioned';
  row.querySelector('[data-ai-identity-reason]')!.textContent=answer.identity.reason;
  row.querySelector('[data-ai-answer-text]')!.innerHTML=answer.renderedAnswer;
