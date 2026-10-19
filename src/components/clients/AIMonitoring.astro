@@ -1,5 +1,6 @@
 ---
 import VisibilityChart from './VisibilityChart.astro';
+import { rankPosition, rankMovement } from '../../lib/clients/wheeler-rank-movement';
 import { formatRecordedAnswer } from '../../lib/clients/wheeler-answer-format';
 import { engines, visibility, categories, percentage, competitorCounts, identifiedCount } from '../../lib/clients/wheeler-visibility';
 const latest=visibility.runs[visibility.runs.length-1];
@@ -16,6 +17,11 @@ const status=(result:{appears:boolean;identity:{verdict:string}})=>result.appear
 const labels={present:'Mentioned',absent:'Not mentioned'};
 const overallSeries=[{key:'overall',label:'Wheeler overall',color:'#16756c',counts:visibility.runs.map(identifiedCount),total:latest.answerCount}];
 const ranking=[{name:'Wheeler Residential Steel Supply',own:true,counts:engines.map(e=>latest.providers[e.id].present)},...Object.keys(competitors[latestIndex]).map(name=>({name,own:false,counts:engines.map(e=>latest.competitors[e.id][name as keyof typeof latest.competitors[typeof e.id]]||0)}))].sort((a,b)=>b.counts.reduce((x,y)=>x+y,0)-a.counts.reduce((x,y)=>x+y,0));
+const previous=visibility.runs[latestIndex-1];
+const previousRanking=[{name:'Wheeler Residential Steel Supply',counts:engines.map(e=>previous.providers[e.id].present)},...Object.keys(competitors[latestIndex-1]).map(name=>({name,counts:engines.map(e=>previous.competitors[e.id][name as keyof typeof previous.competitors[typeof e.id]]||0)}))];
+const scoreFor=(counts:number[],index:number)=>index<0?counts.reduce((a,b)=>a+b,0):counts[index];
+const previousRanks=(name:string)=>[-1,0,1,2,3].map(index=>{const brand=previousRanking.find(item=>item.name===name);return rankPosition(brand?scoreFor(brand.counts,index):0,previousRanking.map(item=>scoreFor(item.counts,index)));});
+const initialMovement=(name:string,counts:number[])=>rankMovement(rankPosition(scoreFor(counts,-1),ranking.map(item=>scoreFor(item.counts,-1))),previousRanks(name)[0]);
 const groupedPrompts=Object.keys(categories).flatMap(category=>visibility.latestPrompts.map((prompt,index)=>({prompt,index})).filter(item=>item.prompt.category===category));
 
 ---
@@ -54,9 +60,9 @@ const groupedPrompts=Object.keys(categories).flatMap(category=>visibility.latest
  </section>
  <section id="ai-view-2" role="tabpanel" aria-labelledby="ai-tab-2" data-ai-view="2" hidden>
  <VisibilityChart id="ai-competitor-trend" title="Top competitors by visibility" description="Wheeler alongside the four most-mentioned competing names in the latest test." dates={dates} latestLegend series={competitorSeries} />
- <div class="ai-ranking-heading"><h2>Competitor ranking</h2><p>Who appears in the latest AI answers, by engine.</p></div>
+ <div class="ai-ranking-heading"><h2>Competitor ranking</h2><p>Who appears in the latest AI answers, by engine. Arrows show rank changes since 12 October.</p></div>
  <div class="ai-competitor-filters" role="group" aria-label="Competitor engine filter"><button type="button" data-ai-competitor-engine="all" aria-pressed="true">All engines</button>{engines.map(engine=><button type="button" data-ai-competitor-engine={engine.id} aria-pressed="false" aria-label={engine.label} title={engine.label}><img class="ai-engine-logo" src={engine.icon} alt="" width="24" height="24" /></button>)}</div>
- <div class="ai-ranking-wrap"><table class="ai-ranking-table"><thead><tr><th scope="col">Rank</th><th scope="col">Brand</th><th scope="col">Visibility</th><th scope="col">Mentions</th></tr></thead><tbody>{ranking.map(brand=><tr data-ai-brand data-ai-brand-counts={JSON.stringify(brand.counts)} class={brand.own?'ai-own-brand':''}><td data-ai-brand-rank>{ranking.findIndex(item=>item.counts.reduce((a,b)=>a+b,0)===brand.counts.reduce((a,b)=>a+b,0))+1}</td><th scope="row">{brand.own&&<img src="/images/wheeler/logo.webp" alt="" />}<span>{brand.name}{brand.own&&<small>WHEELER</small>}</span></th><td data-ai-brand-visibility>{percentage(brand.counts.reduce((a,b)=>a+b,0),latest.answerCount)}%</td><td data-ai-brand-mentions>{brand.counts.reduce((a,b)=>a+b,0)}</td></tr>)}</tbody></table></div>
+ <div class="ai-ranking-wrap"><table class="ai-ranking-table"><thead><tr><th scope="col">Rank</th><th scope="col">Brand</th><th scope="col">Visibility</th><th scope="col">Mentions</th></tr></thead><tbody>{ranking.map(brand=><tr data-ai-brand data-ai-brand-counts={JSON.stringify(brand.counts)} data-ai-brand-previous-ranks={JSON.stringify(previousRanks(brand.name))} class={brand.own?'ai-own-brand':''}><td><span data-ai-brand-rank>{rankPosition(scoreFor(brand.counts,-1),ranking.map(item=>scoreFor(item.counts,-1))) ?? "—"}</span><span data-ai-brand-movement class={`ai-rank-movement ${initialMovement(brand.name,brand.counts).direction}`} title={initialMovement(brand.name,brand.counts).label} aria-label={initialMovement(brand.name,brand.counts).label}>{initialMovement(brand.name,brand.counts).text}</span></td><th scope="row">{brand.own&&<img src="/images/wheeler/logo.webp" alt="" />}<span>{brand.name}{brand.own&&<small>WHEELER</small>}</span></th><td data-ai-brand-visibility>{percentage(brand.counts.reduce((a,b)=>a+b,0),latest.answerCount)}%</td><td data-ai-brand-mentions>{brand.counts.reduce((a,b)=>a+b,0)}</td></tr>)}</tbody></table></div>
  <p class="ai-chart-method">Visibility is the share of tested answers mentioning a name. Each name counts once per answer; several names can appear together. Names are shown as recorded.</p>
  </section>
  <footer class="ai-monitoring-footer">Results reflect the saved answers in these tests. A mention is not a lead, a quotation or a guaranteed future recommendation.</footer>

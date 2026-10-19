@@ -1,3 +1,4 @@
+import { rankPosition, rankMovement } from './wheeler-rank-movement';
 import { engines, type Engine } from './wheeler-visibility';
 // Answer HTML is rendered and sanitized at build time; other model text uses textContent.
 type Answer = {answer:string;renderedAnswer:string;appears:boolean;rank:number|null;identity:{verdict:string;reason:string};citations:{url:string;title:string;domain:string}[]};
@@ -68,7 +69,15 @@ root.querySelectorAll<HTMLButtonElement>('[data-ai-competitor-engine]').forEach(
  const count=(row:HTMLTableRowElement)=>{const counts=JSON.parse(row.dataset.aiBrandCounts!) as number[];return engineIndex<0?counts.reduce((a,b)=>a+b,0):counts[engineIndex];};
  const sorted=[...brandRows].sort((a,b)=>count(b)-count(a));
  sorted.forEach(row=>{
-  row.querySelector('[data-ai-brand-rank]')!.textContent=String(sorted.findIndex(item=>count(item)===count(row))+1);
+  const rank=rankPosition(count(row),sorted.map(count));
+  row.querySelector('[data-ai-brand-rank]')!.textContent=rank===null?'—':String(rank);
+  const previousRanks=JSON.parse(row.dataset.aiBrandPreviousRanks!) as (number|null)[];
+  const movement=rankMovement(rank,previousRanks[engineIndex+1]);
+  const indicator=row.querySelector<HTMLElement>('[data-ai-brand-movement]')!;
+  indicator.textContent=movement.text;
+  indicator.className=`ai-rank-movement ${movement.direction}`;
+  indicator.title=movement.label;
+  indicator.setAttribute('aria-label',movement.label);
   row.querySelector('[data-ai-brand-mentions]')!.textContent=String(count(row));
   row.querySelector('[data-ai-brand-visibility]')!.textContent=`${Math.round(count(row)/total*1000)/10}%`;
   row.parentElement!.append(row);
