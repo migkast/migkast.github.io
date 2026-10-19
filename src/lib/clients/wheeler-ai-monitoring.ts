@@ -1,6 +1,6 @@
 import { engines, type Engine } from './wheeler-visibility';
 // Answer HTML is rendered and sanitized at build time; other model text uses textContent.
-type Answer = {answer:string;renderedAnswer:string;appears:boolean;rank:number|null;model:string;identity:{verdict:string;reason:string};citations:{url:string;title:string;domain:string}[]};
+type Answer = {answer:string;renderedAnswer:string;appears:boolean;rank:number|null;identity:{verdict:string;reason:string};citations:{url:string;title:string;domain:string}[]};
 type Prompt = {prompt:string;recordedAt:string;results:Record<Engine,Answer>};
 const root=document.querySelector<HTMLElement>('.ai-monitoring')!;
 const prompts=JSON.parse(root.querySelector('#ai-monitoring-data')!.textContent!) as Prompt[];
