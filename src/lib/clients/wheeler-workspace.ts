@@ -21,6 +21,7 @@ let removedIdea: { idea: ClusterIdea; index: number } | undefined;
 const unlock = (focus = false) => {
   gate.hidden = true;
   content.hidden = false;
+  updateBacklinkMarker();
   if (focus) document.querySelector<HTMLElement>('#workspace-main')?.focus({ preventScroll: true });
 };
 document.querySelector('#workspace-unlock')!.addEventListener('submit', async event => {
@@ -110,11 +111,28 @@ document.querySelectorAll<HTMLAnchorElement>('.backlink-audit a[href^="#backlink
   link.addEventListener('click', () => selectBacklinkTab(backlinkTabs[1]));
 });
 
+// Read receipts belong to this browser, independently of the shared reviewer account.
+const backlinkUpdateVersion = document.querySelector<HTMLElement>('[data-backlink-update-version]')?.dataset.backlinkUpdateVersion;
+const backlinkSeenKey = 'wheeler-backlinks-last-viewed';
+let backlinkSeenVersion: string | null = null;
+try { backlinkSeenVersion = localStorage.getItem(backlinkSeenKey); } catch { /* Keep session-only state when storage is unavailable. */ }
+function updateBacklinkMarker() {
+  const viewingBacklinks = !content.hidden && (location.hash === '#backlinks' || location.hash.startsWith('#backlink-'));
+  if (viewingBacklinks && backlinkUpdateVersion) {
+    backlinkSeenVersion = backlinkUpdateVersion;
+    try { localStorage.setItem(backlinkSeenKey, backlinkUpdateVersion); } catch { /* Session-only read state is sufficient. */ }
+  }
+  document.querySelectorAll<HTMLElement>('[data-backlink-update-marker]').forEach(marker => {
+    marker.hidden = !backlinkUpdateVersion || backlinkSeenVersion === backlinkUpdateVersion;
+  });
+}
+
 // Sidebar switches workspace sections without changing shared review state.
 const sectionLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-workspace-section]'));
 function selectWorkspaceSection() {
   if (location.hash.startsWith('#backlink-opportunit')) selectBacklinkTab(backlinkTabs[1]);
   const section = location.hash === '#ai-monitoring' ? 'ai-monitoring' : location.hash === '#reddit' ? 'reddit' : location.hash === '#backlinks' || location.hash.startsWith('#backlink-') ? 'backlinks' : 'content';
+  updateBacklinkMarker();
   document.body.classList.toggle('backlink-view', section === 'backlinks');
   document.querySelector<HTMLElement>('#workspace-section-content')!.hidden = section !== 'content';
   document.querySelector<HTMLElement>('#workspace-section-backlinks')!.hidden = section !== 'backlinks';

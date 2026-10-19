@@ -383,3 +383,11 @@
 .workspace-sidebar .sidebar-link svg{width:19px;height:19px;}
 .workspace-sidebar .sidebar-link:focus-visible{outline:2px solid var(--green);outline-offset:3px;}
 .workspace-sidebar .sidebar-group-title{margin-bottom:4px;}
+
+/* Browser-local unread audit marker. */
+.workspace-update-marker{display:inline-flex;align-items:center;gap:4px;margin-left:auto;font-size:9px;font-weight:600;color:#285c45;white-space:nowrap;}
+.workspace-update-marker[hidden]{display:none;}
+.workspace-update-marker>span{width:6px;height:6px;flex-shrink:0;border-radius:50%;background:#259453;}
+.workspace-sidebar .sidebar-link:has(.workspace-update-marker){gap:8px;}
+.workspace-sidebar .sidebar-link.active .workspace-update-marker{color:#ddf6e6;}
+.workspace-mobile-nav .workspace-update-marker{margin-left:7px;}

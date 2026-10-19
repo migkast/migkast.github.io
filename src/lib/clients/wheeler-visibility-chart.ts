@@ -26,7 +26,8 @@ document.querySelectorAll<HTMLElement>('.visibility-chart').forEach(section=>{
    plugins:{
     tooltip:{backgroundColor:'#fff',titleColor:'#172a21',bodyColor:'#46574e',borderColor:'#d5dfd9',borderWidth:1,padding:14,cornerRadius:8,bodySpacing:8,usePointStyle:true,
      titleFont:{size:13,weight:'bold'},bodyFont:{size:12},
-     callbacks:{label:context=>{
+     itemSort:(a,b)=>(b.parsed.y ?? 0)-(a.parsed.y ?? 0),
+     callbacks:{labelColor:context=>({backgroundColor:series[context.datasetIndex].color,borderColor:series[context.datasetIndex].color,borderWidth:0}),label:context=>{
       const item=series[context.datasetIndex],count=item.counts[context.dataIndex];
       return `${item.label}: ${percent(count,item.total)}% (${count} / ${item.total})`;
      }},

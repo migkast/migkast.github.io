@@ -9,8 +9,8 @@ const dates=visibility.runs.map(run=>new Intl.DateTimeFormat('en-GB',{timeZone:'
 const modelSeries=engines.map(engine=>({key:engine.id,label:engine.label,icon:engine.icon,color:engine.color,counts:visibility.runs.map(run=>run.providers[engine.id].present),total:latest.promptCount}));
 const competitors=visibility.runs.map(competitorCounts);
 const topNames=Object.entries(competitors[latestIndex]).sort((a,b)=>b[1]-a[1] || a[0].localeCompare(b[0])).slice(0,4).map(([name])=>name);
-const colors=['#27649a','#9a542d','#7555a3','#606d77'];
-const competitorSeries=[{key:'wheeler',label:'Wheeler Residential Steel Supply',color:'#16756c',own:true,counts:visibility.runs.map(identifiedCount),total:latest.answerCount},...topNames.map((name,index)=>({key:`competitor-${index}`,label:name,color:colors[index],counts:competitors.map(counts=>counts[name]||0),total:latest.answerCount}))].sort((a,b)=>b.counts[latestIndex]-a.counts[latestIndex]);
+const colors=['#2563eb','#d15a08','#8b3fc6','#be185d'];
+const competitorSeries=[{key:'wheeler',label:'Wheeler Residential Steel Supply',color:'#087f5b',own:true,counts:visibility.runs.map(identifiedCount),total:latest.answerCount},...topNames.map((name,index)=>({key:`competitor-${index}`,label:name,color:colors[index],counts:competitors.map(counts=>counts[name]||0),total:latest.answerCount}))].sort((a,b)=>b.counts[latestIndex]-a.counts[latestIndex]);
 const latestPresent=identifiedCount(latest);
 const status=(result:{appears:boolean;identity:{verdict:string}})=>result.appears?'present':'absent';
 const labels={present:'Mentioned',absent:'Not mentioned'};
