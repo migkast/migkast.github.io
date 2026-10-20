@@ -25,10 +25,10 @@ describe('competitor rank movement', () => {
   const runs=visibility.runs.slice(-2);
   const ranks=runs.map(run=>rankPosition(identifiedCount(run),[identifiedCount(run),...Object.values(competitorCounts(run))]));
   expect(ranks).toEqual([3,4]);
-  expect(rankMovement(ranks[1],ranks[0]).text).toBe('↓ 1');
+  expect(rankMovement(ranks[1]!,ranks[0]!).text).toBe('↓ 1');
   for(const engine of engines){
    const ranks=runs.map(run=>rankPosition(run.providers[engine.id].present,[run.providers[engine.id].present,...Object.values(run.competitors[engine.id])]));
-   expect(rankMovement(ranks[1],ranks[0]).text).toBeTruthy();
+   expect(rankMovement(ranks[1]!,ranks[0]!).text).toBeTruthy();
   }
  });
 });

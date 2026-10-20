@@ -1,4 +1,6 @@
 ---
+import calendarChanges from '../../lib/clients/wheeler-calendar-changes.json';
+import { calendarQuestionKey, maxAnswerLength } from '../../lib/clients/wheeler-calendar-questions';
 import { updatedArticles } from '../../lib/clients/wheeler-content-updates';
 import { articles } from '../../lib/clients/wheeler-calendar.json';
 const weeks = [...new Set(articles.map(a => {
@@ -12,8 +14,10 @@ const dateLabel = (date: string, options: Intl.DateTimeFormatOptions) => new Int
 ---
 <div class="publication-list">
  <header class="publication-heading"><div><h2>Topics for your review</h2><p>{articles.length} planned topics · {dateLabel(articles[0].scheduledDate,{day:'numeric',month:'long'})} to {dateLabel(articles[articles.length-1].scheduledDate,{day:'numeric',month:'long',year:'numeric'})}</p></div><strong id="calendar-review-progress" aria-live="polite">0 of {articles.length} reviewed</strong></header>
+ <p class="calendar-revision-note"><strong>Updated 20 October</strong> · {calendarChanges.total} topics · {calendarChanges.newTopics} added · {calendarChanges.movedTopics} rescheduled.</p>
  <p class="publication-intro">Approve a topic or open it to share feedback. These are proposed publication dates. Available articles are linked for review.</p>
  <div class="publication-view-switch" role="group" aria-label="Publication display"><button type="button" data-publication-view="list" aria-pressed="true">List</button><button type="button" data-publication-view="calendar" aria-pressed="false">Calendar</button></div>
+ <div class="publication-month-filter" role="group" aria-label="Filter topics by month"><span>Month</span><button type="button" data-list-month="all" aria-pressed="true">All months</button>{months.map(month=><button type="button" data-list-month={month} aria-pressed="false">{dateLabel(`${month}-01`,{month:'long',year:'numeric'})}</button>)}</div>
  <div class="publication-month-view" hidden>
   <header class="month-navigation"><h3 id="publication-month-label">October 2026</h3><div><button type="button" data-month-previous aria-label="Previous month" disabled>←</button><button type="button" data-month-next aria-label="Next month">→</button></div></header>
   {months.map((month, index) => {
@@ -37,11 +41,12 @@ const dateLabel = (date: string, options: Intl.DateTimeFormatOptions) => new Int
  const items = articles.filter(a => a.scheduledDate >= week && a.scheduledDate <= end.toISOString().slice(0,10));
  return <section class="publication-week" aria-label={`Week of ${dateLabel(week,{day:'numeric',month:'long'})}`}>
  <header><h3>Week of {dateLabel(week,{day:'numeric',month:'long'})}</h3><span>{items.length} topics</span></header>
- {items.map(a => <article class="publication-topic" data-calendar-key={`article:${a.id}`} data-has-draft={a.documentUrl ? 'true' : undefined}>
+ {items.map(a => <article class="publication-topic" data-calendar-key={`article:${a.id}`} data-publication-date={a.scheduledDate} data-has-draft={a.documentUrl ? 'true' : undefined}>
   <div class="publication-row"><time datetime={a.scheduledDate}><strong>{dateLabel(a.scheduledDate,{day:'numeric',month:'short'})}</strong><span>{dateLabel(a.scheduledDate,{weekday:'long'})}</span></time>
-  <details><summary><h4>{a.title}</h4>{updatedArticles.has(a.id) && <span class="content-updated-badge">Updated</span>}<span class="topic-direction">{a.clusterName}</span><span class="topic-detail-label">View details <span aria-hidden="true">⌄</span></span></summary>
-   <div class="topic-brief"><dl><div><dt>Audience</dt><dd>{a.audience}</dd></div><div><dt>Purpose</dt><dd>{a.purpose}</dd></div><div><dt>Practical output</dt><dd>{a.practicalOutput}</dd></div><div><dt>Scope</dt><dd>{a.scope}</dd></div></dl>{a.questionsForWheeler && <section class="topic-input-questions"><h5>Questions for Wheeler</h5><p>Your team’s answers will provide the factual context for this article.</p><ol>{a.questionsForWheeler.map(question => <li>{question}</li>)}</ol></section>}</div>
+  <details><summary><h4>{a.title}</h4>{a.newTopic&&<span class="content-updated-badge">New topic</span>}{updatedArticles.has(a.id) && <span class="content-updated-badge">Updated</span>}<span class="topic-direction">{a.clusterName}</span><span class="topic-detail-label">View details <span aria-hidden="true">⌄</span></span></summary>
+   <div class="topic-brief"><dl><div><dt>Audience</dt><dd>{a.audience}</dd></div><div><dt>Purpose</dt><dd>{a.purpose}</dd></div><div><dt>Practical output</dt><dd>{a.practicalOutput}</dd></div><div><dt>Scope</dt><dd>{a.scope}</dd></div></dl></div>
   </details>
+  {a.questionsForWheeler.length>0 && <section class="topic-input-questions" aria-label={`Questions for Wheeler: ${a.title}`}><h5>Questions for Wheeler</h5>{a.questionReuseNote&&<p>{a.questionReuseNote}</p>}<ol>{a.questionsForWheeler.map((question,index)=><li><p>{question}{a.optionalQuestionIndexes.some(optionalIndex=>optionalIndex===index)&&<span class="question-optional">Optional follow-up</span>}</p><details class="question-answer-editor" data-question-answer={calendarQuestionKey(a,question)}><summary><span data-answer-toggle>Add answer</span><span data-answer-status role="status">Not answered</span></summary><label for={`answer-${a.id}-${index}`}>Your answer</label><textarea id={`answer-${a.id}-${index}`} data-answer-input rows="6" maxlength={maxAnswerLength} placeholder="Share as much detail as you need. Your answer saves automatically." /><p class="question-answer-help">Autosaves after you pause. Up to 20,000 characters.</p><div class="question-answer-actions"><button type="button" data-answer-save>Save answer</button><button type="button" data-answer-expand aria-expanded="false" aria-controls={`answer-${a.id}-${index}`}>Expand writing area</button></div></details></li>)}</ol></section>}
   <div class="topic-controls">{a.documentUrl && <a class="topic-document-link" href={a.documentUrl} target="_blank" rel="noopener noreferrer" aria-label={`Read and edit the draft of ${a.title} in Google Docs`}>Read &amp; edit draft ↗</a>}<span data-topic-status class="topic-status" hidden={!!a.documentUrl}>Awaiting review</span><button type="button" data-topic-approve>Approve topic</button><button type="button" data-topic-feedback class="topic-feedback-button">Add feedback</button><button type="button" data-topic-reapprove hidden>Approve revised topic</button></div></div>
   <div class="topic-saved-feedback" hidden><strong>Feedback <span class="content-updated-badge" data-feedback-resolved hidden>Resolved</span></strong><p data-topic-note></p><small data-topic-meta></small><div class="feedback-answer" data-feedback-answer hidden><strong>Answer</strong><p data-feedback-answer-text></p></div></div>
   <form class="topic-feedback-form" hidden><label for={`topic-note-${a.id}`}>Feedback or requested changes</label><textarea id={`topic-note-${a.id}`} maxlength="1200" rows="3" required placeholder="What would you like us to change or consider?"></textarea><p data-topic-error role="alert" hidden>Please add your feedback before saving.</p><div><button type="submit">Save feedback</button><button type="button" data-topic-cancel>Cancel</button></div></form>
@@ -59,16 +64,23 @@ const dateLabel = (date: string, options: Intl.DateTimeFormatOptions) => new Int
  const back = root.querySelector<HTMLButtonElement>('[data-calendar-back]')!;
  let view = 'list';
  let selected = '';
+ let listMonth = 'all';
+ const monthFilter=root.querySelector<HTMLElement>('.publication-month-filter')!;
+ const monthButtons=Array.from(root.querySelectorAll<HTMLButtonElement>('[data-list-month]'));
  function renderView() {
   monthView.hidden = view !== 'calendar';
+  monthFilter.hidden = view !== 'list';
   viewButtons.forEach(button => button.setAttribute('aria-pressed',String(button.dataset.publicationView===view)));
-  rows.forEach(row => row.hidden = view === 'calendar' && row.dataset.calendarKey !== selected);
+  rows.forEach(row => row.hidden = view === 'calendar' ? row.dataset.calendarKey !== selected : listMonth !== 'all' && !row.dataset.publicationDate!.startsWith(listMonth));
   weeks.forEach(week => {
-   week.hidden = view === 'calendar' && !Array.from(week.querySelectorAll<HTMLElement>('[data-calendar-key]')).some(row => !row.hidden);
+   const visibleRows=Array.from(week.querySelectorAll<HTMLElement>('[data-calendar-key]')).filter(row=>!row.hidden);
+   week.hidden = visibleRows.length === 0;
+   week.querySelector<HTMLElement>(':scope > header > span')!.textContent=`${visibleRows.length} ${visibleRows.length===1?'topic':'topics'}`;
    week.querySelector<HTMLElement>(':scope > header')!.hidden = view === 'calendar';
   });
   back.hidden = !selected || view !== 'calendar';
  }
+ monthButtons.forEach(button=>button.addEventListener('click',()=>{listMonth=button.dataset.listMonth!;monthButtons.forEach(item=>item.setAttribute('aria-pressed',String(item===button)));renderView();}));
  viewButtons.forEach(button => button.addEventListener('click',()=>{view=button.dataset.publicationView!;selected='';renderView();}));
  root.querySelectorAll<HTMLButtonElement>('[data-calendar-open]').forEach(button=>button.addEventListener('click',()=>{
   selected=button.dataset.calendarOpen!;renderView();
@@ -91,6 +103,15 @@ const dateLabel = (date: string, options: Intl.DateTimeFormatOptions) => new Int
  previous.addEventListener('click',()=>changeMonth(month-1));next.addEventListener('click',()=>changeMonth(month+1));
 </script>
 <style>
+ .calendar-revision-note{font-size:12px;color:#4c6656;padding:12px 16px;background:#e6eee8;border:1px solid #cbdacf;border-radius:8px;margin-bottom:18px;}.question-optional{display:inline-block;font-size:10px;color:#5c6c61;font-weight:400;margin-left:8px;}
+
+ .topic-input-questions ol>li>p{font-size:13px;color:var(--ink);margin:0 0 10px;}
+ .question-answer-editor{background:#fff;border:1px solid #cedbd2;border-radius:7px;padding:0 12px;}.question-answer-editor>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;font-size:12px;color:var(--green);font-weight:600;}.question-answer-editor>summary [data-answer-status]{font-size:10px;font-weight:400;color:var(--muted);text-align:right;}.question-answer-editor label{display:block;font-size:12px;font-weight:600;margin:4px 0 8px;}.question-answer-editor textarea{display:block;width:100%;min-height:150px;resize:vertical;border:1px solid var(--line);border-radius:6px;padding:12px;font:inherit;font-size:16px;line-height:1.65;background:#fff;}.question-answer-editor textarea:focus-visible{outline:2px solid var(--green);outline-offset:2px;}.question-answer-editor textarea[data-expanded=true]{min-height:420px;}.question-answer-help{font-size:11px!important;margin:8px 0!important;color:var(--muted)!important;}.question-answer-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;}.question-answer-actions button{font-size:12px;min-height:40px;padding:8px 12px;}.question-answer-editor [data-answer-preview]{white-space:pre-wrap;}
+
+ .publication-month-filter{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:-8px 0 24px;}.publication-month-filter>span{font-size:12px;color:var(--muted);margin-right:4px;}.publication-month-filter button{min-height:40px;padding:8px 14px;font-size:12px;border-radius:8px;}.publication-month-filter button[aria-pressed=true]{background:#e0ece3;border-color:#92ad9b;color:var(--green);}
+ .publication-row>details{grid-column:2;grid-row:1;}.publication-row>.topic-controls{grid-column:3;grid-row:1 / span 2;align-self:start;}.topic-input-questions{grid-column:2;grid-row:2;padding:16px 18px;background:#f2f6f2;border:1px solid #dce7de;border-radius:8px;}.topic-input-questions h5{font-size:12px;color:var(--green);margin:0 0 10px;}.topic-input-questions p{font-size:12px;color:var(--muted);margin:0 0 10px;}.topic-input-questions ol{margin:0;padding-left:18px;font-size:13px;line-height:1.7;}.topic-input-questions li+li{margin-top:10px;}
+ @media(max-width:700px){.publication-row>.topic-controls{grid-column:2;grid-row:3;}.topic-input-questions{padding:14px;}}
+
  .topic-document-link{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-size:12px;font-weight:600;text-align:center;color:var(--green);text-decoration:none;}.topic-document-link:hover{background:#edf3ef;}.topic-document-link:focus-visible{outline:2px solid var(--green);outline-offset:3px;}
  .publication-view-switch{display:flex;gap:4px;margin-bottom:24px;}.publication-view-switch button{font-size:13px;min-width:90px;}.publication-view-switch button[aria-pressed=true]{background:var(--green);color:white;border-color:var(--green);}
  .month-navigation{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}.month-navigation h3{font-size:22px;}.month-navigation>div{display:flex;gap:8px;}.month-grid-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:white;margin-bottom:24px;}.month-grid{min-width:840px;}.month-weekdays,.month-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));}.month-weekdays>div{padding:12px;color:var(--muted);font-size:12px;background:#e8eee8;border-bottom:1px solid var(--line);}.month-day{min-height:130px;padding:10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);}.month-day:last-child{border-right:0;}.month-week:last-child .month-day{border-bottom:0;}.empty-day{background:#f4f5f2;}.month-day time{display:block;font-size:12px;color:var(--muted);margin-bottom:8px;}.month-day button{display:block;width:100%;min-height:44px;padding:10px 8px;text-align:left;font-size:12px;line-height:1.5;background:#edf3ef;border-color:#cedbd0;}.month-day button+button{margin-top:8px;}.month-day button small{display:block;font-size:10px;font-weight:400;color:var(--muted);margin-top:8px;}.calendar-back{margin-bottom:20px;}

@@ -3,6 +3,7 @@ import '../../styles/wheeler-workspace.css';
 import '../../styles/wheeler-ai-monitoring.css';
 import ClusterDetail from '../../components/clients/ClusterDetail.astro';
 import BacklinkAudit from '../../components/clients/BacklinkAudit.astro';
+import MarketOpportunity from '../../components/clients/MarketOpportunity.astro';
 import AIMonitoring from '../../components/clients/AIMonitoring.astro';
 import RedditActivity from '../../components/clients/RedditActivity.astro';
 import PublicationCalendar from '../../components/clients/PublicationCalendar.astro';
@@ -24,7 +25,7 @@ const reviewApi = import.meta.env.PUBLIC_WHEELER_REVIEW_API || 'https://miguel-b
       <main id="workspace-main" tabindex="-1">
         <div id="workspace-section-content">
         <header class="workspace-heading"><div><h1>Wheeler content strategy</h1></div><div class="review-overview"><strong id="review-progress">0 of {workspace.clusters.length} reviewed</strong><div class="progress-track" aria-hidden="true"><span id="progress-fill"></span></div><small>Updated {workspace.updated}</small></div></header>
-        <div class="workspace-tabs" role="tablist" aria-label="Content strategy views"><button id="view-clusters" role="tab" aria-selected="true" aria-controls="panel-clusters" tabindex="0">Topic clusters</button><button id="view-plan" role="tab" aria-selected="false" aria-controls="panel-plan" tabindex="-1">Publication calendar</button></div>
+        <div class="workspace-tabs" role="tablist" aria-label="Content strategy views"><button id="view-clusters" role="tab" aria-selected="true" aria-controls="panel-clusters" tabindex="0">Topic clusters</button><button id="view-plan" role="tab" aria-selected="false" aria-controls="panel-plan" tabindex="-1">Publication calendar</button><button id="view-opportunity" role="tab" aria-selected="false" aria-controls="panel-opportunity" tabindex="-1">Market opportunity</button></div>
         <div id="shared-sync-error" class="shared-sync-error" hidden><p id="save-status" role="status"></p><button id="retry-shared-review" type="button" hidden>Retry saving</button></div>
         <section id="panel-clusters" role="tabpanel" aria-labelledby="view-clusters">
           <div class="review-intro"><p><strong>Topic clusters</strong> group related articles around one buyer decision.</p></div>
@@ -38,6 +39,7 @@ const reviewApi = import.meta.env.PUBLIC_WHEELER_REVIEW_API || 'https://miguel-b
           </section>
         </section>
         <section id="panel-plan" role="tabpanel" aria-labelledby="view-plan" hidden><PublicationCalendar /></section>
+        <section id="panel-opportunity" role="tabpanel" aria-labelledby="view-opportunity" hidden><MarketOpportunity /></section>
 
         </div>
         <section id="workspace-section-backlinks" aria-label="Backlinks" hidden><BacklinkAudit /></section>

@@ -1,4 +1,4 @@
-import { resolvedFeedback, feedbackResolutionLabel } from './wheeler-content-updates';
+import { currentCalendarDecision } from './wheeler-calendar-feedback';
 import type { ReviewChange, SharedReviewState } from './wheeler-review';
 import type { SyncStatus } from './wheeler-review-sync';
 export function initCalendarReview(queue: (change: ReviewChange) => void, pending: (key: string) => boolean, retry: () => void) {
@@ -21,12 +21,12 @@ export function initCalendarReview(queue: (change: ReviewChange) => void, pendin
   row.querySelector('[data-topic-feedback]')!.addEventListener('click', () => openEditor(row));
   row.querySelector('[data-topic-cancel]')!.addEventListener('click', () => {
    row.querySelector<HTMLFormElement>('form')!.hidden = true;
-   row.querySelector<HTMLTextAreaElement>('textarea')!.value = decisions[row.dataset.calendarKey!]?.note || '';
+   row.querySelector<HTMLTextAreaElement>('.topic-feedback-form textarea')!.value = decisions[row.dataset.calendarKey!]?.note || '';
    row.querySelector<HTMLButtonElement>('[data-topic-feedback]')!.focus();
   });
   row.querySelector('form')!.addEventListener('submit', event => {
    event.preventDefault();
-   const note = row.querySelector<HTMLTextAreaElement>('textarea')!;
+   const note = row.querySelector<HTMLTextAreaElement>('.topic-feedback-form textarea')!;
    const error = row.querySelector<HTMLElement>('[data-topic-error]')!;
    error.hidden = !!note.value.trim();
    if (!note.value.trim()) { note.focus(); return; }
@@ -37,16 +37,16 @@ export function initCalendarReview(queue: (change: ReviewChange) => void, pendin
  document.querySelector('[data-calendar-retry]')!.addEventListener('click',retry);
  return {
   render(state: SharedReviewState) {
-   decisions = state.decisions;
+   decisions = Object.fromEntries(Object.entries(state.decisions).map(([key,decision])=>[key,currentCalendarDecision(decision)!]));
    let reviewed = 0;
    rows.forEach(row => {
     const key = row.dataset.calendarKey!; const decision = decisions[key]; const status = decision?.status || 'pending';
     if (status !== 'pending') reviewed++;
     const badge = row.querySelector<HTMLElement>('[data-topic-status]')!;
-    const answer = resolvedFeedback(key, decision);
+    const answer: string | undefined = undefined;
     const feedbackLabel = row.querySelector<HTMLElement>('[data-feedback-resolved]')!;
     feedbackLabel.hidden = !answer;
-    feedbackLabel.textContent = feedbackResolutionLabel(key);
+    feedbackLabel.textContent = '';
     row.querySelector<HTMLElement>('[data-feedback-answer]')!.hidden = !answer;
     row.querySelector<HTMLElement>('[data-feedback-answer-text]')!.textContent = answer || '';
     badge.dataset.state = status;

@@ -3,305 +3,719 @@
     {
       "id": "78c2da9e-b67b-464f-a9cc-09c11f041dfc",
       "title": "Residential Steel Framing: A Guide for General Contractors",
-      "scheduledDate": "2026-10-08",
+      "scheduledDate": "2026-10-20",
       "clusterName": "Building with steel for GCs",
       "audience": "General contractors and custom-home builders",
-      "purpose": "Decide whether adding project-specific residential steel framing is a suitable option for the GC’s work.",
-      "practicalOutput": "A concise adoption overview and project-fit summary describing Wheeler supply, builder-crew assembly, crew preparation and design-team involvement.",
-      "scope": "Residential project fit; substantiated material advantages; Wheeler’s supply and on-site assembly model; overview of responsibilities and the adoption sequence. Copy revision priority: improve natural flow, concrete examples and the explanation of Wheeler’s value. Retain the approved topic, FAQ and further reading.",
-      "documentUrl": "https://docs.google.com/document/d/1TXmu1OVSO00X6DYeWn0Y7AhrYb2ZuClv8TTNnApsWG8/edit?usp=drive_link"
+      "purpose": "Understand how a GC prices, prepares and coordinates a custom home whose plans specify steel framing.",
+      "practicalOutput": "A practical GC guide explaining what to review, price and coordinate when the plans call for steel.",
+      "scope": "The architect and structural engineer usually establish the design and structural system before the GC bids. Focus on pricing and coordinating the specified steel design, preparing the crew and understanding Wheeler’s agreed supply scope. A GC can propose an alternative for the design team to evaluate. Keep detailed training, site logistics and material-cost comparisons brief. Preserve the client’s approved topic and copy direction.",
+      "questionsForWheeler": [],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "draft_ready",
+      "documentUrl": "https://docs.google.com/document/d/1Lql08z3G4SdcHn9en5XbrcT9m3Tg6X6C/edit",
+      "newTopic": false
     },
     {
       "id": "355306fb-aea7-44c6-865d-f313a2914d58",
       "title": "How to Compare Custom-Home Steel Framing Quotes in Southern California",
-      "scheduledDate": "2026-10-09",
+      "scheduledDate": "2026-10-23",
       "clusterName": "Quote and cost evaluation",
       "audience": "Homeowners and builders comparing proposals",
-      "purpose": "Normalize two or more actual framing proposals for the same approved home design.",
-      "practicalOutput": "A side-by-side worksheet with rows for engineering/coordination, supply/preparation, transport, installation, wall-performance scope, quoted amount, excluded work and comparable adjusted total.",
-      "scope": "Record the same design and estimate date; align included scope and responsibilities; enter separately quoted missing work; compare equivalent totals; identify unresolved financial inputs. Copy revision priority: improve the copy and incorporate Stacie’s SME review, especially the service description and quote-comparison guidance. Retain the approved topic.",
-      "documentUrl": "https://docs.google.com/document/d/1A5lkLKCSKVWJekz0PnPZ0KgnVcjhPcwXcOxfJ_kHYcU/edit?usp=sharing"
+      "purpose": "Understand how to compare supplier framing quotations for the same approved home design.",
+      "practicalOutput": "A comparison table explaining the scope items to align across quotations, how missing work affects comparability and how the homeowner or builder determines an adjusted total from their own quoted figures. No completed quotes or invented prices.",
+      "scope": "Compare supplier proposals for the same approved home design. Include allowances, exclusions and revisions as worksheet inputs; leave out detailed contract definitions, material-choice comparisons and savings case studies.",
+      "questionsForWheeler": [],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "draft_ready",
+      "documentUrl": "https://docs.google.com/document/d/1_ld9gKGa5LgKcqgIMyHkmKNR9ucS0i1z/edit",
+      "newTopic": false
     },
     {
-      "id": "72bf4f73-df81-401c-9481-7f6ee34455a9",
-      "title": "Wood to Cold-Formed Steel Framing: Preparing Your Crew",
-      "scheduledDate": "2026-10-12",
-      "clusterName": "Building with steel for GCs",
-      "audience": "GCs and framing crews transitioning from wood",
-      "purpose": "Prepare a wood-framing crew to understand the material-specific knowledge required for cold-formed steel.",
-      "practicalOutput": "A learning matrix: transferable skill, material-specific difference, preparation or education needed, and the responsible source of approved project information.",
-      "scope": "Plan reading and layout skills; specified-system equipment and handling awareness; structural framing versus partitions; current industry education; limits of crew decisions and communication with the design team."
-    },
-    {
-      "id": "b35e5a60-6923-4dbc-9c43-7c3f7d01f774",
-      "title": "Steel vs. Wood vs. Concrete: Comparing Installation Costs",
-      "scheduledDate": "2026-10-14",
+      "id": "21ed2d3d-9c84-430e-820c-c36d2c053586",
+      "title": "Insurance for Homeowners in Wildfire-Prone Areas: What to Expect",
+      "scheduledDate": "2026-10-27",
       "clusterName": "Quote and cost evaluation",
-      "audience": "Owners and builders comparing framing materials",
-      "purpose": "Compare equivalent residential installation costs across wood, cold-formed steel and a clearly identified concrete system.",
-      "practicalOutput": "A cost-category comparison table identifying the structural system, equivalent project scope, included work and supported cost inputs for each alternative.",
-      "scope": "Identify the concrete system being discussed. Compare equivalent residential structural scopes and explain supported cost categories. Do not invent estimates, combine non-equivalent scopes or name a universal cheapest option."
+      "audience": "Southern California homeowners considering a custom home or rebuilding in a wildfire-prone area",
+      "purpose": "Understand the main insurance issues to investigate before committing to a home design or rebuild.",
+      "practicalOutput": "An introductory homeowner explanation with the key information to establish before design and procurement decisions.",
+      "scope": "Orient Southern California homeowners to insurance for the completed home: availability, coverage terms, eligibility and price, and how location, the complete property and construction choices affect the discussion. Distinguish obtaining that policy from settling an existing wildfire claim. Explain a short path from an early conversation with a licensed insurance professional, through identifying relevant construction documentation, to a quotation based on the completed property. Keep claim settlement secondary. Keep detailed discount qualification, calculations, IBHS applications and the full rebuild-coordination timeline brief. Do not promise acceptance, renewal or a framing-only saving. Exclude builders' risk.",
+      "questionsForWheeler": [
+        "Can you share an example of an insurance concern a homeowner raised with you while planning their rebuild?"
+      ],
+      "questionReuseNote": "If the previously requested homeowner-insurance case already describes the homeowner’s initial concern, use that answer rather than asking again.",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": true,
+      "questionKeyOverrides": {
+        "Can you share an example of an insurance concern a homeowner raised with you while planning their rebuild?": "article:21ed2d3d-9c84-430e-820c-c36d2c053586:question:142f0efa"
+      }
     },
     {
-      "id": "691cedc7-a614-4939-a25e-4b8cba4217c2",
-      "title": "Custom Steel Framing vs. Panelized and Modular Homes in Los Angeles",
-      "scheduledDate": "2026-10-15",
-      "clusterName": "Los Angeles provider evaluation",
-      "audience": "Custom-home owners, architects and builders evaluating delivery models",
-      "purpose": "Explain the differences between material, off-site preparation and whole-home delivery methods.",
-      "practicalOutput": "A delivery-method comparison matrix distinguishing framing material, off-site preparation, preassembled panels and volumetric modules; compare customization, scope and logistics without treating these categories as mutually exclusive.",
-      "scope": "Definitions and overlaps; customization and repetition; supplier scope; factory quality checks; total schedule and logistics; Wheeler’s custom supply and complementary panelized work."
+      "id": "9d93fc4d-a219-4010-a896-d9ff6a2108d2",
+      "title": "How to Qualify for Wildfire Mitigation Discounts",
+      "scheduledDate": "2026-10-30",
+      "clusterName": "Quote and cost evaluation",
+      "audience": "A California homeowner trying to obtain wildfire-related insurance discounts",
+      "purpose": "Identify applicable program routes, required measures and the evidence to discuss with the insurer.",
+      "practicalOutput": "A compact program table covering who it applies to, qualifying measures, evidence and how the homeowner requests consideration.",
+      "scope": "Use current named California programs to explain qualification, required evidence and how to request recognition. For Firewise USA community credit, the insurer verifies the address through its data providers; the homeowner contacts the insurer or agent rather than asking NFPA to verify an individual address. Label insurer mitigation tiers and IBHS designation levels separately even when their names resemble each other. For each percentage used, identify its eligible premium component, policy type and applicable effective-date group; CSAA publishes different bases for different policy groups. A single short, explicitly hypothetical dollar illustration may clarify the premium basis, without becoming a calculation exercise. Include relevant property conditions, such as separation from nearby structures, only as requirements of the named program. Discounts are not automatically additive. Keep detailed IBHS application steps, construction classifications and wood-versus-steel premium comparisons brief. Exclude builders' risk and guaranteed acceptance.",
+      "questionsForWheeler": [
+        "Do you know of a homeowner who applied for a wildfire mitigation discount? What information or evidence did their insurer ask them to provide?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Do you know of a homeowner who applied for a wildfire mitigation discount? What information or evidence did their insurer ask them to provide?": "article:9d93fc4d-a219-4010-a896-d9ff6a2108d2:question:1a4fd237"
+      }
+    },
+    {
+      "id": "cb7037b6-fc83-4ba2-83f7-d7818667c90c",
+      "title": "How Construction Choices Affect Wildfire Insurance",
+      "scheduledDate": "2026-11-03",
+      "clusterName": "Quote and cost evaluation",
+      "audience": "A homeowner planning fire-resistive construction for a custom home or rebuild",
+      "purpose": "Understand how a home’s completed construction can affect homeowners-insurance eligibility and premiums.",
+      "practicalOutput": "A clear explanation connecting construction features, underwriting evidence and conditional insurance outcomes.",
+      "scope": "Explain how the complete approved construction can affect homeowners-insurance evaluation through named public programs and supported project examples. Use a concrete program requirement to show the link between a design choice, evidence of completed work and insurer review. Where relevant, include separation from nearby structures as a property condition of that program, not a universal construction rule. Explain the different purposes of building approval, product certification, a property designation and an insurer's coverage decision where they affect that example. State the eligible premium component, policy applicability and conditions alongside any figures. A framing material alone does not establish an accepted construction classification or insurance outcome. Keep the market overview, chronological planning, application checklists, IBHS process and steel-versus-wood premium comparison brief.",
+      "questionsForWheeler": [
+        "Can you share an example of an insurer taking a Wheeler home's construction features into account? Which insurer was it, and which features did it consider?",
+        "If the insurer offered a discount, how much was it, and did it apply to the whole premium or just part of it?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you share an example of an insurer taking a Wheeler home's construction features into account? Which insurer was it, and which features did it consider?": "article:cb7037b6-fc83-4ba2-83f7-d7818667c90c:question:c373bd92",
+        "If the insurer offered a discount, how much was it, and did it apply to the whole premium or just part of it?": "article:cb7037b6-fc83-4ba2-83f7-d7818667c90c:question:8029327a"
+      }
+    },
+    {
+      "id": "bce517b6-c708-416d-9c79-ed92ee6c7640",
+      "title": "Planning a Wildfire Rebuild Around Insurance Requirements",
+      "scheduledDate": "2026-11-06",
+      "clusterName": "Wildfire rebuild framing decisions",
+      "audience": "Homeowners planning a Southern California wildfire rebuild with a design team",
+      "purpose": "Coordinate insurance-related requirements with the project team while the rebuild design can still be revised.",
+      "practicalOutput": "A chronological planning guide showing what to confirm, with whom and at which project stage.",
+      "scope": "Follow the homeowner's planning sequence: discuss intended completed-home coverage and insurer requirements with an insurance professional; bring relevant requirements to the architect and structural engineer; resolve design implications before procurement; collect the evidence the insurer requests; and confirm assessment of the completed property. The architect and engineer normally precede the GC. Make the documentation stage concrete with examples such as the current construction description, relevant plans and evidence of completed mitigation, only as required by the named insurer or program. Distinguish planned features from proof of completed work and revisit relevant requirements when the design changes. Describe coordination using current program information and confirmed business knowledge, without inventing a standard Wheeler insurance-documentation service. Keep the market overview, discount directory, IBHS application checklist and role-based meeting-question guide brief. Stay above construction specifications; compliance does not guarantee coverage. Exclude builders' risk.",
+      "questionsForWheeler": [
+        "On a rebuild you've worked on, have insurance requirements led to a design change? What changed, and when did the team learn about the requirement?"
+      ],
+      "questionReuseNote": "Use the same example in the professional insurability article if it supplies that article’s relevant professional question. Do not request another project story merely for a second article.",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": true,
+      "questionKeyOverrides": {
+        "On a rebuild you've worked on, have insurance requirements led to a design change? What changed, and when did the team learn about the requirement?": "article:bce517b6-c708-416d-9c79-ed92ee6c7640:question:90c20f57"
+      }
     },
     {
       "id": "c2b697d1-8ae4-43ea-a98e-ccf7aff7cc33",
       "title": "Steel vs. Wood Framing for a Wildfire Rebuild",
-      "scheduledDate": "2026-10-16",
+      "scheduledDate": "2026-11-10",
       "clusterName": "Wildfire rebuild framing decisions",
-      "audience": "Southern California homeowners rebuilding after wildfire",
-      "purpose": "Explain the material and planning factors that shape a rebuild framing decision.",
-      "practicalOutput": "A homeowner material-decision worksheet comparing noncombustibility, material behavior, crew readiness, engineered scope and budget inputs for the actual rebuild.",
-      "scope": "Combustibility and moisture behavior; complete-home resilience; project budget and crew readiness; approved design and framing scope; connection to existing local rebuild pages."
-    },
-    {
-      "id": "d71ccbd9-4c61-40b6-abdc-a48543fd7718",
-      "title": "Planning Your First Residential Steel-Framing Project",
-      "scheduledDate": "2026-10-19",
-      "clusterName": "Building with steel for GCs",
-      "audience": "GCs planning their first residential steel job",
-      "purpose": "Give general contractors a high-level overview of the coordination needed before their first residential steel-framing project.",
-      "practicalOutput": "An approachable planning overview covering early coordination, project information, broad delivery considerations and the installation team.",
-      "scope": "Keep this explicitly high-level. Remove detailed site-readiness procedures and proprietary operational methods. Obtain Wheeler’s accuracy review before publication; do not provide installation instructions or reveal Wheeler’s IP."
-    },
-    {
-      "id": "0737f9c8-d435-4b62-83f1-1b663ae7755d",
-      "title": "How a Custom-Home Steel Framing Project Comes Together",
-      "scheduledDate": "2026-10-21",
-      "clusterName": "Architect and builder design coordination",
-      "audience": "Architects, engineers and custom-home builders",
-      "purpose": "Explain Wheeler’s customer process through an inviting, plain-language walkthrough.",
-      "practicalOutput": "A verified walkthrough of the main stages, customer expectations and collaboration between Wheeler, the architect, engineer and builder.",
-      "scope": "Obtain Wheeler’s answers before drafting. Replace the responsibility matrix with a digestible process narrative. Use a confirmed, approved project example where available and keep private process details out of the article.",
+      "audience": "Homeowners choosing framing with their design team after a Southern California wildfire",
+      "purpose": "Understand the practical differences the homeowner should evaluate with the architect, engineer and builder.",
+      "practicalOutput": "A concise wood/steel comparison with concrete implications for the homeowner and a short list of project information needed to evaluate the choice.",
+      "scope": "Keep the focus on choosing framing for the particular rebuild. Separate material choice from delivery method: steel can arrive as project-specific components for site assembly or as preassembled panels, and wood can also be panelized. Use that distinction only to explain the work, customization or cost information needed for the compared designs. Any public fire example must retain the actual project, observed condition and limits of what it demonstrates. Do not claim steel alone makes a home fireproof, establishes Type II construction or guarantees a cheaper build or policy. Explain material behavior in relation to the home rather than a technical catalogue. Keep whole-property hardening and designation procedures brief.",
       "questionsForWheeler": [
-        "Who usually contacts Wheeler first, and when should they involve you?",
-        "What information do you need at the first conversation?",
-        "What happens between that conversation and a proposal?",
-        "How do you collaborate with the architect, engineer, and builder?",
-        "What are the main milestones before framing delivery?",
-        "What should customers expect to receive?",
-        "What decisions or misunderstandings commonly need clarification?",
-        "Which approved project example would illustrate the process?",
-        "Which process details can be public, and which should remain private?"
-      ]
-    },
-    {
-      "id": "9d93fc4d-a219-4010-a896-d9ff6a2108d2",
-      "title": "Qualifying for California Wildfire Insurance Discounts",
-      "scheduledDate": "2026-10-22",
-      "clusterName": "Quote and cost evaluation",
-      "audience": "Homeowners budgeting wildfire insurance",
-      "purpose": "Help homeowners understand available wildfire-insurance programs and how to pursue qualification.",
-      "practicalOutput": "A qualification guide covering eligibility, recognized mitigation measures, documentation and the steps homeowners take with the relevant program or insurer.",
-      "scope": "Make program qualification the main task and calculations secondary. Verify current program requirements before publication. Distinguish insurer-specific conditions from IBHS designation; keep actual quote comparison in November 18."
+        "Thinking of a wildfire rebuild you worked on, what had the biggest influence on the choice between wood and steel framing?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Thinking of a wildfire rebuild you worked on, what had the biggest influence on the choice between wood and steel framing?": "article:c2b697d1-8ae4-43ea-a98e-ccf7aff7cc33:question:bfac875f"
+      }
     },
     {
       "id": "e75e66b4-cdcb-4517-b2de-2d52433d2b7d",
-      "title": "Steel Framing and Wildfire Resilience: A Rebuild Planning Checklist",
-      "scheduledDate": "2026-10-23",
+      "title": "Rebuilding After Wildfire: What Homeowners Should Prioritize",
+      "scheduledDate": "2026-11-13",
       "clusterName": "Wildfire rebuild framing decisions",
-      "audience": "Homeowners rebuilding in wildfire-exposed communities",
-      "purpose": "Record the whole-home resilience decisions and evidence a homeowner’s rebuild team must coordinate alongside the steel framing.",
-      "practicalOutput": "A rebuild planning checklist with rows for roof, exterior-wall covering, openings, vents, property surroundings and maintenance; identify the decision, responsible role and project-specific evidence without supplying assembly recipes.",
-      "scope": "Briefly define the contribution of noncombustible framing; organize whole-home design and maintenance decisions in a usable checklist; record applicable design/evidence and professional responsibility; connect to existing Wheeler fire-resilience and local rebuild pages."
+      "audience": "Southern California homeowners planning a wildfire rebuild and evaluating whole-home resilience, whether or not a framing material has been selected",
+      "purpose": "Prioritize whole-home wildfire-resilience decisions with the design team while evaluating the contribution of framing and other features.",
+      "practicalOutput": "A homeowner planning guide with a concise whole-home priority checklist and relevant project examples.",
+      "scope": "Explain the rebuilt home as a coordinated protection strategy: roof, vents, openings, exterior walls, immediate surroundings and ongoing maintenance. Help homeowners identify decisions to discuss with the design team before a framing material has necessarily been selected. Present steel framing's contribution and limits as one possible part of that strategy. Use approved project experience only for the particular observation it supports. Keep insurance applications, detailed budget prioritization and team selection brief. Stay at homeowner decision level without an assembly recipe, an unsupported cost-effectiveness ranking or a survival guarantee.",
+      "questionsForWheeler": [
+        "For the Malibu home where plywood was used instead of the recommended noncombustible decking, what led to that choice?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "For the Malibu home where plywood was used instead of the recommended noncombustible decking, what led to that choice?": "article:e75e66b4-cdcb-4517-b2de-2d52433d2b7d:question:55ce1541"
+      }
     },
     {
-      "id": "823d9903-1aac-41c7-9e5d-019f8ce2d355",
-      "title": "Steel Framing for Custom Homes",
-      "scheduledDate": "2026-10-26",
+      "id": "0737f9c8-d435-4b62-83f1-1b663ae7755d",
+      "title": "What to Expect When Building a Steel-Framed Home",
+      "scheduledDate": "2026-11-17",
       "clusterName": "Architect and builder design coordination",
-      "audience": "Architects and builders designing open-plan homes",
-      "purpose": "Explain how a custom home’s layout, openings, service routes and finishes are coordinated with project-specific steel framing.",
-      "practicalOutput": "A design-focused overview of layout and trade coordination, with open-plan layouts as one example.",
-      "scope": "Retain the original design focus while broadening the framing from open-plan homes to custom homes. Avoid repeating the general GC introduction or Wheeler’s customer-process walkthrough. Do not promise spans or provide structural design instructions."
+      "audience": "Homeowners planning a steel-framed custom home or wildfire rebuild",
+      "purpose": "Understand what changes for the homeowner and project team from design review through framing delivery and on-site assembly.",
+      "practicalOutput": "A connected homeowner walkthrough explaining what to expect and what needs agreement at each stage.",
+      "scope": "Explain the homeowner experience using the known sequence: the architect and structural engineer establish the design; Wheeler reviews and prepares the agreed framing; the builder or framing crew assembles it on site. Make clear that Wheeler's project-specific prepared components are distinct from factory-assembled wall panels, and explain what that means for the work remaining with the crew at overview level. Describe customer inputs, confirmed review outputs, supplied scope and coordination. Keep crew training, detailed site readiness, quote calculations and insurance qualification brief. Describe approval milestones, turnaround and support commitments only where established by the business knowledge or agreed scope.",
+      "questionsForWheeler": [
+        "What does the customer receive from Wheeler after you first review the plans?",
+        "What needs to be approved before Wheeler starts preparing the framing, and who gives that approval?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "What does the customer receive from Wheeler after you first review the plans?": "article:0737f9c8-d435-4b62-83f1-1b663ae7755d:question:94df7075",
+        "What needs to be approved before Wheeler starts preparing the framing, and who gives that approval?": "article:0737f9c8-d435-4b62-83f1-1b663ae7755d:question:deacbb24"
+      }
     },
     {
       "id": "a50fa511-f913-4f30-9793-17e89d7d479b",
       "title": "Selecting a Supplier to Frame Your Los Angeles Custom Home",
-      "scheduledDate": "2026-10-28",
+      "scheduledDate": "2026-11-20",
       "clusterName": "Los Angeles provider evaluation",
-      "audience": "Custom-home owners and builders preparing a supplier shortlist",
-      "purpose": "Help custom-home owners and builders evaluate a framing supplier’s suitability for their project.",
-      "practicalOutput": "A supplier-selection guide covering scope, customization, relevant experience, design-team coordination, delivery and installation responsibility.",
-      "scope": "Adopt Stacie’s title. Explain Wheeler’s approach accurately. Keep the focus on supplier fit rather than document verification, detailed quotation comparison or a repeated delivery-model comparison."
+      "audience": "A homeowner shortlisting framing suppliers for a Los Angeles custom home",
+      "purpose": "Evaluate supplier fit, relevant experience, supplied scope and ability to coordinate with the project team.",
+      "practicalOutput": "A clear shortlist checklist of selection criteria and the evidence or explanation to request from a supplier.",
+      "scope": "Do not assume steel is already chosen. Keep delivery-method definitions short and separate materials from delivery approaches. Do not reproduce the full quote-adjustment worksheet or a credential-verification catalogue. Explain relevant Wheeler strengths using confirmed scope, not blanket competitor criticism or unconfirmed services.",
+      "questionsForWheeler": [
+        "Can you think of a homeowner who wanted to see or understand something specific before choosing Wheeler? What helped them decide?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you think of a homeowner who wanted to see or understand something specific before choosing Wheeler? What helped them decide?": "article:a50fa511-f913-4f30-9793-17e89d7d479b:question:2febd268"
+      }
     },
     {
-      "id": "24e0ea70-0d62-4fc2-bd94-0aba0d9e20a6",
-      "title": "Steel Framing, Fire-Rated Assemblies and Type II Construction",
-      "scheduledDate": "2026-10-29",
-      "clusterName": "Fire performance and code evaluation",
-      "audience": "Architects, engineers and builders evaluating fire performance",
-      "purpose": "Clearly distinguish the three performance and classification concepts.",
-      "practicalOutput": "A clear three-concept comparison: noncombustible material, the tested/approved complete assembly and whole-building Type II classification, with the scope and responsible evaluator for each.",
-      "scope": "Material combustibility; complete assembly ratings; construction classification; steel with combustible adjacent products; professional approval; evidence scope."
+      "id": "58ac4eb7-7b9e-43e4-95f1-acbbeccb0c33",
+      "title": "How to Vet Builders, Architects and Engineers for a Rebuild",
+      "scheduledDate": "2026-11-24",
+      "clusterName": "Los Angeles provider evaluation",
+      "audience": "Southern California homeowners choosing professionals for a wildfire rebuild",
+      "purpose": "Evaluate the qualifications, relevant experience and proposed work of the builder and design professionals before engaging them.",
+      "practicalOutput": "A practical selection guide with a compact role-specific verification checklist.",
+      "scope": "Explain role-appropriate checks for builders, architects, structural engineers and the installing framing contractor: verify current credentials with the relevant official body; review comparable completed work and references; understand services, communication and coordination; and compare stated scopes. For the framing contractor, explain how comparable experience with the intended framing system informs suitability for the job and coordination with the design team. Keep this distinct from selecting a material supplier. Use current California official guidance and approved experience to show what a check establishes. Keep supplier-package comparisons, product certification, fraud warnings and the project-role meeting guide brief. Do not imply Wheeler provides a vetted referral network or all these services, or make unsupported accusations or legal determinations.",
+      "questionsForWheeler": [
+        "Have you checked a builder's, architect's or engineer's previous work or references and learned something that affected whether you wanted to work with them? What did you learn?"
+      ],
+      "questionReuseNote": "If the example supplied for supplier selection also establishes a relevant project-team hiring check, reuse it. Do not treat choosing a material supplier and hiring an installing contractor as the same task.",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": true,
+      "questionKeyOverrides": {
+        "Have you checked a builder's, architect's or engineer's previous work or references and learned something that affected whether you wanted to work with them? What did you learn?": "article:58ac4eb7-7b9e-43e4-95f1-acbbeccb0c33:question:7ea8ee90"
+      }
     },
     {
-      "id": "cb7037b6-fc83-4ba2-83f7-d7818667c90c",
-      "title": "How Fire-Resistive Home Construction Can Affect Insurance Costs",
-      "scheduledDate": "2026-10-30",
-      "clusterName": "Quote and cost evaluation",
-      "audience": "Homeowners evaluating insurance for a new home or wildfire rebuild",
-      "purpose": "Explain how complete-home construction, documented resilience measures and insurer-recognized classifications can affect homeowners’ insurance costs.",
-      "practicalOutput": "A homeowner guide connecting construction features, supporting documentation and insurer assessment, with a clear explanation of Wheeler’s contribution within the complete home.",
-      "scope": "Homeowners’ insurance rather than construction-period builders’ risk. Explain construction-related underwriting factors and potential premium benefits using current, supported information. Steel framing alone does not establish a discount, coverage eligibility or whole-home classification. Keep program qualification, the IBHS application and actual quote comparison in their separate articles."
+      "id": "7cdb412a-9bd3-409c-8451-a42c27e7b7d0",
+      "title": "Construction Red Flags: How to Reduce Fraud Risk When Rebuilding",
+      "scheduledDate": "2026-11-25",
+      "clusterName": "Los Angeles provider evaluation",
+      "audience": "California homeowners evaluating rebuild proposals, commitments and payment requests",
+      "purpose": "Recognize warning signs and verify important claims before signing or paying for rebuild work.",
+      "practicalOutput": "A homeowner guide connecting each warning sign to a concrete verification action.",
+      "scope": "Explain documented warning signs in provider identity, licensing, promised scope, unsupported assurances, contract and payment requests. Use current California official consumer guidance and generic or explicitly approved anonymized examples. Explain verification and whom to approach if concerned. Keep the broader selection of suitable professionals, complete framing-price comparison and ordinary supplier scope education brief. Do not use private allegations, identify an accused provider, invent incidents or present legal advice as Wheeler’s service.",
+      "questionsForWheeler": [
+        "After the delivery problem you mentioned, what would you check before paying a supplier again?"
+      ],
+      "questionReuseNote": "Do not ask the client to repeat the incident, name the provider or repeat the payment amount. A general lesson can be used without publishing the private account.",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": true,
+      "questionKeyOverrides": {
+        "After the delivery problem you mentioned, what would you check before paying a supplier again?": "article:7cdb412a-9bd3-409c-8451-a42c27e7b7d0:question:c867b91b"
+      }
     },
     {
-      "id": "8ba5c5fd-cfaa-4882-b8b1-277490fd59b2",
-      "title": "Wood vs. Steel Framing: Comparing Long-Term Ownership Costs",
-      "scheduledDate": "2026-11-02",
-      "clusterName": "Quote and cost evaluation",
-      "audience": "Owners evaluating costs after occupancy",
-      "purpose": "Explain initial and ongoing ownership-cost categories and the assumptions needed for a useful comparison.",
-      "practicalOutput": "A transparent ownership-cost worksheet using supported figures or clearly identified homeowner inputs.",
-      "scope": "Separate initial and ongoing costs. Record the source, date and assumptions for each input. Do not invent maintenance or insurance savings; keep material behavior and actual insurance quotation comparison in their separate articles."
+      "id": "54a4567b-f431-48e5-b99b-5a67e1f607b8",
+      "title": "How to Prioritize Fire-Resilient Features Within Your Rebuild Budget",
+      "scheduledDate": "2026-12-01",
+      "clusterName": "Wildfire rebuild framing decisions",
+      "audience": "Homeowners choosing wildfire-resilient features within a Southern California rebuild budget",
+      "purpose": "Evaluate resilience-related design choices and their supported cost implications with the project team.",
+      "practicalOutput": "A decision-focused budget guide with clearly bounded cost or tradeoff examples.",
+      "scope": "Explain how the homeowner and design team identify project requirements, distinguish required work from optional upgrades and compare each upgrade against a stated baseline. Discuss the roof, openings, exterior protection, immediate surroundings and framing where evidence helps a budget decision. Separate new construction from retrofitting an existing home. The Headwaters Economics and IBHS study offers a defined Southern California new-home comparison; identify the modeled home, baseline, geography, date and included measures when using its findings. Distinguish an increase for selected components from an increase in total construction cost. Treat the study as a bounded example, not a quotation for the reader's custom home or a universal cost uplift. Where no reliable figure is available, explain the tradeoff without inventing a price or ranking. Keep the general hardening checklist, material installation-cost comparison, discount applications and lifetime-payback claims outside the main explanation. Stay at design and budgeting level.",
+      "questionsForWheeler": [
+        "Have you worked with a homeowner who had to choose between fire-resilient features because of their rebuild budget? What did they choose, and why?",
+        "If you have prices for those options, can you share them and explain what each price included?"
+      ],
+      "questionReuseNote": "If the answer to the existing Malibu material-choice question establishes a genuine budget tradeoff, use it instead of requesting another case. Do not assume cost was the reason for that decision.",
+      "optionalQuestionIndexes": [
+        1
+      ],
+      "calendarStatus": "planned",
+      "newTopic": true,
+      "questionKeyOverrides": {
+        "Have you worked with a homeowner who had to choose between fire-resilient features because of their rebuild budget? What did they choose, and why?": "article:54a4567b-f431-48e5-b99b-5a67e1f607b8:question:62d30537",
+        "If you have prices for those options, can you share them and explain what each price included?": "article:54a4567b-f431-48e5-b99b-5a67e1f607b8:question:94f6c07d"
+      }
+    },
+    {
+      "id": "02928c1c-37b0-40ab-8a13-949bb498e32e",
+      "title": "What Architects and Builders Should Know About Wildfire Insurability",
+      "scheduledDate": "2026-12-04",
+      "clusterName": "Architect and builder design coordination",
+      "audience": "Architects and structural engineers coordinating custom homes and wildfire rebuilds, builders as the project progresses, and developers setting the project brief, budget or procurement decisions",
+      "purpose": "Identify insurance-related information and design decisions to coordinate early enough to advise homeowners accurately.",
+      "practicalOutput": "A professional planning explanation connecting early design decisions, evidence and homeowner advice.",
+      "scope": "Address the professional's task in planning insurance for the completed home: establish the owner's coverage objectives and insurance contact; obtain relevant insurer or program requirements; identify construction choices and evidence needing review before the design is fixed; and coordinate contributions from the architect, structural engineer, supplier and builder. Include developers when they set the brief, budget or procurement decisions. Use a supported example, or an explicitly illustrative situation, to show how an insurer requirement affects a design discussion and the information passed to the owner. Explain the separate purposes of building approval and insurer acceptance where that situation requires it. Preserve the usual design-team-before-GC sequence and conditional outcomes. Keep the homeowner timeline, eligibility directory, IBHS application and general code terminology guide brief. Design professionals and Wheeler do not bind coverage or guarantee premiums. Exclude builders' risk.",
+      "questionsForWheeler": [
+        "What is an example of a question an architect, engineer, builder or developer has asked you about how construction choices affect home insurance?"
+      ],
+      "questionReuseNote": "If the rebuild-planning example includes this professional’s question, reuse it and ask no additional question. Its answer should inform the professional explanation rather than repeat the homeowner chronology.",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": true,
+      "questionKeyOverrides": {
+        "What is an example of a question an architect, engineer, builder or developer has asked you about how construction choices affect home insurance?": "article:02928c1c-37b0-40ab-8a13-949bb498e32e:question:45e6a51d"
+      }
     },
     {
       "id": "63066716-0d0f-458c-ba18-a702c1681c4a",
-      "title": "IBHS Wildfire Prepared Home: Requirements and Designation",
-      "scheduledDate": "2026-11-04",
+      "title": "How to Get an IBHS Wildfire Prepared Home Designation",
+      "scheduledDate": "2026-12-08",
       "clusterName": "Wildfire rebuild framing decisions",
-      "audience": "Rebuilding homeowners pursuing a property designation",
-      "purpose": "Explain the requirements and process for this specific whole-property designation.",
-      "practicalOutput": "A designation roadmap covering requirements, application, evaluation and ongoing obligations.",
-      "scope": "Use current program information. Distinguish this designation from insurer-specific discount eligibility and avoid repeating the October 22 qualification overview."
-    },
-    {
-      "id": "7cc66375-caff-4bea-ae13-aa2eb270e0e2",
-      "title": "Steel Framing for Complex Roofs: A Design Coordination Guide",
-      "scheduledDate": "2026-11-05",
-      "clusterName": "Architect and builder design coordination",
-      "audience": "Architects and builders designing complex residential roofs",
-      "purpose": "Explain coordination of roof geometry, room volumes, services and finishes at design level.",
-      "practicalOutput": "A roof-design coordination guide covering the information shared by the architect, engineer, builder and framing supplier.",
-      "scope": "Keep this at overall design level. Do not include component fabrication, connection details or structural prescriptions; retain the distinct roof-design intent."
+      "audience": "A homeowner pursuing IBHS Wildfire Prepared Home designation",
+      "purpose": "Understand the program's requirements, evidence, application and continuing obligations.",
+      "practicalOutput": "A sourced requirements summary followed by a readable application-and-maintenance sequence.",
+      "scope": "Use current official program names, requirements and timing. For new homes and rebuilds, distinguish planning qualifying features during design from completing the property, applying and undergoing the program's evaluation. Explain the maintenance and renewal obligations and the separate decision by an insurer about recognition or discounts. Steel framing, Wheeler supply or a supplier certificate does not itself earn property designation. Keep insurer discount tables and generic rebuild planning brief, and remain within the approved level of construction detail.",
+      "questionsForWheeler": [
+        "Do you know of a homeowner who went through the IBHS Wildfire Prepared Home application process? Was there a requirement that took more preparation than they expected?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Do you know of a homeowner who went through the IBHS Wildfire Prepared Home application process? Was there a requirement that took more preparation than they expected?": "article:63066716-0d0f-458c-ba18-a702c1681c4a:question:3e8b5f38"
+      }
     },
     {
       "id": "38c8b034-0983-451c-a9e8-8f5b1a0fa9bc",
-      "title": "Who Does What on a Wildfire Rebuild?",
-      "scheduledDate": "2026-11-06",
+      "title": "Questions to Ask Your Wildfire Rebuild Team",
+      "scheduledDate": "2026-12-11",
       "clusterName": "Wildfire rebuild framing decisions",
-      "audience": "Homeowners assembling a rebuild team",
-      "purpose": "Help homeowners understand the roles of the architect, engineer, builder, framing supplier and installing crew.",
-      "practicalOutput": "An approachable explanation of who contributes what at each rebuild stage.",
-      "scope": "Keep the roles clear and homeowner-friendly. Do not imply Wheeler provides installation or professional engineering services without confirmed scope. Avoid duplicating the customer-process walkthrough or professional document guidance."
+      "audience": "Homeowners preparing to discuss a wildfire rebuild with their architect, engineer, builder, framing supplier and insurance professional",
+      "purpose": "Prepare useful conversations with the right project professionals and understand how their answers affect rebuild decisions.",
+      "practicalOutput": "A homeowner conversation guide explaining whom to ask, what to ask and what the answer establishes.",
+      "scope": "Organize practical questions by the professional who can answer them, covering the design, structural decisions, supplied scope, construction coordination and insurance considerations. Explain what each answer helps the homeowner decide. Use the usual architect/engineer-before-GC sequence, while acknowledging project arrangements vary. This is preparation for conversations, not the full chronological insurance-planning guide, a hiring-vetting checklist, an insurer program directory or a responsibility matrix. Use available factual answers and examples; do not leave editorial research questions in the finished article.",
+      "questionsForWheeler": [
+        "Can you recall a homeowner's question about a rebuild that Wheeler and the architect or structural engineer needed to answer together? What was the question?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you recall a homeowner's question about a rebuild that Wheeler and the architect or structural engineer needed to answer together? What was the question?": "article:38c8b034-0983-451c-a9e8-8f5b1a0fa9bc:question:378bab"
+      }
     },
     {
-      "id": "4efec579-2af8-43dd-a5df-e970ae5e91fd",
-      "title": "Wood vs. Steel Framing: How Material Movement Affects Finishes",
-      "scheduledDate": "2026-11-09",
+      "id": "8f9d5066-638d-436e-9757-91ff87f11cf4",
+      "title": "Is Home Insurance Cheaper for Steel-Framed Homes?",
+      "scheduledDate": "2026-12-15",
+      "clusterName": "Quote and cost evaluation",
+      "audience": "A homeowner comparing the possible insurance costs of wood and steel-framed homes",
+      "purpose": "Understand what the available evidence can and cannot establish about steel-versus-wood premiums.",
+      "practicalOutput": "A plain-language evidence-based answer, supported by verified programs and their limits, rather than a speculative quote worksheet.",
+      "scope": "The available program examples do not establish a universal wood-versus-steel premium difference. Explain a fair comparison using the same address or stated site assumptions, coverage limits, deductibles, insurer, quotation date and accepted description of the completed construction; identify any other differences that remain. This is a comparison method, not evidence that matched quotations have been obtained. Distinguish whole-home construction or mitigation recognition from a framing-only discount, keeping relevant policy and premium-basis conditions beside any supported example. Do not invent paired property quotes, market averages or a promised saving. Keep classification mechanics, qualification checklists, IBHS applications and program tables brief. Exclude builders' risk.",
+      "questionsForWheeler": [
+        "In the insurance comparison you shared, the annual rate for wood is $0.30 to $0.45 per $100. What does the $100 refer to: the insured value, rebuilding cost or another amount?",
+        "Where did those insurance rate ranges come from, and when were they quoted or published?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "In the insurance comparison you shared, the annual rate for wood is $0.30 to $0.45 per $100. What does the $100 refer to: the insured value, rebuilding cost or another amount?": "article:8f9d5066-638d-436e-9757-91ff87f11cf4:question:28b34282",
+        "Where did those insurance rate ranges come from, and when were they quoted or published?": "article:8f9d5066-638d-436e-9757-91ff87f11cf4:question:b8b5b6a7"
+      }
+    },
+    {
+      "id": "d71ccbd9-4c61-40b6-abdc-a48543fd7718",
+      "title": "Planning Your First Residential Steel-Framing Project",
+      "scheduledDate": "2026-12-18",
       "clusterName": "Building with steel for GCs",
-      "audience": "General contractors and custom-home builders coordinating material selection and finished surfaces",
-      "purpose": "Explain framing-material behavior and its relevance to finished surfaces.",
-      "practicalOutput": "A material-behavior comparison with high-level finish-coordination considerations.",
-      "scope": "Avoid universal claims about cracking, settling or maintenance. Keep costs and insurance calculations in the financial articles and exclude proprietary methods or fabrication details."
+      "audience": "A GC preparing to build a first residential project whose design uses steel",
+      "purpose": "Identify the planning decisions needed to price, prepare and coordinate a first steel-framing job.",
+      "practicalOutput": "A short planning checklist organized around decisions to settle before procurement and delivery, not a detailed construction procedure.",
+      "scope": "Wheeler's accuracy review is requested before publication. The architect and engineer normally establish the design before the GC bids or joins. Allow practical coordination of access, unloading equipment, storage, phased delivery and foundation-readiness checks. Protect Wheeler's specific preparation, staging, handling and assembly methods. Do not certify readiness or supply foundation methods, anchoring details, fastening schedules or field-modification instructions. Keep the adoption case and training curriculum brief.",
+      "questionsForWheeler": [
+        "Thinking of a GC working with Wheeler for the first time, was there anything that needed to be clarified before they could place the framing order?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Thinking of a GC working with Wheeler for the first time, was there anything that needed to be clarified before they could place the framing order?": "article:d71ccbd9-4c61-40b6-abdc-a48543fd7718:question:d5530df6"
+      }
+    },
+    {
+      "id": "72bf4f73-df81-401c-9481-7f6ee34455a9",
+      "title": "Wood to Cold-Formed Steel Framing: Preparing Your Crew",
+      "scheduledDate": "2026-12-22",
+      "clusterName": "Building with steel for GCs",
+      "audience": "GCs and framing crews transitioning from wood",
+      "purpose": "Prepare a wood-framing crew to understand the material-specific knowledge required for cold-formed steel.",
+      "practicalOutput": "A skill-transition table explaining transferable experience, material-specific differences and relevant preparation or education.",
+      "scope": "Focus on transferable skills and material-specific learning. Keep logistics brief; leave out delivery/staging checklists and resource-tracking logs.",
+      "questionsForWheeler": [
+        "When you worked with a crew switching from wood to steel framing, what did they need help understanding at the start?",
+        "What guidance does Wheeler offer a crew new to steel framing, and what training or support would they need to arrange elsewhere?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "When you worked with a crew switching from wood to steel framing, what did they need help understanding at the start?": "article:72bf4f73-df81-401c-9481-7f6ee34455a9:question:c7f528ce",
+        "What guidance does Wheeler offer a crew new to steel framing, and what training or support would they need to arrange elsewhere?": "article:72bf4f73-df81-401c-9481-7f6ee34455a9:question:b0f56c40"
+      }
+    },
+    {
+      "id": "b35e5a60-6923-4dbc-9c43-7c3f7d01f774",
+      "title": "Steel vs. Wood vs. Concrete: Comparing Installation Costs",
+      "scheduledDate": "2026-12-23",
+      "clusterName": "Quote and cost evaluation",
+      "audience": "Owners and builders comparing framing materials",
+      "purpose": "Compare the installation-cost categories of equivalent residential steel, wood and concrete structural systems.",
+      "practicalOutput": "An explanatory cost-category table for steel, wood and a clearly identified concrete system. Use supported figures only; no completed estimates or invented prices.",
+      "scope": "Define the concrete system before comparing it. Cover equivalent structural scope, design and engineering, preparation, installation labor, delivery and related completed-scope requirements. Keep the comparison fair; do not declare a universally cheapest material. Keep detailed savings case studies and long-term ownership calculations outside this article.",
+      "questionsForWheeler": [
+        "Which type of concrete construction would be most useful to compare with wood and steel for a Southern California custom home?",
+        "Have you compared steel and concrete estimates for the same home? Which part of the installation cost made the biggest difference?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Which type of concrete construction would be most useful to compare with wood and steel for a Southern California custom home?": "article:b35e5a60-6923-4dbc-9c43-7c3f7d01f774:question:9231e1a1",
+        "Have you compared steel and concrete estimates for the same home? Which part of the installation cost made the biggest difference?": "article:b35e5a60-6923-4dbc-9c43-7c3f7d01f774:question:c5ad90b3"
+      }
+    },
+    {
+      "id": "823d9903-1aac-41c7-9e5d-019f8ce2d355",
+      "title": "Steel Framing for Custom Homes",
+      "scheduledDate": "2026-12-29",
+      "clusterName": "Architect and builder design coordination",
+      "audience": "Architects planning a custom home, with the structural engineer and builder",
+      "purpose": "Identify design decisions to resolve together so the framing supports the intended rooms and architectural features.",
+      "practicalOutput": "Concrete design-coordination examples and a short set of information to agree, rather than an abstract matrix of interfaces.",
+      "scope": "Open-plan rooms are one example, not the entire topic. Do not claim any span, opening or form is feasible without project engineering. Keep roof-specific and curved-feature detail for those subjects. Avoid repeating the general steel introduction, customer process or GC procurement checklist.",
+      "questionsForWheeler": [
+        "Can you share a project where the framing conflicted with a room layout or the planned route for plumbing, ducts or wiring? What did the design team agree to change?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you share a project where the framing conflicted with a room layout or the planned route for plumbing, ducts or wiring? What did the design team agree to change?": "article:823d9903-1aac-41c7-9e5d-019f8ce2d355:question:5f82bda8"
+      }
+    },
+    {
+      "id": "691cedc7-a614-4939-a25e-4b8cba4217c2",
+      "title": "Custom Steel Framing vs. Panelized and Modular Homes in Los Angeles",
+      "scheduledDate": "2026-12-30",
+      "clusterName": "Los Angeles provider evaluation",
+      "audience": "Homeowners comparing ways to build a custom home in Los Angeles",
+      "purpose": "Choose between prepared framing components, preassembled panels and complete modules by understanding the work included in each approach.",
+      "practicalOutput": "A short comparison using the columns 'What arrives', 'Work remaining for the builder' and 'What to confirm with the supplier'.",
+      "scope": "Steel is a framing material; panelization and modular construction describe delivery approaches that can also use steel. Explain this overlap through the actual package rather than a terminology lecture. Do not treat a whole modular home and a framing-only price as equivalent. Keep general supplier selection and mixed-supplier project coordination brief.",
+      "questionsForWheeler": [
+        "Can you share a project where the choice between prepared framing components and preassembled panels changed how much work the builder had to do on site? What was the difference?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you share a project where the choice between prepared framing components and preassembled panels changed how much work the builder had to do on site? What was the difference?": "article:691cedc7-a614-4939-a25e-4b8cba4217c2:question:44e80f54"
+      }
     },
     {
       "id": "ae195cc7-7470-4114-9c77-b4021ac3c63d",
       "title": "Understanding Steel Framing Quotes: Allowances, Exclusions and Changes",
-      "scheduledDate": "2026-11-11",
+      "scheduledDate": "2027-01-05",
       "clusterName": "Quote and cost evaluation",
-      "audience": "Builders and owners evaluating financial proposal terms",
-      "purpose": "Explain individual quotation terms and how they affect the price boundary.",
-      "practicalOutput": "A plain-language guide to allowances, exclusions and separately agreed changes.",
-      "scope": "Keep the broader side-by-side quotation comparison in October 9. Use supported terms or clearly labeled examples; do not invent Wheeler contract provisions or market prices."
-    },
-    {
-      "id": "9491a14d-12e2-4a69-8afb-57c085df6412",
-      "title": "Steel-Framed Homes: Understanding Fire and Building Code Documents",
-      "scheduledDate": "2026-11-12",
-      "clusterName": "Fire performance and code evaluation",
-      "audience": "Architects and builders organizing project evidence",
-      "purpose": "Explain what relevant documents establish and who provides or reviews them.",
-      "practicalOutput": "A guide matching relevant documentation to its purpose, provider and reviewer.",
-      "scope": "Keep the fire-performance definitions in October 29. Distinguish product evidence, assembly evidence and project-level classification; do not treat one as proof of all three."
-    },
-    {
-      "id": "3cba08d6-26e9-48e9-bac2-06ea5e32f5aa",
-      "title": "Steel Framing for Hillside Homes: Access and Delivery Planning",
-      "scheduledDate": "2026-11-13",
-      "clusterName": "Architect and builder design coordination",
-      "audience": "Architects and builders planning constrained hillside residential sites",
-      "purpose": "Explain high-level access and delivery considerations for constrained hillside residential sites.",
-      "practicalOutput": "A general overview of early access, delivery and project coordination considerations.",
-      "scope": "Keep this high-level to protect Wheeler’s site-readiness IP. Exclude foundation work, anchoring, detailed handling procedures and proprietary operational methods."
-    },
-    {
-      "id": "4ce15d08-c5e8-4824-9e60-1a3fda60c032",
-      "title": "Planning Curves and Custom Architectural Features with Steel Framing",
-      "scheduledDate": "2026-11-16",
-      "clusterName": "Architect and builder design coordination",
-      "audience": "Architects developing unusual residential geometry",
-      "purpose": "Discuss overall architectural possibilities and the design coordination needed to evaluate them.",
-      "practicalOutput": "An architectural overview of curves and custom features using overall project examples and approved design information.",
-      "scope": "Exclude bendable-track techniques, fabrication details and component-level demonstrations. Keep complex roof coordination in the separate roof article."
-    },
-    {
-      "id": "8f9d5066-638d-436e-9757-91ff87f11cf4",
-      "title": "Comparing Home Insurance Quotes for Steel and Wood Framed Homes",
-      "scheduledDate": "2026-11-18",
-      "clusterName": "Quote and cost evaluation",
-      "audience": "Homeowners comparing written insurance quotations for the same property",
-      "purpose": "Help homeowners compare actual insurance offers on equivalent terms and identify differences in coverage, deductibles and total cost.",
-      "practicalOutput": "A side-by-side policy comparison worksheet recording reconstruction value, coverage limits, deductibles, exclusions, premium, quotation date and assumptions still to confirm with the insurer.",
-      "scope": "Use actual written quotes or clearly labeled blank input fields. Match property and coverage assumptions, identify remaining differences and distinguish total premium from a wildfire-related component. This is a practical quote-comparison task; do not repeat October 30’s construction-and-underwriting explanation, program eligibility guidance or designation requirements. Do not invent prices or promise steel-only savings."
+      "audience": "A homeowner reading a steel-framing quote with their builder",
+      "purpose": "Understand the terms in one proposal before accepting its price.",
+      "practicalOutput": "A short glossary with practical examples. The client-supplied $3,000 delivery allowance/$5,000 confirmed cost/$2,000 adjustment may illustrate the method, clearly labeled as fictional arithmetic.",
+      "scope": "Do not invent Wheeler quotations, contract policies or typical fees. Illustrative client-supplied figures are allowed and are not market prices. Engineering fees may be part of additional changed work where actually charged; do not automatically add all design costs twice. Do not repeat the full multiple-supplier comparison worksheet or make blanket panelizer claims.",
+      "questionsForWheeler": [
+        "Can you give an example of a design change that led to an extra charge? What additional work did that charge cover?",
+        "Can you recall a homeowner expecting something to be included in a framing quote when it was actually excluded? What was it?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you give an example of a design change that led to an extra charge? What additional work did that charge cover?": "article:ae195cc7-7470-4114-9c77-b4021ac3c63d:question:61d81e44",
+        "Can you recall a homeowner expecting something to be included in a framing quote when it was actually excluded? What was it?": "article:ae195cc7-7470-4114-9c77-b4021ac3c63d:question:be3eabff"
+      }
     },
     {
       "id": "84cc2a24-88a6-4033-847d-264e5c588597",
-      "title": "Steel-Framed Exterior Walls: Fire, Moisture and Thermal Performance",
-      "scheduledDate": "2026-11-19",
+      "title": "Steel-Framed Walls: Fire Protection, Insulation and Moisture",
+      "scheduledDate": "2027-01-08",
       "clusterName": "Fire performance and code evaluation",
-      "audience": "Architects and builders coordinating the building envelope",
-      "purpose": "Explain whole-wall performance at a general design level.",
-      "practicalOutput": "A high-level explanation of fire, moisture and thermal performance within the complete exterior wall.",
-      "scope": "Avoid assembly recipes, fastening schedules and component dimensions. Explain coordinated whole-wall performance without promising outcomes from framing alone."
+      "audience": "An architect coordinating steel-framed exterior walls with the project team",
+      "purpose": "Understand the separate jobs of the frame, insulation, weather protection and finishes in the complete wall.",
+      "practicalOutput": "A plain-language explanation of the parts and their jobs, supported by a small diagram-free comparison only if useful.",
+      "scope": "Do not lead with 'performance interfaces' or an abstract coordination matrix. Do not supply an assembly recipe, component specifications or a fire rating for an unspecified wall. Use current technical sources and qualified review where required. Keep whole-property wildfire planning and material-movement comparisons brief.",
+      "questionsForWheeler": [
+        "Can you share a project where insulation requirements changed the design of a steel-framed exterior wall? What changed?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you share a project where insulation requirements changed the design of a steel-framed exterior wall? What changed?": "article:84cc2a24-88a6-4033-847d-264e5c588597:question:f251628"
+      }
     },
     {
-      "id": "c711725e-ccf0-4c23-8f45-257d1d7f273d",
-      "title": "How Wheeler’s Custom Steel Framing Can Complement Panelized Construction",
-      "scheduledDate": "2026-11-20",
-      "clusterName": "Building with steel for GCs",
-      "audience": "GCs coordinating custom requirements alongside panelized work",
-      "purpose": "Explain the complementary use of Wheeler’s custom framing alongside panelized construction that Stacie described.",
-      "practicalOutput": "A high-level explanation of complementary scopes, responsibilities and coordination.",
-      "scope": "Use confirmed information about Wheeler’s approach. Avoid invented project examples, proprietary connections and duplicated delivery-method comparisons."
+      "id": "24e0ea70-0d62-4fc2-bd94-0aba0d9e20a6",
+      "title": "Steel Framing, Fire-Rated Assemblies and Type II Construction",
+      "scheduledDate": "2027-01-12",
+      "clusterName": "Fire performance and code evaluation",
+      "audience": "An architect evaluating a residential steel design with the engineer and code team",
+      "purpose": "Distinguish a material property, an assembly rating and a building construction classification without confusing their scopes.",
+      "practicalOutput": "A brief three-concept comparison with the question each answers, its scope and relevant evidence.",
+      "scope": "Define necessary technical terms in context. Use current authoritative sources and project-professional review for applicability. Do not turn the article into code interpretation for an unspecified house, a document-submission manual or a general wildfire checklist. Avoid classifying a Wheeler home without its approved design.",
+      "questionsForWheeler": [
+        "On a steel-framed home you worked on, did meeting the intended building-code construction type, such as Type II, affect any other material choices? What had to change?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "On a steel-framed home you worked on, did meeting the intended building-code construction type, such as Type II, affect any other material choices? What had to change?": "article:24e0ea70-0d62-4fc2-bd94-0aba0d9e20a6:question:4afa2229"
+      }
     },
     {
-      "id": "c3168124-e85c-490c-bfd1-df2b29cf6cb0",
-      "title": "Steel Framing Cost Savings: Three Wheeler Project Comparisons",
-      "scheduledDate": "2026-11-23",
-      "clusterName": "Quote and cost evaluation",
-      "audience": "Owners and builders assessing reported cost examples",
-      "purpose": "Explain three supported Wheeler-reported project comparisons without blending their baselines.",
-      "practicalOutput": "A three-project evidence table preserving the individual scopes, attribution and comparison baselines.",
-      "scope": "Keep each reported example separate. Do not add savings across different projects, invent project details or present the examples as forecasts for another home."
-    },
-    {
-      "id": "1cd2bfae-9187-4cba-b5e6-a274652af714",
-      "title": "Tracking Waste and Deliveries on a Steel-Framing Project",
-      "scheduledDate": "2026-11-27",
-      "clusterName": "Building with steel for GCs",
-      "audience": "General contractors managing residential framing deliveries, site waste and hauling",
-      "purpose": "Explain useful measurements for assessing framing waste and deliveries.",
-      "practicalOutput": "A general measurement guide using Wheeler’s supported examples and clearly defined metrics.",
-      "scope": "Keep proprietary operational methods private. Separate framing deliveries from waste hauling and site waste from off-site waste. Do not promise universal waste or delivery savings."
+      "id": "9491a14d-12e2-4a69-8afb-57c085df6412",
+      "title": "Steel-Framed Homes: What to Check With Your Design Team",
+      "scheduledDate": "2027-01-15",
+      "clusterName": "Fire performance and code evaluation",
+      "audience": "Homeowners reviewing a proposed steel-framed home with their architect and structural engineer",
+      "purpose": "Understand which design, product and fire-performance documents the project team reviews and what those documents establish.",
+      "practicalOutput": "A readable guide connecting a small number of homeowner concerns to the relevant documents and professional review.",
+      "scope": "Explain what homeowners can ask their design team to confirm about the current plans, supplied framing, applicable product evidence, relevant assembly evidence and required project reviews. Distinguish manufacturer certification, assembly ratings and approved project information. Use qualified professionals to determine applicability. Keep the focus on supported design evidence; do not offer visual inspection instructions, certify construction quality or compliance, assume a construction class or invent Wheeler documentation services. Keep broad supplier selection and credential checking brief.",
+      "questionsForWheeler": [
+        "On a recent project, did Wheeler provide any documents to help the design team assess fire performance? If so, what were they?",
+        "Were there any fire-performance questions on that project that the architect or structural engineer still needed to resolve? What were they?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "On a recent project, did Wheeler provide any documents to help the design team assess fire performance? If so, what were they?": "article:9491a14d-12e2-4a69-8afb-57c085df6412:question:bb42f28b",
+        "Were there any fire-performance questions on that project that the architect or structural engineer still needed to resolve? What were they?": "article:9491a14d-12e2-4a69-8afb-57c085df6412:question:5fd589b4"
+      }
     },
     {
       "id": "c49b484a-97d1-46e1-b37a-337b674a7426",
       "title": "Choosing a Framing Supplier: Checking Certifications and Credentials",
-      "scheduledDate": "2026-11-30",
+      "scheduledDate": "2027-01-19",
       "clusterName": "Los Angeles provider evaluation",
-      "audience": "Homeowners evaluating evidence supplied by project participants",
-      "purpose": "Help homeowners verify relevant documents and understand what each credential establishes.",
-      "practicalOutput": "A credential-verification guide distinguishing product certificates, contractor licensing, memberships and property designations.",
-      "scope": "Focus on evidence verification rather than repeating October 28’s supplier-selection guidance. Do not imply Wheeler holds unverified credentials, licenses or property designations."
+      "audience": "A homeowner checking claims made by a framing supplier",
+      "purpose": "Know what to verify and avoid mistaking one kind of credential for another.",
+      "practicalOutput": "A homeowner verification checklist with a few relevant document examples, not an exhaustive catalogue.",
+      "scope": "Do not claim Wheeler holds an unconfirmed contractor license, property designation or certification. Explain a credential's scope without making legal determinations. Keep assembly/code document review for professionals and broad supplier selection brief. Do not imply credentials alone establish complete-home performance.",
+      "questionsForWheeler": [
+        "Can you share a manufacturer's certificate for framing that Wheeler supplies, which we have permission to use as an example?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you share a manufacturer's certificate for framing that Wheeler supplies, which we have permission to use as an example?": "article:c49b484a-97d1-46e1-b37a-337b674a7426:question:65d772e"
+      }
+    },
+    {
+      "id": "3cba08d6-26e9-48e9-bac2-06ea5e32f5aa",
+      "title": "Planning Steel Framing Deliveries to a Hillside Home",
+      "scheduledDate": "2027-01-22",
+      "clusterName": "Architect and builder design coordination",
+      "audience": "A builder planning framing delivery to a constrained hillside custom-home site",
+      "purpose": "Identify access and delivery decisions to resolve with the supplier and installation team.",
+      "practicalOutput": "A high-level delivery-planning checklist with concrete information to exchange, not an engineered site logistics plan.",
+      "scope": "Practical coordination and brief foundation-readiness checks with the project team are allowed. Do not certify access/readiness or prescribe unloading and assembly methods. Protect Wheeler's specific preparation, staging, handling and assembly methods; exclude foundation construction methods, anchoring specifications, hardware dimensions and installation instructions. Keep general first-job readiness brief.",
+      "questionsForWheeler": [
+        "Can you share a project where access to the property affected a framing delivery? What did you have to change in the delivery plan?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you share a project where access to the property affected a framing delivery? What did you have to change in the delivery plan?": "article:3cba08d6-26e9-48e9-bac2-06ea5e32f5aa:question:918bcac"
+      }
+    },
+    {
+      "id": "7cc66375-caff-4bea-ae13-aa2eb270e0e2",
+      "title": "Planning a Complex Roof With Steel Framing",
+      "scheduledDate": "2027-01-26",
+      "clusterName": "Architect and builder design coordination",
+      "audience": "An architect coordinating a custom roof with the engineer and builder",
+      "purpose": "Identify the roof-design information and decisions that need review before framing preparation.",
+      "practicalOutput": "A focused roof-planning guide with approved overall project examples and practical drawing-review points.",
+      "scope": "Do not describe generic 'information flow' without the actual drawings or decisions involved. Use only documented roof examples. Avoid promised spans, fabricated project stories, member sizing, connection or fabrication instructions. Keep general team roles, curved walls and whole-home framing selection brief.",
+      "questionsForWheeler": [
+        "Can you describe a complex roof Wheeler worked on? What was the architect trying to achieve, and what did the design team need to resolve?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you describe a complex roof Wheeler worked on? What was the architect trying to achieve, and what did the design team need to resolve?": "article:7cc66375-caff-4bea-ae13-aa2eb270e0e2:question:232fc2ee"
+      }
+    },
+    {
+      "id": "4ce15d08-c5e8-4824-9e60-1a3fda60c032",
+      "title": "Planning Curved Walls and Custom Features With Steel Framing",
+      "scheduledDate": "2027-01-29",
+      "clusterName": "Architect and builder design coordination",
+      "audience": "An architect considering curves and custom architectural features",
+      "purpose": "Translate the desired appearance into clear design information the project team can evaluate.",
+      "practicalOutput": "A design-planning explanation with approved overall examples and a short set of information to resolve.",
+      "scope": "Do not invent project examples, feasibility, dimensions or span claims. Specific methods for bending track, fabricating components or making connections remain private. No box-beam demonstrations or part close-ups. Keep roof-specific coordination and generic steel benefits brief.",
+      "questionsForWheeler": [
+        "Can you describe a curved wall or vault Wheeler worked on? What was the architect trying to achieve, and what did the team need to agree before framing began?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you describe a curved wall or vault Wheeler worked on? What was the architect trying to achieve, and what did the team need to agree before framing began?": "article:4ce15d08-c5e8-4824-9e60-1a3fda60c032:question:b7b562ab"
+      }
+    },
+    {
+      "id": "c711725e-ccf0-4c23-8f45-257d1d7f273d",
+      "title": "How Wheeler's Custom Steel Framing Can Complement Panelized Construction",
+      "scheduledDate": "2027-02-02",
+      "clusterName": "Building with steel for GCs",
+      "audience": "A builder considering Wheeler for custom framing alongside a panelized approach",
+      "purpose": "Understand the complementary option and the scope decisions needed to evaluate it for a particular home.",
+      "practicalOutput": "A high-level explanation of the option and a short list of project-specific scope confirmations, using confirmed Wheeler capabilities.",
+      "scope": "Owner positioning is confirmed, but no approved named hybrid project, connection solution or standard division of supply is documented. Wheeler-specific configurations need confirmation; do not invent them as examples. Any hypothetical situation must be clearly labeled and must not imply an unconfirmed service. Keep general panels-versus-components definitions brief and proprietary connections private.",
+      "questionsForWheeler": [
+        "If a home uses another supplier's framing panels, which parts of the framing could Wheeler provide?",
+        "Has Wheeler worked alongside a panel supplier on a project we can describe? What did each company supply?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "If a home uses another supplier's framing panels, which parts of the framing could Wheeler provide?": "article:c711725e-ccf0-4c23-8f45-257d1d7f273d:question:c039e361",
+        "Has Wheeler worked alongside a panel supplier on a project we can describe? What did each company supply?": "article:c711725e-ccf0-4c23-8f45-257d1d7f273d:question:1741dbdd"
+      }
+    },
+    {
+      "id": "c3168124-e85c-490c-bfd1-df2b29cf6cb0",
+      "title": "Understanding Wheeler’s Reported Framing Cost Savings",
+      "scheduledDate": "2027-02-05",
+      "clusterName": "Quote and cost evaluation",
+      "audience": "A homeowner evaluating whether reported Wheeler savings are relevant to a new home",
+      "purpose": "Understand each reported comparison without mistaking it for a price or saving promised for another house.",
+      "practicalOutput": "Supported project comparisons explaining what the reported savings cover and what a new project estimate would still need.",
+      "scope": "Explain the reported comparisons separately and attach each figure to its known size, budget, alternative and cost scope. The reports include more than $200,000 on a $2 million project; at least $160,000 in heavy structural steel on a 10,000-square-foot wood/CFS comparison; and $250,000 in heavy structural steel on a 5,000-square-foot comparison with a panelized design. Establish whether the reports represent three distinct projects and clarify the $200,000 baseline before presenting three case studies. Do not invent quotes, dates, missing cost breakdowns or universal savings percentages. Keep proprietary construction methods private.",
+      "questionsForWheeler": [
+        "For the $2 million project where you reported saving more than $200,000, what costs were included in that comparison?",
+        "Do the savings of more than $200,000, $160,000 and $250,000 refer to three different projects?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "For the $2 million project where you reported saving more than $200,000, what costs were included in that comparison?": "article:c3168124-e85c-490c-bfd1-df2b29cf6cb0:question:80827e3b",
+        "Do the savings of more than $200,000, $160,000 and $250,000 refer to three different projects?": "article:c3168124-e85c-490c-bfd1-df2b29cf6cb0:question:17055a02"
+      }
+    },
+    {
+      "id": "8ba5c5fd-cfaa-4882-b8b1-277490fd59b2",
+      "title": "Wood vs. Steel Framing: Comparing Long-Term Ownership Costs",
+      "scheduledDate": "2027-02-09",
+      "clusterName": "Quote and cost evaluation",
+      "audience": "A homeowner weighing wood and steel beyond the initial construction price",
+      "purpose": "Recognize supported ongoing cost considerations and distinguish them from speculative lifetime savings.",
+      "practicalOutput": "A compact comparison of cost categories, available evidence and figures the homeowner would supply. A blank input table is optional, not the article's central product.",
+      "scope": "There are no verified universal lifetime totals or maintenance schedules in the project knowledge. Do not invent annual premiums, repair rates, replacement cycles or a calculated financial winner. Use supplied/sourced illustrations only where they teach a method and are clearly labeled. Keep installation pricing and detailed insurance programs brief; no builders' risk content.",
+      "questionsForWheeler": [
+        "Can you share an example of an older steel-framed home and any framing or finish repairs it has needed? How old is the home, and do you have any records of the repair costs?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you share an example of an older steel-framed home and any framing or finish repairs it has needed? How old is the home, and do you have any records of the repair costs?": "article:8ba5c5fd-cfaa-4882-b8b1-277490fd59b2:question:93f49db4"
+      }
+    },
+    {
+      "id": "4efec579-2af8-43dd-a5df-e970ae5e91fd",
+      "title": "Steel vs. Wood: What Framing Movement Means for Your Finishes",
+      "scheduledDate": "2027-02-12",
+      "clusterName": "Building with steel for GCs",
+      "audience": "A custom-home builder evaluating framing materials and finished surfaces",
+      "purpose": "Understand relevant material differences and what remains dependent on the complete design and workmanship.",
+      "practicalOutput": "A concrete explanation with a small material-behavior comparison and examples involving drywall, cabinetry or tile.",
+      "scope": "Do not promise no cracks, no settlement or earthquake-proof performance. Distinguish engineered wood from sawn lumber and material behavior from whole-building outcomes. Only use Wheeler aging/project photos if verified and approved. Keep lifetime-cost calculations and general procurement guidance outside the article.",
+      "questionsForWheeler": [
+        "Can you share an example of an older steel-framed home and any framing or finish repairs it has needed? How old is the home, and do you have any records of the repair costs?"
+      ],
+      "questionReuseNote": "Your answer for 9 February will also inform this topic. There is no need to answer twice.",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "questionSourceArticleId": "8ba5c5fd-cfaa-4882-b8b1-277490fd59b2",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "Can you share an example of an older steel-framed home and any framing or finish repairs it has needed? How old is the home, and do you have any records of the repair costs?": "article:8ba5c5fd-cfaa-4882-b8b1-277490fd59b2:question:93f49db4"
+      }
+    },
+    {
+      "id": "1cd2bfae-9187-4cba-b5e6-a274652af714",
+      "title": "How to Track Framing Waste and Deliveries",
+      "scheduledDate": "2027-02-16",
+      "clusterName": "Building with steel for GCs",
+      "audience": "A GC who wants to evaluate framing waste and delivery use on a residential job",
+      "purpose": "Choose a few practical measurements that can be compared fairly across projects or approaches.",
+      "practicalOutput": "A short blank tracking table covering deliveries, waste-hauling trips, site-waste quantity, source/date and comparison scope. No completed job measurements are required.",
+      "scope": "Explain each metric in ordinary language rather than building a formal reporting framework. Do not invent job logs, cleanup costs or waste totals. Retain the baseline and attribution of reported reductions and distinguish site results from total-system waste. Protect preparation and site methods; do not turn measurements into guaranteed savings.",
+      "questionsForWheeler": [
+        "For one completed project, do you have records of the number of framing deliveries, waste collections and the amount of waste removed? Can you share the figures you have?",
+        "If you compared those figures with wood framing, how did you arrive at the wood-framing figures?"
+      ],
+      "questionReuseNote": "",
+      "optionalQuestionIndexes": [],
+      "calendarStatus": "planned",
+      "newTopic": false,
+      "questionKeyOverrides": {
+        "For one completed project, do you have records of the number of framing deliveries, waste collections and the amount of waste removed? Can you share the figures you have?": "article:1cd2bfae-9187-4cba-b5e6-a274652af714:question:900917cd",
+        "If you compared those figures with wood framing, how did you arrive at the wood-framing figures?": "article:1cd2bfae-9187-4cba-b5e6-a274652af714:question:71ad0bd9"
+      }
     }
   ]
 }

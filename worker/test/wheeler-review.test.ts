@@ -1,3 +1,4 @@
+import { calendarQuestionKeys, maxAnswerLength } from '../../src/lib/clients/wheeler-calendar-questions';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { handleRequest } from '../src/index';
 import type { Env } from '../src/types';
@@ -51,6 +52,28 @@ function decision(key: string, note = '', status = 'approved') {
 }
 
 describe('Wheeler shared approvals', () => {
+  it('saves extended answers exactly and shares independent questions across sessions', async () => {
+    const app=setup(), token=await app.login();
+    const [firstKey,secondKey]=[...calendarQuestionKeys];
+    const text='  First paragraph.\n\n'+ 'Detailed project context 🏠. '.repeat(600)+'\n  Final detail.  ';
+    expect(text.length).toBeLessThan(maxAnswerLength);
+    const operation={id:crypto.randomUUID(),reviewer:'Stacie Morris',change:{kind:'answer',key:firstKey,text}};
+    expect((await app.request('review','POST',operation,token)).status).toBe(201);
+    expect((await app.request('review','POST',operation,token)).status).toBe(200);
+    expect((await app.request('review','POST',{id:crypto.randomUUID(),reviewer:'Miguel',change:{kind:'answer',key:secondKey,text:'Another answer'}},token)).status).toBe(201);
+    const read=await app.request('review','GET',undefined,await app.login());
+    const {events}=await read.json() as {events:ReviewEvent[]};
+    const state=reduceReview(events);
+    expect(events).toHaveLength(2);
+    expect(state.answers?.[firstKey!]?.text).toBe(text);
+    expect(state.answers?.[secondKey!]?.text).toBe('Another answer');
+    expect(state.decisions).toEqual({});
+    expect(app.values.get('post:unrelated-blog')).toBe('{"title":"Unchanged"}');
+    for(const change of [{kind:'answer',key:'unknown-question',text:'x'},{kind:'answer',key:firstKey,text:'x'.repeat(maxAnswerLength+1)}]){
+      expect((await app.request('review','POST',{id:crypto.randomUUID(),reviewer:'Miguel',change},token)).status).toBe(400);
+    }
+  });
+
   it.each(['article:0737f9c8-d435-4b62-83f1-1b663ae7755d', 'article:78c2da9e-b67b-464f-a9cc-09c11f041dfc'])('shares calendar feedback and revised approval for %s without changing cluster decisions', async (articleKey) => {
     const app = setup(), token = await app.login();
     await app.request('review', 'POST', decision(key1), token);

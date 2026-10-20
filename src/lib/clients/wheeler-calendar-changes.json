@@ -1,0 +1,256 @@
+{
+  "date": "2026-10-20",
+  "previousTotal": 29,
+  "total": 35,
+  "newTopics": 6,
+  "movedTopics": 29,
+  "renamedTopics": 16,
+  "questions": 43,
+  "changes": [
+    {
+      "id": "78c2da9e-b67b-464f-a9cc-09c11f041dfc",
+      "previousDate": "2026-10-08",
+      "date": "2026-10-20",
+      "previousTitle": "Residential Steel Framing: A Guide for General Contractors",
+      "title": "Residential Steel Framing: A Guide for General Contractors"
+    },
+    {
+      "id": "355306fb-aea7-44c6-865d-f313a2914d58",
+      "previousDate": "2026-10-09",
+      "date": "2026-10-23",
+      "previousTitle": "How to Compare Custom-Home Steel Framing Quotes in Southern California",
+      "title": "How to Compare Custom-Home Steel Framing Quotes in Southern California"
+    },
+    {
+      "id": "21ed2d3d-9c84-430e-820c-c36d2c053586",
+      "previousDate": null,
+      "date": "2026-10-27",
+      "previousTitle": null,
+      "title": "Insurance for Homeowners in Wildfire-Prone Areas: What to Expect"
+    },
+    {
+      "id": "9d93fc4d-a219-4010-a896-d9ff6a2108d2",
+      "previousDate": "2026-10-22",
+      "date": "2026-10-30",
+      "previousTitle": "Qualifying for California Wildfire Insurance Discounts",
+      "title": "How to Qualify for Wildfire Mitigation Discounts"
+    },
+    {
+      "id": "cb7037b6-fc83-4ba2-83f7-d7818667c90c",
+      "previousDate": "2026-10-30",
+      "date": "2026-11-03",
+      "previousTitle": "How Fire-Resistive Home Construction Can Affect Insurance Costs",
+      "title": "How Construction Choices Affect Wildfire Insurance"
+    },
+    {
+      "id": "bce517b6-c708-416d-9c79-ed92ee6c7640",
+      "previousDate": null,
+      "date": "2026-11-06",
+      "previousTitle": null,
+      "title": "Planning a Wildfire Rebuild Around Insurance Requirements"
+    },
+    {
+      "id": "c2b697d1-8ae4-43ea-a98e-ccf7aff7cc33",
+      "previousDate": "2026-10-16",
+      "date": "2026-11-10",
+      "previousTitle": "Steel vs. Wood Framing for a Wildfire Rebuild",
+      "title": "Steel vs. Wood Framing for a Wildfire Rebuild"
+    },
+    {
+      "id": "e75e66b4-cdcb-4517-b2de-2d52433d2b7d",
+      "previousDate": "2026-10-23",
+      "date": "2026-11-13",
+      "previousTitle": "Steel Framing and Wildfire Resilience: A Rebuild Planning Checklist",
+      "title": "Rebuilding After Wildfire: What Homeowners Should Prioritize"
+    },
+    {
+      "id": "0737f9c8-d435-4b62-83f1-1b663ae7755d",
+      "previousDate": "2026-10-21",
+      "date": "2026-11-17",
+      "previousTitle": "How a Custom-Home Steel Framing Project Comes Together",
+      "title": "What to Expect When Building a Steel-Framed Home"
+    },
+    {
+      "id": "a50fa511-f913-4f30-9793-17e89d7d479b",
+      "previousDate": "2026-10-28",
+      "date": "2026-11-20",
+      "previousTitle": "Selecting a Supplier to Frame Your Los Angeles Custom Home",
+      "title": "Selecting a Supplier to Frame Your Los Angeles Custom Home"
+    },
+    {
+      "id": "58ac4eb7-7b9e-43e4-95f1-acbbeccb0c33",
+      "previousDate": null,
+      "date": "2026-11-24",
+      "previousTitle": null,
+      "title": "How to Vet Builders, Architects and Engineers for a Rebuild"
+    },
+    {
+      "id": "7cdb412a-9bd3-409c-8451-a42c27e7b7d0",
+      "previousDate": null,
+      "date": "2026-11-25",
+      "previousTitle": null,
+      "title": "Construction Red Flags: How to Reduce Fraud Risk When Rebuilding"
+    },
+    {
+      "id": "54a4567b-f431-48e5-b99b-5a67e1f607b8",
+      "previousDate": null,
+      "date": "2026-12-01",
+      "previousTitle": null,
+      "title": "How to Prioritize Fire-Resilient Features Within Your Rebuild Budget"
+    },
+    {
+      "id": "02928c1c-37b0-40ab-8a13-949bb498e32e",
+      "previousDate": null,
+      "date": "2026-12-04",
+      "previousTitle": null,
+      "title": "What Architects and Builders Should Know About Wildfire Insurability"
+    },
+    {
+      "id": "63066716-0d0f-458c-ba18-a702c1681c4a",
+      "previousDate": "2026-11-04",
+      "date": "2026-12-08",
+      "previousTitle": "IBHS Wildfire Prepared Home: Requirements and Designation",
+      "title": "How to Get an IBHS Wildfire Prepared Home Designation"
+    },
+    {
+      "id": "38c8b034-0983-451c-a9e8-8f5b1a0fa9bc",
+      "previousDate": "2026-11-06",
+      "date": "2026-12-11",
+      "previousTitle": "Who Does What on a Wildfire Rebuild?",
+      "title": "Questions to Ask Your Wildfire Rebuild Team"
+    },
+    {
+      "id": "8f9d5066-638d-436e-9757-91ff87f11cf4",
+      "previousDate": "2026-11-18",
+      "date": "2026-12-15",
+      "previousTitle": "Comparing Home Insurance Quotes for Steel and Wood Framed Homes",
+      "title": "Is Home Insurance Cheaper for Steel-Framed Homes?"
+    },
+    {
+      "id": "d71ccbd9-4c61-40b6-abdc-a48543fd7718",
+      "previousDate": "2026-10-19",
+      "date": "2026-12-18",
+      "previousTitle": "Planning Your First Residential Steel-Framing Project",
+      "title": "Planning Your First Residential Steel-Framing Project"
+    },
+    {
+      "id": "72bf4f73-df81-401c-9481-7f6ee34455a9",
+      "previousDate": "2026-10-12",
+      "date": "2026-12-22",
+      "previousTitle": "Wood to Cold-Formed Steel Framing: Preparing Your Crew",
+      "title": "Wood to Cold-Formed Steel Framing: Preparing Your Crew"
+    },
+    {
+      "id": "b35e5a60-6923-4dbc-9c43-7c3f7d01f774",
+      "previousDate": "2026-10-14",
+      "date": "2026-12-23",
+      "previousTitle": "Steel vs. Wood vs. Concrete: Comparing Installation Costs",
+      "title": "Steel vs. Wood vs. Concrete: Comparing Installation Costs"
+    },
+    {
+      "id": "823d9903-1aac-41c7-9e5d-019f8ce2d355",
+      "previousDate": "2026-10-26",
+      "date": "2026-12-29",
+      "previousTitle": "Steel Framing for Custom Homes",
+      "title": "Steel Framing for Custom Homes"
+    },
+    {
+      "id": "691cedc7-a614-4939-a25e-4b8cba4217c2",
+      "previousDate": "2026-10-15",
+      "date": "2026-12-30",
+      "previousTitle": "Custom Steel Framing vs. Panelized and Modular Homes in Los Angeles",
+      "title": "Custom Steel Framing vs. Panelized and Modular Homes in Los Angeles"
+    },
+    {
+      "id": "ae195cc7-7470-4114-9c77-b4021ac3c63d",
+      "previousDate": "2026-11-11",
+      "date": "2027-01-05",
+      "previousTitle": "Understanding Steel Framing Quotes: Allowances, Exclusions and Changes",
+      "title": "Understanding Steel Framing Quotes: Allowances, Exclusions and Changes"
+    },
+    {
+      "id": "84cc2a24-88a6-4033-847d-264e5c588597",
+      "previousDate": "2026-11-19",
+      "date": "2027-01-08",
+      "previousTitle": "Steel-Framed Exterior Walls: Fire, Moisture and Thermal Performance",
+      "title": "Steel-Framed Walls: Fire Protection, Insulation and Moisture"
+    },
+    {
+      "id": "24e0ea70-0d62-4fc2-bd94-0aba0d9e20a6",
+      "previousDate": "2026-10-29",
+      "date": "2027-01-12",
+      "previousTitle": "Steel Framing, Fire-Rated Assemblies and Type II Construction",
+      "title": "Steel Framing, Fire-Rated Assemblies and Type II Construction"
+    },
+    {
+      "id": "9491a14d-12e2-4a69-8afb-57c085df6412",
+      "previousDate": "2026-11-12",
+      "date": "2027-01-15",
+      "previousTitle": "Steel-Framed Homes: Understanding Fire and Building Code Documents",
+      "title": "Steel-Framed Homes: What to Check With Your Design Team"
+    },
+    {
+      "id": "c49b484a-97d1-46e1-b37a-337b674a7426",
+      "previousDate": "2026-11-30",
+      "date": "2027-01-19",
+      "previousTitle": "Choosing a Framing Supplier: Checking Certifications and Credentials",
+      "title": "Choosing a Framing Supplier: Checking Certifications and Credentials"
+    },
+    {
+      "id": "3cba08d6-26e9-48e9-bac2-06ea5e32f5aa",
+      "previousDate": "2026-11-13",
+      "date": "2027-01-22",
+      "previousTitle": "Steel Framing for Hillside Homes: Access and Delivery Planning",
+      "title": "Planning Steel Framing Deliveries to a Hillside Home"
+    },
+    {
+      "id": "7cc66375-caff-4bea-ae13-aa2eb270e0e2",
+      "previousDate": "2026-11-05",
+      "date": "2027-01-26",
+      "previousTitle": "Steel Framing for Complex Roofs: A Design Coordination Guide",
+      "title": "Planning a Complex Roof With Steel Framing"
+    },
+    {
+      "id": "4ce15d08-c5e8-4824-9e60-1a3fda60c032",
+      "previousDate": "2026-11-16",
+      "date": "2027-01-29",
+      "previousTitle": "Planning Curves and Custom Architectural Features with Steel Framing",
+      "title": "Planning Curved Walls and Custom Features With Steel Framing"
+    },
+    {
+      "id": "c711725e-ccf0-4c23-8f45-257d1d7f273d",
+      "previousDate": "2026-11-20",
+      "date": "2027-02-02",
+      "previousTitle": "How Wheeler’s Custom Steel Framing Can Complement Panelized Construction",
+      "title": "How Wheeler's Custom Steel Framing Can Complement Panelized Construction"
+    },
+    {
+      "id": "c3168124-e85c-490c-bfd1-df2b29cf6cb0",
+      "previousDate": "2026-11-23",
+      "date": "2027-02-05",
+      "previousTitle": "Steel Framing Cost Savings: Three Wheeler Project Comparisons",
+      "title": "Understanding Wheeler’s Reported Framing Cost Savings"
+    },
+    {
+      "id": "8ba5c5fd-cfaa-4882-b8b1-277490fd59b2",
+      "previousDate": "2026-11-02",
+      "date": "2027-02-09",
+      "previousTitle": "Wood vs. Steel Framing: Comparing Long-Term Ownership Costs",
+      "title": "Wood vs. Steel Framing: Comparing Long-Term Ownership Costs"
+    },
+    {
+      "id": "4efec579-2af8-43dd-a5df-e970ae5e91fd",
+      "previousDate": "2026-11-09",
+      "date": "2027-02-12",
+      "previousTitle": "Wood vs. Steel Framing: How Material Movement Affects Finishes",
+      "title": "Steel vs. Wood: What Framing Movement Means for Your Finishes"
+    },
+    {
+      "id": "1cd2bfae-9187-4cba-b5e6-a274652af714",
+      "previousDate": "2026-11-27",
+      "date": "2027-02-16",
+      "previousTitle": "Tracking Waste and Deliveries on a Steel-Framing Project",
+      "title": "How to Track Framing Waste and Deliveries"
+    }
+  ]
+}

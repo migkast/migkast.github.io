@@ -52,6 +52,7 @@ export class WheelerReviewSync {
     void this.flush();
   }
   hasPendingDecision(key: string) { return this.pending.some(operation => operation.change.kind === 'decision' && operation.change.key === key); }
+  hasPendingAnswer(key: string) { return this.pending.some(operation => operation.change.kind === 'answer' && operation.change.key === key); }
   async refresh(force = true) {
     if (this.reading || !this.token) return false;
     if (!force && Date.now() < this.nextAutomaticRefresh) return true;

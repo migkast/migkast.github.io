@@ -16,6 +16,29 @@ const response = (body: unknown, status = 200) => new Response(JSON.stringify(bo
 const change = { kind: 'decision' as const, key: 'project-specific-package-handoffs', status: 'approved' as const, note: '' };
 
 describe('Wheeler refresh and saving', () => {
+  it('restores an offline extended answer after reopening and confirms it only after retry', async () => {
+    let online=false;
+    const events: unknown[]=[];
+    vi.stubGlobal('fetch',vi.fn(async(_url:unknown,options:RequestInit)=>{
+      if(options.method==='POST'){
+        if(!online)return response({},503);
+        const operation=JSON.parse(options.body as string) as ReviewOperation;
+        const event={...operation,savedAt:new Date().toISOString()};events.push(event);return response({event},201);
+      }
+      return response({events});
+    }));
+    const status=vi.fn(),key='question-test',text='Long answer\n\n'+'Context '.repeat(1500);
+    const first=new WheelerReviewSync('https://worker.test/clients/wheeler','test',vi.fn(),status);
+    await first.start();first.queue({kind:'answer',key,text},'Stacie Morris');
+    await vi.waitFor(()=>expect(status).toHaveBeenLastCalledWith('offline'));
+    expect(first.hasPendingAnswer(key)).toBe(true);
+    const state=vi.fn();online=true;
+    const reopened=new WheelerReviewSync('https://worker.test/clients/wheeler','test',state,vi.fn());
+    await reopened.start();await vi.waitFor(()=>expect(reopened.hasPendingAnswer(key)).toBe(false));
+    expect(state.mock.lastCall?.[0].answers[key].text).toBe(text);
+    expect(events).toHaveLength(1);
+  });
+
   it('restores saved backlink completion after closing and reopening the dashboard', async () => {
     const events: unknown[] = [];
     vi.stubGlobal('fetch', vi.fn(async (_url: unknown, options: RequestInit) => {

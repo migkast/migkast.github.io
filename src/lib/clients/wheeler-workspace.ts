@@ -1,3 +1,4 @@
+import { initCalendarAnswers } from './wheeler-calendar-answers';
 import { initCalendarReview } from './wheeler-calendar-review';
 import { workspace, reviewLabels, type ReviewDecision, type ReviewStatus, type ClusterIdea } from './wheeler';
 
@@ -61,7 +62,8 @@ try {
 
 const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('#workspace-section-content .workspace-tabs [role="tab"]'));
 function selectTab(tab: HTMLButtonElement) {
-  document.querySelector<HTMLElement>('#workspace-section-content .review-overview')!.hidden = tab.id === 'view-plan';
+  document.querySelector<HTMLElement>('#workspace-section-content .review-overview')!.hidden = tab.id !== 'view-clusters';
+  document.body.classList.toggle('market-opportunity-view',tab.id === 'view-opportunity' && !document.querySelector<HTMLElement>('#workspace-section-content')!.hidden);
   tabs.forEach(item => {
     const active = item === tab;
     item.setAttribute('aria-selected', String(active));
@@ -83,6 +85,8 @@ tabs.forEach((tab, index) => {
     tabs[next].focus();
   });
 });
+
+document.querySelectorAll<HTMLAnchorElement>('a[href="#publication-calendar"]').forEach(link => link.addEventListener('click', () => selectTab(document.querySelector<HTMLButtonElement>('#view-plan')!)));
 
 const backlinkTabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.backlink-tabs [role="tab"]'));
 function selectBacklinkTab(tab: HTMLButtonElement) {
@@ -131,9 +135,12 @@ function updateBacklinkMarker() {
 const sectionLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-workspace-section]'));
 function selectWorkspaceSection() {
   if (location.hash.startsWith('#backlink-opportunit')) selectBacklinkTab(backlinkTabs[1]);
+  if (location.hash === '#market-opportunity') selectTab(document.querySelector<HTMLButtonElement>('#view-opportunity')!);
+  if (location.hash === '#publication-calendar') selectTab(document.querySelector<HTMLButtonElement>('#view-plan')!);
   const section = location.hash === '#ai-monitoring' ? 'ai-monitoring' : location.hash === '#reddit' ? 'reddit' : location.hash === '#backlinks' || location.hash.startsWith('#backlink-') ? 'backlinks' : 'content';
   updateBacklinkMarker();
   document.body.classList.toggle('backlink-view', section === 'backlinks');
+  document.body.classList.toggle('market-opportunity-view',section === 'content' && document.querySelector('#view-opportunity')?.getAttribute('aria-selected') === 'true');
   document.querySelector<HTMLElement>('#workspace-section-content')!.hidden = section !== 'content';
   document.querySelector<HTMLElement>('#workspace-section-backlinks')!.hidden = section !== 'backlinks';
   document.querySelector<HTMLElement>('#workspace-section-reddit')!.hidden = section !== 'reddit';
@@ -449,6 +456,7 @@ const syncMessages: Record<SyncStatus, string> = {
   locked: 'Please unlock the workspace to continue saving shared changes.',
   unconfigured: 'Shared approvals are not connected yet.'
 };
+const calendarAnswers = initCalendarAnswers(content.dataset.reviewApi || '', change => save(change), key => sync?.hasPendingAnswer(key) || false, () => { void sync.refresh(); });
 const calendarReview = initCalendarReview(change => save(change), key => sync?.hasPendingDecision(key) || false, () => { void sync.refresh(); });
 sync = new WheelerReviewSync(content.dataset.reviewApi || '', workspace.version, state => {
   for (const key of Object.keys(decisions)) delete decisions[key];
@@ -457,6 +465,7 @@ sync = new WheelerReviewSync(content.dataset.reviewApi || '', workspace.version,
   backlinks = state.backlinks;
   renderBacklinks();
   calendarReview.render(state);
+  calendarAnswers.render(state);
   document.querySelectorAll<HTMLElement>('[data-cluster]').forEach(detail => {
     const note = detail.querySelector<HTMLTextAreaElement>('textarea')!;
     if (note.dataset.dirty !== 'true' && document.activeElement !== note) note.value = decisions[detail.dataset.cluster!]?.note || '';
@@ -464,6 +473,7 @@ sync = new WheelerReviewSync(content.dataset.reviewApi || '', workspace.version,
   renderIdeas(); update();
 }, status => {
   calendarReview.status(status);
+  calendarAnswers.status(status);
   saveStatus.textContent = syncMessages[status];
   saveStatus.dataset.state = status;
   const backlinkSaveStatus = document.querySelector<HTMLElement>('#backlink-save-status')!;

@@ -1,3 +1,4 @@
+import { calendarQuestionKeys, maxAnswerLength } from '../../src/lib/clients/wheeler-calendar-questions';
 import { articles as calendarArticles } from '../../src/lib/clients/wheeler-calendar.json';
 import type { Env } from './types';
 import { HttpError } from './validation';
@@ -90,9 +91,9 @@ export async function handleWheelerReview(request: Request, env: Env): Promise<R
 
 async function readBody(request: Request): Promise<Record<string, unknown>> {
   if (request.headers.get('Content-Type')?.split(';')[0]?.trim() !== 'application/json') throw new HttpError(415, 'Use application/json');
-  if (Number(request.headers.get('Content-Length') || 0) > 10000) throw new HttpError(413, 'Request too large');
+  if (Number(request.headers.get('Content-Length') || 0) > 100000) throw new HttpError(413, 'Request too large');
   const text = await request.text();
-  if (encoder.encode(text).length > 10000) throw new HttpError(413, 'Request too large');
+  if (encoder.encode(text).length > 100000) throw new HttpError(413, 'Request too large');
   try {
     const input = JSON.parse(text);
     if (!input || typeof input !== 'object' || Array.isArray(input)) throw new Error();
@@ -106,6 +107,10 @@ function validateOperation(input: Record<string, unknown>): ReviewOperation {
   if (change?.kind === 'decision') {
     if (typeof change.key !== 'string' || (!CLUSTERS.has(change.key) && !CALENDAR_KEYS.has(change.key)) || !['pending', 'approved', 'changes', 'hold'].includes(String(change.status)) || typeof change.note !== 'string' || change.note.length > 1200 || (change.status === 'changes' && !change.note.trim())) throw new HttpError(400, 'Invalid cluster decision');
     return { ...base, change: { kind: 'decision', key: change.key, status: change.status as 'pending' | 'approved' | 'changes' | 'hold', note: change.note.trim() } };
+  }
+  if (change?.kind === 'answer') {
+    if (typeof change.key !== 'string' || !calendarQuestionKeys.has(change.key) || typeof change.text !== 'string' || change.text.length > maxAnswerLength) throw new HttpError(400, 'Invalid question answer');
+    return { ...base, change: { kind: 'answer', key: change.key, text: change.text } };
   }
   if (change?.kind === 'backlink') {
     if (typeof change.id !== 'number' || !Number.isInteger(change.id) || change.id < 1 || change.id > 21 || typeof change.done !== 'boolean') throw new HttpError(400, 'Invalid backlink completion');
