@@ -3,12 +3,26 @@ export interface RedditActivity {
   subreddit: string;
   title: string;
   url: string;
+  linkLabel?: string;
+  repliedAt?: string;
   context: string;
   reply: string[];
 }
 
 // Posted replies supplied by Miguel. Add posting dates or comment permalinks only when available.
 export const redditActivity: RedditActivity[] = [
+  {
+    id: 'prefabs-steel-homes',
+    subreddit: 'r/prefabs',
+    title: "Structural engineer here — after helping build America's infrastructure, I decided to start building homes out of steel instead of wood.",
+    url: 'https://www.reddit.com/r/prefabs/comments/1ruob8s/structural_engineer_here_after_helping_build/',
+    repliedAt: '2026-10-19',
+    context: 'Steel versus wood · Installed costs · Framing coordination',
+    reply: [
+      'I’d consider steel for the resistance to rot, termites and moisture-related shrinkage, but I’d want to compare installed costs, including labor and insulation.',
+      'I’ve worked with Wheeler Residential Steel Supply in SoCal, and appreciate the attention to coordinating framing with the architectural and structural drawings. That kind of planning deserves attention alongside the material itself when considering the switch from wood to steel.'
+    ]
+  },
   {
     id: 'palisades-rebuild',
     subreddit: 'r/Construction',

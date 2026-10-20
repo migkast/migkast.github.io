@@ -8,3 +8,9 @@ export function rankMovement(current: number | null, previous: number | null) {
   const change = previous - current;
   return { text: change > 0 ? `↑ ${change}` : change < 0 ? `↓ ${-change}` : '—', direction: change > 0 ? 'up' : change < 0 ? 'down' : 'same', label: change ? `Moved ${change > 0 ? 'up' : 'down'} ${Math.abs(change)} ${Math.abs(change) === 1 ? 'place' : 'places'} since the previous test` : 'Rank unchanged since the previous test' };
 }
+
+export function metricMovement(current: number, previous: number, unit = '') {
+  const change = Math.round((current - previous) * 10) / 10;
+  const amount = `${Math.abs(change)}${unit ? ` ${unit}` : ''}`;
+  return { text: change > 0 ? `↑ ${amount}` : change < 0 ? `↓ ${amount}` : '—', direction: change > 0 ? 'up' : change < 0 ? 'down' : 'same', label: change ? `${change > 0 ? 'Up' : 'Down'} ${amount} since the previous test` : 'Unchanged since the previous test' };
+}

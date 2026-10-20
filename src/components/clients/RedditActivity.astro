@@ -14,8 +14,8 @@ import { redditActivity } from '../../lib/clients/wheeler-reddit';
       <span class="reddit-timeline-node" aria-hidden="true"><img src="/platforms/reddit.svg" width="20" height="20" alt="" /></span>
       <article class="reddit-entry" aria-labelledby={`reddit-heading-${item.id}`}>
         <header class="reddit-entry-header">
-          <div><div class="reddit-entry-meta"><span>{String(index+1).padStart(2,'0')}</span><strong>{item.subreddit}</strong></div><h3 id={`reddit-heading-${item.id}`}>{item.title}</h3><p class="reddit-thread-context">{item.context}</p></div>
-          <a class="reddit-thread-link" href={item.url} target="_blank" rel="noopener noreferrer" aria-label={`Open Reddit thread: ${item.title}`}>Open thread <span aria-hidden="true">↗</span></a>
+          <div><div class="reddit-entry-meta"><span>{String(index+1).padStart(2,'0')}</span><strong>{item.subreddit}</strong>{item.repliedAt&&<time datetime={item.repliedAt}>Replied {new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(item.repliedAt))}</time>}</div><h3 id={`reddit-heading-${item.id}`}>{item.title}</h3><p class="reddit-thread-context">{item.context}</p></div>
+          <a class="reddit-thread-link" href={item.url} target="_blank" rel="noopener noreferrer" aria-label={item.linkLabel ? `${item.linkLabel}: ${item.subreddit}` : `Open Reddit thread: ${item.title}`}>{item.linkLabel || 'Open thread'} <span aria-hidden="true">↗</span></a>
         </header>
         <div class="reddit-entry-progress" aria-label="Thread found and reply posted"><span><span aria-hidden="true">✓</span> Thread found</span><span class="reddit-progress-connector" aria-hidden="true"></span><span><span aria-hidden="true">✓</span> Reply posted</span></div>
         <section class="reddit-posted-reply" aria-labelledby={`reddit-reply-${item.id}`}><h4 id={`reddit-reply-${item.id}`}>Our reply</h4><blockquote>{item.reply.map(paragraph => <p>{paragraph}</p>)}</blockquote></section>
@@ -25,6 +25,8 @@ import { redditActivity } from '../../lib/clients/wheeler-reddit';
   <footer class="reddit-writing-note"><p><strong>Written for the conversation.</strong> Replies use a natural, conversational tone suited to each thread and subreddit, rather than polished marketing copy. The priority is to answer the question, mention Wheeler where relevant and keep claims accurate.</p></footer>
 </div>
 <style>
+.reddit-entry-meta{flex-wrap:wrap;}.reddit-entry-meta time{font-size:11px;font-weight:400;color:var(--muted);}
+
 .reddit-activity{max-width:1120px;margin:auto;}
 .reddit-writing-note{border-top:1px solid var(--line);padding-top:20px;font-size:13px;color:var(--muted);}.reddit-writing-note strong{color:var(--ink);}
 .reddit-heading{margin-bottom:12px;}.reddit-heading .eyebrow{margin-bottom:12px;}.reddit-heading h1{margin-bottom:0;}

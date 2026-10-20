@@ -1,4 +1,4 @@
-import { rankPosition, rankMovement } from './wheeler-rank-movement';
+import { rankPosition, rankMovement, metricMovement } from './wheeler-rank-movement';
 import { engines, type Engine } from './wheeler-visibility';
 // Answer HTML is rendered and sanitized at build time; other model text uses textContent.
 type Answer = {answer:string;renderedAnswer:string;appears:boolean;rank:number|null;identity:{verdict:string;reason:string};citations:{url:string;title:string;domain:string}[]};
@@ -80,6 +80,18 @@ root.querySelectorAll<HTMLButtonElement>('[data-ai-competitor-engine]').forEach(
   indicator.setAttribute('aria-label',movement.label);
   row.querySelector('[data-ai-brand-mentions]')!.textContent=String(count(row));
   row.querySelector('[data-ai-brand-visibility]')!.textContent=`${Math.round(count(row)/total*1000)/10}%`;
+  const previousCounts=JSON.parse(row.dataset.aiBrandPreviousCounts!) as number[];
+  const previousCount=engineIndex<0?previousCounts.reduce((a,b)=>a+b,0):previousCounts[engineIndex];
+  const metricChanges=[
+   {selector:'[data-ai-mentions-movement]',movement:metricMovement(count(row),previousCount)},
+  ];
+  metricChanges.forEach(({selector,movement})=>{
+   const indicator=row.querySelector<HTMLElement>(selector)!;
+   indicator.textContent=movement.text;
+   indicator.className=`ai-rank-movement ${movement.direction}`;
+   indicator.title=movement.label;
+   indicator.setAttribute('aria-label',movement.label);
+  });
   row.parentElement!.append(row);
  });
  root.querySelectorAll<HTMLButtonElement>('[data-ai-competitor-engine]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));

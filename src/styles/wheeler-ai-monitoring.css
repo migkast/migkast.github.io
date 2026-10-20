@@ -107,3 +107,5 @@
 .ai-prompt-table thead th:first-child{width:39%;}.ai-prompt-table thead th:nth-child(2){width:9%;}.ai-prompt-table thead th:nth-child(3){width:20%;}.ai-prompt-table thead th:nth-child(4){width:9%;}.ai-prompt-table thead th:nth-child(5){width:10%;}.ai-prompt-table thead th:nth-child(6){width:13%;}
 
 .ai-ranking-table td:first-child{white-space:nowrap;}.ai-rank-movement{display:inline-block;margin-left:10px;font-size:11px;font-weight:600;color:#718078;}.ai-rank-movement.up{color:#237345;}.ai-rank-movement.down{color:#b54735;}.ai-rank-movement.new{color:#27649a;}
+
+.ai-ranking-table td:nth-child(3),.ai-ranking-table td:nth-child(4){white-space:nowrap;}

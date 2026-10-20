@@ -1,8 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { rankPosition, rankMovement } from '../../src/lib/clients/wheeler-rank-movement';
+import { rankPosition, rankMovement, metricMovement } from '../../src/lib/clients/wheeler-rank-movement';
 import { visibility, engines, competitorCounts, identifiedCount } from '../../src/lib/clients/wheeler-visibility';
 
 describe('competitor rank movement', () => {
+ it('shows count and percentage-point changes without floating-point noise', () => {
+  expect(metricMovement(47,44).text).toBe('↑ 3');
+  expect(metricMovement(47/88*100,44/88*100,'pp').text).toBe('↑ 3.4 pp');
+  expect(metricMovement(1/22*100,2/22*100,'pp').text).toBe('↓ 4.5 pp');
+  expect(metricMovement(24,24).text).toBe('—');
+ });
  it('shares ranks for ties and leaves zero mentions unranked', () => {
   expect(rankPosition(24, [47,30,27,24,16,16])).toBe(4);
   expect(rankPosition(16, [47,30,27,24,16,16])).toBe(5);
