@@ -1,5 +1,5 @@
 import { Chart, LineController, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
-import type { AnalyticsOverview, AnalyticsRow, AnalyticsSource } from './wheeler-analytics-types';
+import type { AnalyticsOverview, AnalyticsResult, AnalyticsRow, AnalyticsSource } from './wheeler-analytics-types';
 Chart.register(LineController, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 const root = document.querySelector<HTMLElement>('[data-analytics-root]')!;
 const workspace = document.querySelector<HTMLElement>('#workspace-content')!;
@@ -19,6 +19,9 @@ function refreshState(state: 'idle'|'loading'|'success'|'error') {
 const dateLabel = (value: string) => new Date(`${value}T12:00:00Z`).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
 const number = (value?: number) => value === undefined ? '—' : new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(value);
 function tell(text: string, error = false) { message.textContent = text; message.dataset.error = String(error); }
+function bingRefreshDeferred(id: AnalyticsSource, result?: AnalyticsResult) {
+ return id==='bing' && result?.error==='Bing is limiting requests. Please try again later.';
+}
 function token() { try { return sessionStorage.getItem(`wheeler-workspace-session-v2:${api}`) || ''; } catch { return ''; } }
 async function request(path = '', body?: unknown) {
  const response = await fetch(`${api}/analytics${path}`, { method: body === undefined ? 'GET' : 'POST', headers: {Authorization:`Bearer ${token()}`, ...(body === undefined ? {} : {'Content-Type':'application/json'})}, ...(body === undefined ? {} : {body:JSON.stringify(body)}), cache:'no-store', signal:AbortSignal.timeout(65000) });
@@ -48,7 +51,7 @@ function paintReport() {
  field<HTMLElement>('[data-analytics-report-description]').textContent=traffic?'Users and page views reported by GA4.':'Search clicks and impressions reported by the search provider.';
  field<HTMLElement>('[data-analytics-data]').hidden=!report;
  const empty=field<HTMLElement>('[data-analytics-empty]');empty.hidden=!!report;
- if(!report) {empty.textContent=result?.error || (result?.connected?'No report has been loaded yet. Try Refresh data.':`Connect ${traffic?'Google Analytics':source==='gsc'?'Google Search Console':'Bing Webmaster Tools'} to see this report.`);return;}
+ if(!report) {empty.textContent=bingRefreshDeferred(source,result)?'Awaiting a Bing report.':result?.error || (result?.connected?'No report has been loaded yet. Try Refresh data.':`Connect ${traffic?'Google Analytics':source==='gsc'?'Google Search Console':'Bing Webmaster Tools'} to see this report.`);return;}
  const dates=report.daily.map(row=>row.name);
  const primaryColor='#7791c9', secondaryColor='#c983a0';
  const primaryText='#526791', secondaryText='#91576d';
@@ -83,7 +86,7 @@ function paint(data: AnalyticsOverview) {
  current=data;
  for(const id of ['ga4','gsc','bing'] as AnalyticsSource[]) {
   const result=data.sources[id],card=field<HTMLElement>(`[data-analytics-card=${id}]`),traffic=id==='ga4';
-  card.querySelector('[data-source-status]')!.textContent=result.error?'Needs attention':result.connected?'Connected':'Not connected';
+  card.querySelector('[data-source-status]')!.textContent=bingRefreshDeferred(id,result)?(result.report?'Last available':'Awaiting data'):result.error?'Needs attention':result.connected?'Connected':'Not connected';
   card.querySelector('[data-source-total]')!.textContent=number(result.report?.totals[traffic?'users':'clicks']);
   card.querySelector('[data-source-secondary]')!.textContent=number(result.report?.totals[traffic?'views':'impressions']);
   const stamp=card.querySelector<HTMLElement>('[data-source-date]')!;stamp.replaceChildren();
@@ -91,7 +94,7 @@ function paint(data: AnalyticsOverview) {
    const coverage=document.createElement('span');coverage.textContent=result.report.dataThrough?`Data through ${dateLabel(result.report.dataThrough)}`:'No data returned for this period';
    const updated=document.createElement('span'),at=new Date(result.report.fetchedAt);updated.textContent=`Updated ${at.toLocaleDateString('en-GB',{day:'numeric',month:'short'})} at ${at.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}`;updated.title=at.toLocaleString('en-GB',{timeZoneName:'short'});stamp.append(coverage,updated);
   }else stamp.textContent='No report available yet';
-  const error=card.querySelector<HTMLElement>('[data-source-error]')!;error.hidden=!result.error;error.textContent=result.error || '';
+  const error=card.querySelector<HTMLElement>('[data-source-error]')!;error.hidden=!result.error || bingRefreshDeferred(id,result);error.textContent=error.hidden?'':result.error || '';
  }
  const anyReport=Object.values(data.sources).find(result=>result.report)?.report;
  field<HTMLElement>('[data-analytics-window]').textContent=anyReport?`Showing ${new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).formatRange(new Date(`${anyReport.startDate}T12:00:00Z`),new Date(`${anyReport.endDate}T12:00:00Z`))}`:'Same reporting window across all three sources.';
@@ -104,11 +107,11 @@ async function load(force=false) {
  try {
   const data=await request(`?days=${days.value}`,force?{}:undefined) as AnalyticsOverview;
   paint(data);lastLoaded=Date.now();
-  const connected=Object.values(data.sources).some(result=>result.connected),failed=Object.values(data.sources).some(result=>result.error);
+  const connected=Object.values(data.sources).some(result=>result.connected),failed=(Object.entries(data.sources) as [AnalyticsSource, AnalyticsResult][]).some(([id,result])=>result.error && !bingRefreshDeferred(id,result));
   const unchanged=previousStamps===JSON.stringify(Object.values(data.sources).map(result=>result.report?.fetchedAt || null));
   if(failed){refreshState('error');tell('Some sources could not refresh. Any earlier figures remain visible with their original timestamps.',true);}
   else if(!connected){refreshState('idle');tell('Reporting sources have not been configured yet.');}
-  else if(force){refreshState('success');tell(unchanged?'Checked less than a minute ago. No refresh needed.':`Last checked at ${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}.`);}
+  else if(force){refreshState('success');tell(unchanged?'Check complete. Showing the latest available reports.':`Last checked at ${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}.`);}
   else{refreshState('idle');tell('');}
  }
  catch(error){refreshState('error');tell(error instanceof Error?error.message:'Unable to load analytics.',true);}
