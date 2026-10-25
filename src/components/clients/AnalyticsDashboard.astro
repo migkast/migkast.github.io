@@ -1,0 +1,25 @@
+---
+import '../../styles/wheeler-analytics.css';
+---
+<div class="analytics-dashboard" data-analytics-root>
+ <header class="analytics-heading"><div><p class="eyebrow">WEBSITE &amp; SEARCH</p><h1>Analytics</h1><p>Website visitors and search performance, together in one view.</p></div><button type="button" data-analytics-refresh><span data-analytics-refresh-label>Refresh data</span></button></header>
+ <div class="analytics-toolbar"><label for="analytics-days">Reporting period<select id="analytics-days" data-analytics-days><option value="7">Last 7 days</option><option value="28" selected>Last 28 days</option><option value="90">Last 90 days</option></select></label><p data-analytics-window>Connect your sources to start reporting.</p></div>
+ <p class="analytics-message" data-analytics-message role="status" aria-live="polite"></p>
+ <div class="analytics-summary">
+  {([{id:'ga4',name:'Google Analytics',label:'Users',secondary:'Page views'},{id:'gsc',name:'Google Search Console',label:'Search clicks',secondary:'Impressions'},{id:'bing',name:'Bing Webmaster Tools',label:'Search clicks',secondary:'Impressions'}]).map(source=><section class="analytics-card" data-analytics-card={source.id}><header><h2>{source.name}</h2><span data-source-status>Not connected</span></header><div class="analytics-total"><strong data-source-total>—</strong><span>{source.label}</span></div><p><strong data-source-secondary>—</strong> {source.secondary}</p><small data-source-date>Waiting for a connection</small><p class="analytics-source-error" data-source-error hidden></p></section>)}
+ </div>
+ <div class="analytics-source-tabs" role="tablist" aria-label="Analytics reports">{[{id:'ga4',name:'Website traffic'},{id:'gsc',name:'Google search'},{id:'bing',name:'Bing search'}].map((source,index)=><button type="button" role="tab" id={`analytics-tab-${source.id}`} aria-selected={index===0?'true':'false'} aria-controls="analytics-report" tabindex={index===0?0:-1} data-analytics-source={source.id}>{source.name}</button>)}</div>
+ <section class="analytics-report" id="analytics-report" role="tabpanel" aria-labelledby="analytics-tab-ga4">
+  <header><div><h2 data-analytics-report-title>Website traffic</h2><p data-analytics-report-description>Users and page views reported by GA4.</p></div></header>
+  <p data-analytics-empty>Connect Google Analytics to see website traffic.</p>
+  <div data-analytics-data hidden><div class="analytics-chart"><canvas data-analytics-chart role="img" aria-label="Daily performance for the selected source"></canvas></div><p class="analytics-note" data-analytics-report-note></p><details class="analytics-daily"><summary>Daily figures</summary><div class="analytics-table-wrap"><table><thead><tr data-analytics-daily-head></tr></thead><tbody data-analytics-daily-body></tbody></table></div></details>
+  <div data-analytics-acquisition-wrap hidden><h3>Where users come from</h3><p class="analytics-note">Traffic sources for visits during this period, ordered by users. “google / organic” means unpaid Google search. A user can appear under more than one source, so these counts should not be added together.</p><div class="analytics-table-wrap"><table><thead><tr data-analytics-acquisition-head></tr></thead><tbody data-analytics-acquisition-body></tbody></table></div></div>
+  <div data-analytics-pages-wrap><h3>Top pages</h3><p class="analytics-note" data-analytics-pages-note></p><div class="analytics-table-wrap"><table><thead><tr data-analytics-pages-head></tr></thead><tbody data-analytics-pages-body></tbody></table></div></div>
+  <div data-analytics-queries-wrap hidden><h3>Top search queries</h3><p class="analytics-note">Up to 100 reported queries. Privacy filtering means these rows may not add up to the total.</p><div class="analytics-table-wrap"><table><thead><tr data-analytics-queries-head></tr></thead><tbody data-analytics-queries-body></tbody></table></div></div></div>
+ </section>
+ {import.meta.env.DEV && <dialog class="analytics-key-dialog" data-bing-setup aria-labelledby="bing-setup-title"><form data-bing-setup-form><h2 id="bing-setup-title">Connect Bing Webmaster Tools</h2><p>Paste the API key for the account managing getwheelersteel.com. It will be verified and stored encrypted in this local draft.</p><label for="bing-setup-key">Bing API key</label><input id="bing-setup-key" name="apiKey" type="password" autocomplete="off" spellcheck="false" minlength="16" maxlength="256" required /><p role="status" aria-live="polite" data-bing-setup-status></p><div class="analytics-key-actions"><button type="button" data-bing-setup-close>Cancel</button><button type="submit">Connect Bing</button></div></form></dialog>}
+ <p class="analytics-footnote">Periods end three days ago to allow for search reporting delays. Data refreshes on opening if the last check is over an hour old. Manual refresh is available once per minute. Provider processing delays still apply.</p>
+</div>
+<script>
+ import '../../lib/clients/wheeler-analytics';
+</script>

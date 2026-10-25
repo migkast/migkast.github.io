@@ -132,7 +132,7 @@ async function createToken(secret: string) {
   const signature = await crypto.subtle.sign('HMAC', await signingKey(secret), encoder.encode(body));
   return `${body}.${toBase64(new Uint8Array(signature))}`;
 }
-async function verifyToken(authorization: string | null, secret: string) {
+export async function verifyToken(authorization: string | null, secret: string) {
   try {
     const token = authorization?.startsWith('Bearer ') ? authorization.slice(7) : '';
     const [body, signature] = token.split('.');

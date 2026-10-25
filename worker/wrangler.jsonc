@@ -17,6 +17,13 @@
     }
   ],
   "secrets": {
-    "required": ["WEBHOOK_SECRET", "GITHUB_TOKEN", "WHEELER_WORKSPACE_PASSWORD"]
+    "required": [
+      "WEBHOOK_SECRET",
+      "GITHUB_TOKEN",
+      "WHEELER_WORKSPACE_PASSWORD",
+      "WHEELER_GOOGLE_CLIENT_ID",
+      "WHEELER_GOOGLE_CLIENT_SECRET",
+      "WHEELER_ANALYTICS_ENCRYPTION_KEY"
+    ]
   }
 }

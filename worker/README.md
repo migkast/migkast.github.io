@@ -51,3 +51,51 @@ CORS allows the configured website, its `www` host and local previews. Both read
 ### Updating the content directions
 
 Existing cluster copy is kept in `src/lib/clients/wheeler-clusters.json`. Keep a direction's `key` unchanged when editing its copy so its shared decisions remain attached. After publishing a material change, use **Reopen review** in that direction to ask for another decision; existing feedback is retained. This does not publish an article or populate the calendar. Adding a new direction also requires adding its key to the Worker's allowed cluster keys.
+
+## Wheeler unified analytics
+
+The **Analytics** sidebar view reads GA4 users/page views, Google Search clicks/impressions/CTR/position with top pages and queries, GA4 traffic sources with users and sessions, and Bing daily clicks/impressions. It uses the existing Wheeler session and never changes approvals, answers, blog posts, or historical monitoring runs.
+
+### Connection setup
+
+Wheeler uses the isolated Google Cloud project `wheeler-dashboard-analytics` (project number `529511894928`), created on 22 October 2026. Keep SEOforGPT’s `seoforgpt` project, existing clients and shared consent settings unchanged. No billing account is to be linked for this setup.
+
+An existing Google OAuth **Web application** client can be reused if it represents software you control and its consent-screen settings allow the Google account managing Wheeler. Add a redirect URI; do not replace the other software’s redirect URIs. A separate client in the same project is also suitable.
+
+1. Enable **Google Analytics Data API** and **Google Search Console API** in that Google Cloud project.
+2. Add these read-only consent scopes:
+   - `https://www.googleapis.com/auth/analytics.readonly`
+   - `https://www.googleapis.com/auth/webmasters.readonly`
+3. Add the production authorized redirect URI exactly:
+   `https://miguel-blog-webhook.hey-948.workers.dev/clients/wheeler/analytics/google/callback`
+   For a local-only test, add `http://localhost:8787/clients/wheeler/analytics/google/callback` and access that Worker host consistently.
+4. Configure Worker secrets using `wrangler secret put`:
+   - `WHEELER_GOOGLE_CLIENT_ID`
+   - `WHEELER_GOOGLE_CLIENT_SECRET`
+   - `WHEELER_ANALYTICS_ENCRYPTION_KEY` — a base64-encoded, cryptographically random 32-byte key. Generate it locally; do not use the workspace password. Keep it stable: replacing it requires reconnecting both sources.
+5. Configure the numeric **GA4 property ID** (not the `G-` measurement ID) and exact verified GSC/Bing properties through the authenticated `/clients/wheeler/analytics/config` endpoint. The client-facing dashboard intentionally has no connection controls. Domain properties must be `sc-domain:getwheelersteel.com`; URL-prefix properties must be the HTTPS root URL of getwheelersteel.com or www.getwheelersteel.com. Select the account with GA4 report access and Search Console access when connecting Google.
+6. For Bing, obtain the **Bing Webmaster Tools API key** from the account with the verified Wheeler site. In local development, open `/clients/wheeler/?connect=bing#analytics` while signed into the workspace to use the password-masked connection dialog. This form is excluded from production builds. Never put the key in chat or a source file. The server verifies a read request before saving it. Only reporting endpoints are called.
+
+Google external apps in Testing need the Wheeler account added as a test user; Google may expire their refresh tokens after seven days. For ongoing access, use appropriate production/verification settings. Do not change the existing software’s publishing status without reviewing its requirements. No API keys, client secrets or refresh tokens are embedded in the static website.
+
+### Storage and refresh
+
+Credentials are AES-GCM encrypted under dedicated `analytics:wheeler:v1:` keys in the existing KV namespace. Only authenticated workspace users can configure or read analytics. OAuth uses an authenticated start, a random expiring state, one-time authorization codes and PKCE. The callback redirects to the fixed dashboard URL; it does not put tokens in browser URLs. Disconnect removes this dashboard’s saved credential and snapshots, not Google’s global account grant or any review records.
+
+All sources use 7-, 28- or 90-day windows ending three days ago. GA4 uses deduplicated `totalUsers` for the summary, a separate report per page and a separate daily report; user rows are not summed. Google search uses final Web data and independent summary, date, page and query requests (up to 100 detail rows). Bing uses the supported REST/JSON `GetRankAndTrafficStats` method; dates outside the selected window are excluded. An empty Bing response is missing data, not zero traffic.
+
+Opening Analytics refreshes snapshots older than one hour. The explicit refresh button bypasses that hour but retains a 60-second cooldown. Requests in one Worker isolate are coalesced. Independent source failures retain each source’s last successful report and original timestamp with an error label. Provider data can lag behind the selected end date; fetch time and latest reported day are separate. This is not real-time analytics.
+
+The current documented APIs used here do not expose the separate Google generative-AI report or Bing AI-citation report. The Analytics view therefore omits AI visibility reporting rather than inventing AI click metrics or substituting prompt-monitoring scores. Official references:
+- https://developers.google.com/analytics/devguides/reporting/data/v1/rest/v1beta/properties/runReport
+- https://developers.google.com/webmaster-tools/v1/searchanalytics/query
+- https://developers.google.com/identity/protocols/oauth2/web-server
+- https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports
+- https://www.bing.com/webmasters/help/ai-performance-9f8e7d6c
+- https://learn.microsoft.com/en-us/dotnet/api/microsoft.bing.webmaster.api.interfaces.iwebmasterapi.getrankandtrafficstats?view=bing-webmaster-dotnet
+
+Deploy the Worker before the static dashboard when publication is approved. Live account data cannot be verified until credentials and property access are configured. For local drafts use `PUBLIC_WHEELER_REVIEW_API=http://localhost:8787/clients/wheeler`, set Worker `SITE_ORIGIN` to the draft origin, and keep all secrets in ignored `worker/.dev.vars`.
+
+For production migration, install the same Analytics encryption key with the two Google client secrets, then copy only the encrypted `analytics:wheeler:v1:google`, `analytics:wheeler:v1:bing`, and `analytics:wheeler:v1:config` records. Do not copy local snapshots, OAuth states, or review records. Deploy the Worker before publishing the static site, then verify all three sources through the authenticated live endpoint.
+
+Bing can return HTTP 400 with `ErrorCode: 17` (`ThrottleIP`) for shared hosting egress addresses. The dashboard reports this as a rate limit and retains the last successful report with its original fetch time; it does not substitute zeroes or claim the source refreshed successfully. A one-time deployment seed may use a verified API report for the exact same date window, with the live error retained and `checkedAt: 0` so normal refresh behavior resumes.

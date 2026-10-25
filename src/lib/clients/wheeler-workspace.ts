@@ -137,15 +137,16 @@ function selectWorkspaceSection() {
   if (location.hash.startsWith('#backlink-opportunit')) selectBacklinkTab(backlinkTabs[1]);
   if (location.hash === '#market-opportunity') selectTab(document.querySelector<HTMLButtonElement>('#view-opportunity')!);
   if (location.hash === '#publication-calendar') selectTab(document.querySelector<HTMLButtonElement>('#view-plan')!);
-  const section = location.hash === '#ai-monitoring' ? 'ai-monitoring' : location.hash === '#reddit' ? 'reddit' : location.hash === '#backlinks' || location.hash.startsWith('#backlink-') ? 'backlinks' : 'content';
+  const section = location.hash === '#analytics' ? 'analytics' : location.hash === '#ai-monitoring' ? 'ai-monitoring' : location.hash === '#reddit' ? 'reddit' : location.hash === '#backlinks' || location.hash.startsWith('#backlink-') ? 'backlinks' : 'content';
   updateBacklinkMarker();
   document.body.classList.toggle('backlink-view', section === 'backlinks');
   document.body.classList.toggle('market-opportunity-view',section === 'content' && document.querySelector('#view-opportunity')?.getAttribute('aria-selected') === 'true');
   document.querySelector<HTMLElement>('#workspace-section-content')!.hidden = section !== 'content';
   document.querySelector<HTMLElement>('#workspace-section-backlinks')!.hidden = section !== 'backlinks';
   document.querySelector<HTMLElement>('#workspace-section-reddit')!.hidden = section !== 'reddit';
+  document.querySelector<HTMLElement>('#workspace-section-analytics')!.hidden = section !== 'analytics';
   document.querySelector<HTMLElement>('#workspace-section-ai-monitoring')!.hidden = section !== 'ai-monitoring';
-  document.querySelector('#workspace-section-label')!.textContent = section === 'ai-monitoring' ? 'AI Monitoring Agent' : section === 'reddit' ? 'Reddit AI Agent' : section === 'backlinks' ? 'Backlinks' : 'Content';
+  document.querySelector('#workspace-section-label')!.textContent = section === 'analytics' ? 'Analytics' : section === 'ai-monitoring' ? 'AI Monitoring Agent' : section === 'reddit' ? 'Reddit AI Agent' : section === 'backlinks' ? 'Backlinks' : 'Content';
   sectionLinks.forEach(link => {
     const active = link.dataset.workspaceSection === section;
     link.classList.toggle('active', active);

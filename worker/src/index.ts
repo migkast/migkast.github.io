@@ -3,6 +3,7 @@ import { sanitizeArticleHtml } from './sanitize';
 import { normalizeBlogStructuredData } from './structured-data';
 import type { Env, StoredBlogPost } from './types';
 import { HttpError, validateFaqStructuredData, validatePayload } from './validation';
+import { handleWheelerAnalytics } from './wheeler-analytics';
 import { handleWheelerReview } from './wheeler-review';
 
 const MAX_REQUEST_BYTES = 900_000;
@@ -16,6 +17,7 @@ export default {
 
 export async function handleRequest(request: Request, env: Env, fetcher: typeof fetch): Promise<Response> {
   const url = new URL(request.url);
+  if (url.pathname === '/clients/wheeler/analytics' || url.pathname.startsWith('/clients/wheeler/analytics/')) return handleWheelerAnalytics(request, env, fetcher);
   if (url.pathname.startsWith('/clients/wheeler/')) return handleWheelerReview(request, env);
 
   if (url.pathname === '/health') {
