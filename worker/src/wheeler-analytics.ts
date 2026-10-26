@@ -50,7 +50,8 @@ async function overview(env: Env, days: number, refresh: boolean, fetcher: typeo
  const result: AnalyticsOverview = { config, googleConnected: !!google, googleSetupReady, secretSetupReady, sources: { ga4: { connected: !!google && !!config.gaProperty, report: null, error: null }, gsc: { connected: !!google && !!config.gscSite, report: null, error: null }, bing: { connected: !!bing, report: null, error: null } } };
  const sameConfig = cached && JSON.stringify(cached.config) === JSON.stringify(config) && cached.overview.googleConnected === !!google && cached.overview.sources.bing.connected === !!bing;
  // Automatic views reuse one hour; explicit refreshes have a short provider-protection cooldown.
- if(sameConfig && Date.now() - cached.checkedAt < (refresh ? 60000 : 3600000)) return { ...cached.overview, googleSetupReady, secretSetupReady };
+ const conversionReportReady=!result.sources.ga4.connected || !cached?.overview.sources.ga4.report || Object.hasOwn(cached.overview.sources.ga4.report,'conversions');
+ if(sameConfig && conversionReportReady && Date.now() - cached.checkedAt < (refresh ? 60000 : 3600000)) return { ...cached.overview, googleSetupReady, secretSetupReady };
  let accessToken: Promise<string> | undefined;
  const googleAccess = () => accessToken ||= (async () => {
   if(!googleSetupReady) throw new Error('Google connection needs server setup. Contact Miguel.');

@@ -1,5 +1,6 @@
 import { Chart, LineController, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
-import type { AnalyticsOverview, AnalyticsResult, AnalyticsRow, AnalyticsSource } from './wheeler-analytics-types';
+import type { AnalyticsOverview, AnalyticsReport, AnalyticsResult, AnalyticsRow, AnalyticsSource } from './wheeler-analytics-types';
+import { conversionDefinitions } from './wheeler-analytics-conversions';
 Chart.register(LineController, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 const root = document.querySelector<HTMLElement>('[data-analytics-root]')!;
 const workspace = document.querySelector<HTMLElement>('#workspace-content')!;
@@ -43,15 +44,28 @@ function table(prefix: 'daily'|'pages'|'queries'|'acquisition', rows: AnalyticsR
   tr.append(td);}body.append(tr); }
  if(!rows.length) {const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=headings.length;td.textContent='No rows returned for this period.';tr.append(td);body.append(tr);}
 }
+function paintConversions(report: AnalyticsReport) {
+ const counts=report.conversions;
+ for(const item of conversionDefinitions){
+  const count=counts?.[item.event],cell=field<HTMLElement>(`[data-conversion-item=${item.event}] [data-conversion-count]`);
+  cell.textContent=count===null && 'trackedFrom' in item?`Started ${new Date(`${item.trackedFrom}T12:00:00Z`).toLocaleDateString('en-GB',{day:'numeric',month:'short',timeZone:'UTC'})}`:number(count ?? undefined);
+  cell.dataset.state=count===null || count===undefined?'missing':count===0?'zero':'recorded';
+ }
+ const note=counts===undefined?'Refresh data to load these figures.':counts===null?'These figures are temporarily unavailable.':'Project forms count successful inquiry submissions. Phone and email clicks indicate contact intent.';
+ const trackingNote=counts && report.startDate<'2026-10-25'?(report.endDate<'2026-10-25'?' Kit and Ask Don tracking started on 25 Oct 2026, after this reporting period.':' Kit and Ask Don counts are available from 25 Oct 2026.'):'';
+ field<HTMLElement>('[data-conversions-note]').textContent=note+trackingNote;
+}
 function paintReport() {
  chart?.destroy(); chart=undefined;
  const traffic=source==='ga4', result=current?.sources[source], report=result?.report;
+ field<HTMLElement>('[data-analytics-conversions]').hidden=!traffic;
  field<HTMLElement>('#analytics-report').setAttribute('aria-labelledby',`analytics-tab-${source}`);
  field<HTMLElement>('[data-analytics-report-title]').textContent=traffic?'Website traffic':source==='gsc'?'Google search performance':'Bing search performance';
  field<HTMLElement>('[data-analytics-report-description]').textContent=traffic?'Users and page views reported by GA4.':'Search clicks and impressions reported by the search provider.';
  field<HTMLElement>('[data-analytics-data]').hidden=!report;
  const empty=field<HTMLElement>('[data-analytics-empty]');empty.hidden=!!report;
  if(!report) {empty.textContent=bingRefreshDeferred(source,result)?'Awaiting a Bing report.':result?.error || (result?.connected?'No report has been loaded yet. Try Refresh data.':`Connect ${traffic?'Google Analytics':source==='gsc'?'Google Search Console':'Bing Webmaster Tools'} to see this report.`);return;}
+ if(traffic)paintConversions(report);
  const dates=report.daily.map(row=>row.name);
  const primaryColor='#7791c9', secondaryColor='#c983a0';
  const primaryText='#526791', secondaryText='#91576d';

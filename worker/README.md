@@ -56,6 +56,8 @@ Existing cluster copy is kept in `src/lib/clients/wheeler-clusters.json`. Keep a
 
 The **Analytics** sidebar view reads GA4 users/page views, Google Search clicks/impressions/CTR/position with top pages and queries, GA4 traffic sources with users and sessions, and Bing daily clicks/impressions. It uses the existing Wheeler session and never changes approvals, answers, blog posts, or historical monitoring runs.
 
+Website traffic also shows a compact inquiry/contact summary. A separate GA4 `eventCount` report reads `generate_lead`, `phone_click`, `email_click`, `kit_request`, and `ask_don_entry` for the two production Wheeler hostnames. Labels and tracking start dates live in `src/lib/clients/wheeler-analytics-conversions.ts`. Kit and Ask Don rules began on 25 October 2026; earlier periods show the tracking start date rather than zero, and overlapping periods count only events recorded after the rules began. These distinct actions are not added into a combined lead total. If this request fails, traffic remains available and conversion figures show unavailable rather than zero.
+
 ### Connection setup
 
 Wheeler uses the isolated Google Cloud project `wheeler-dashboard-analytics` (project number `529511894928`), created on 22 October 2026. Keep SEOforGPT’s `seoforgpt` project, existing clients and shared consent settings unchanged. No billing account is to be linked for this setup.

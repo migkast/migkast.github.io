@@ -1,4 +1,5 @@
 import type { AnalyticsConfig, AnalyticsReport, AnalyticsRow } from '../../src/lib/clients/wheeler-analytics-types';
+import { conversionDefinitions, type ConversionCounts } from '../../src/lib/clients/wheeler-analytics-conversions';
 
 export function reportRange(days: number, now = new Date()) {
  // All three sources use the same complete-day window, allowing for search processing delays.
@@ -22,12 +23,25 @@ const num = (value: unknown) => Number.isFinite(Number(value)) ? Number(value) :
 export async function googleReport(source: 'ga4' | 'gsc', config: AnalyticsConfig, token: string, days: number, fetcher: typeof fetch): Promise<AnalyticsReport> {
  const range = reportRange(days), headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
  const post = (url: string, body: unknown) => providerJson(url, { method: 'POST', headers, body: JSON.stringify(body) }, fetcher);
- let totals: AnalyticsRow, daily: AnalyticsRow[], pages: AnalyticsRow[], queries: AnalyticsRow[] = [], acquisition: AnalyticsRow[] | undefined;
+ let totals: AnalyticsRow, daily: AnalyticsRow[], pages: AnalyticsRow[], queries: AnalyticsRow[] = [], acquisition: AnalyticsRow[] | undefined, conversions: ConversionCounts | null | undefined;
  if (source === 'ga4') {
   const url = `https://analyticsdata.googleapis.com/v1beta/properties/${config.gaProperty}:runReport`;
   const run = (dimension?: string) => post(url, { dateRanges: [range], metrics: [{ name: 'totalUsers' }, { name: 'screenPageViews' }], ...(dimension ? { dimensions: [{ name: dimension }], orderBys: dimension === 'date' ? [{ dimension: { dimensionName: 'date' } }] : [{ metric: { metricName: 'totalUsers' }, desc: true }], limit: 100 } : {}) });
   const acquisitionRequest = post(url, {dateRanges:[range],dimensions:[{name:'sessionSourceMedium'}],metrics:[{name:'totalUsers'},{name:'sessions'}],orderBys:[{metric:{metricName:'totalUsers'},desc:true}],limit:100});
-  const [summary, dates, urls, sources] = await Promise.all([run(), run('date'), run('pagePath'), acquisitionRequest]);
+  // Include activity before key-event designation, without losing traffic if this request fails.
+  const conversionRequest = post(url, {dateRanges:[range],dimensions:[{name:'eventName'}],metrics:[{name:'eventCount'}],dimensionFilter:{andGroup:{expressions:[
+   {filter:{fieldName:'eventName',inListFilter:{values:conversionDefinitions.map(item=>item.event)}}},
+   {filter:{fieldName:'hostName',inListFilter:{values:['getwheelersteel.com','www.getwheelersteel.com']}}},
+  ]}},limit:conversionDefinitions.length}).then(data=>{
+   const counts=Object.fromEntries(conversionDefinitions.map(item=>[item.event,'trackedFrom' in item && range.endDate<item.trackedFrom?null:0])) as ConversionCounts;
+   for(const row of data.rows || []){
+    const event=row.dimensionValues?.[0]?.value as keyof ConversionCounts;
+    if(Object.hasOwn(counts,event) && counts[event]!==null)counts[event]=num(row.metricValues?.[0]?.value);
+   }
+   return counts;
+  }).catch(()=>null);
+  const [summary, dates, urls, sources, actions] = await Promise.all([run(), run('date'), run('pagePath'), acquisitionRequest, conversionRequest]);
+  conversions=actions;
   acquisition = (sources.rows || []).map((row: any): AnalyticsRow => ({name:row.dimensionValues[0].value,users:num(row.metricValues?.[0]?.value),sessions:num(row.metricValues?.[1]?.value)}));
   const parse = (row: any, name: string): AnalyticsRow => ({ name, users: num(row.metricValues?.[0]?.value), views: num(row.metricValues?.[1]?.value) });
   totals = summary.rows?.[0] ? parse(summary.rows[0], 'Total') : { name: 'Total', users: 0, views: 0 };
@@ -43,7 +57,7 @@ export async function googleReport(source: 'ga4' | 'gsc', config: AnalyticsConfi
   pages = (urls.rows || []).map((row: any) => parse(row, row.keys[0]));
   queries = (terms.rows || []).map((row: any) => parse(row, row.keys[0]));
  }
- return { ...range, fetchedAt: new Date().toISOString(), totals, daily, pages, queries, ...(acquisition ? {acquisition} : {}), dataThrough: daily.at(-1)?.name || null };
+ return { ...range, fetchedAt: new Date().toISOString(), totals, daily, pages, queries, ...(acquisition ? {acquisition} : {}), ...(conversions!==undefined?{conversions}:{}), dataThrough: daily.at(-1)?.name || null };
 }
 export function bingDate(value: string): string | null {
  const match = /\/Date\((\d+)(?:[+-]\d{4})?\)\//.exec(value);

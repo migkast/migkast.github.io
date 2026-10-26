@@ -45,9 +45,42 @@ describe('Wheeler analytics',()=>{
   const bodies:any[]=[];
   const fetcher=vi.fn(async(_url:unknown,init?:RequestInit)=>{const body=JSON.parse(String(init?.body));bodies.push(body);return new Response(JSON.stringify({rows:[{dimensionValues:[{value:body.dimensions?.[0]?.name==='date'?'20261019':body.dimensions?.[0]?.name==='sessionSourceMedium'?'google / organic':'/home'}],metricValues:[{value:body.dimensions?'9':'10'},{value:'25'}]}]}));}) as typeof fetch;
   const report=await googleReport('ga4',{gaProperty:'123',gscSite:'sc-domain:getwheelersteel.com',bingSite:'https://getwheelersteel.com/'},'access',28,fetcher);
-  expect(report.totals.users).toBe(10);expect(report.pages[0]!.users).toBe(9);expect(report.daily[0]!.name).toBe('2026-10-19');expect(bodies).toHaveLength(4);
+  expect(report.totals.users).toBe(10);expect(report.pages[0]!.users).toBe(9);expect(report.daily[0]!.name).toBe('2026-10-19');expect(bodies).toHaveLength(5);
   expect(report.acquisition).toEqual([{name:'google / organic',users:9,sessions:25}]);
   expect(bodies.find(body=>body.dimensions?.[0]?.name==='sessionSourceMedium').metrics).toEqual([{name:'totalUsers'},{name:'sessions'}]);
+ });
+ it('counts only the five production-site outcomes and does not backfill new form tracking',async()=>{
+  vi.useFakeTimers();vi.setSystemTime(new Date('2026-10-25T12:00:00Z'));
+  const bodies:any[]=[];
+  const fetcher=vi.fn(async(_url:unknown,init?:RequestInit)=>{
+   const body=JSON.parse(String(init?.body));bodies.push(body);
+   return new Response(JSON.stringify({rows:body.metrics[0].name==='eventCount'?[
+    {dimensionValues:[{value:'generate_lead'}],metricValues:[{value:'3'}]},
+    {dimensionValues:[{value:'phone_click'}],metricValues:[{value:'1'}]},
+    {dimensionValues:[{value:'kit_request'}],metricValues:[{value:'2'}]},
+    {dimensionValues:[{value:'purchase'}],metricValues:[{value:'99'}]},
+   ]:[]}));
+  }) as typeof fetch;
+  const config={gaProperty:'123',gscSite:'sc-domain:getwheelersteel.com',bingSite:'https://getwheelersteel.com/'};
+  const before=await googleReport('ga4',config,'access',28,fetcher);
+  expect(before.conversions).toEqual({generate_lead:3,phone_click:1,email_click:0,kit_request:null,ask_don_entry:null});
+  const request=bodies.find(body=>body.metrics[0].name==='eventCount');
+  expect(request.dimensionFilter.andGroup.expressions).toEqual([
+   {filter:{fieldName:'eventName',inListFilter:{values:['generate_lead','phone_click','email_click','kit_request','ask_don_entry']}}},
+   {filter:{fieldName:'hostName',inListFilter:{values:['getwheelersteel.com','www.getwheelersteel.com']}}},
+  ]);
+  vi.setSystemTime(new Date('2026-11-01T12:00:00Z'));
+  const after=await googleReport('ga4',config,'access',28,fetcher);
+  expect(after.conversions?.kit_request).toBe(2);expect(after.conversions?.ask_don_entry).toBe(0);
+ });
+ it('keeps conversion data unavailable rather than zero if its request fails, without losing traffic',async()=>{
+  const fetcher=vi.fn(async(_url:unknown,init?:RequestInit)=>{
+   const body=JSON.parse(String(init?.body));
+   if(body.metrics[0].name==='eventCount')return new Response('{}',{status:503});
+   return new Response(JSON.stringify({rows:[{dimensionValues:[{value:body.dimensions?.[0]?.name==='date'?'20261019':'/'}],metricValues:[{value:'10'},{value:'25'}]}]}));
+  }) as typeof fetch;
+  const report=await googleReport('ga4',{gaProperty:'123',gscSite:'sc-domain:getwheelersteel.com',bingSite:'https://getwheelersteel.com/'},'access',28,fetcher);
+  expect(report.totals.users).toBe(10);expect(report.conversions).toBeNull();expect(report.pages).toHaveLength(1);
  });
  it('reports Bing IP throttling without exposing the key',async()=>{
   const config={gaProperty:'123',gscSite:'sc-domain:getwheelersteel.com',bingSite:'https://getwheelersteel.com/'};

@@ -19,3 +19,13 @@
 .analytics-key-dialog [role=status]:empty{display:none;}
 .analytics-key-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:24px;}
 .analytics-key-actions button{font:inherit;font-size:13px;font-weight:400;cursor:pointer;}
+
+.analytics-conversions{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;margin:20px 0 8px;}
+.analytics-report .analytics-conversions h3{font-size:15px;margin:0;}
+.analytics-conversions dl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin:16px 0 0;}
+.analytics-conversions dt{font-size:12px;line-height:1.5;color:var(--muted);}
+.analytics-conversions dd{margin:6px 0 0;font-size:18px;line-height:1.5;font-weight:500;font-variant-numeric:tabular-nums;}
+.analytics-conversions dd[data-state=zero]{color:var(--muted);font-weight:400;}
+.analytics-conversions dd[data-state=missing]{font-size:12px;color:var(--muted);font-weight:400;}
+.analytics-conversions .analytics-note{font-size:11px;margin:12px 0 0!important;}
+@media(max-width:700px){.analytics-conversions dl{grid-template-columns:1fr;gap:0;margin-top:12px;}.analytics-conversions dl>div{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:6px 0;}.analytics-conversions dd{font-size:15px;margin:0;}}

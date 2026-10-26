@@ -1,5 +1,6 @@
 ---
 import '../../styles/wheeler-analytics.css';
+import { conversionDefinitions } from '../../lib/clients/wheeler-analytics-conversions';
 ---
 <div class="analytics-dashboard" data-analytics-root>
  <header class="analytics-heading"><div><p class="eyebrow">WEBSITE &amp; SEARCH</p><h1>Analytics</h1><p>Website visitors and search performance, together in one view.</p></div><button type="button" data-analytics-refresh><span data-analytics-refresh-label>Refresh data</span></button></header>
@@ -13,6 +14,7 @@ import '../../styles/wheeler-analytics.css';
   <header><div><h2 data-analytics-report-title>Website traffic</h2><p data-analytics-report-description>Users and page views reported by GA4.</p></div></header>
   <p data-analytics-empty>Connect Google Analytics to see website traffic.</p>
   <div data-analytics-data hidden><div class="analytics-chart"><canvas data-analytics-chart role="img" aria-label="Daily performance for the selected source"></canvas></div><p class="analytics-note" data-analytics-report-note></p><details class="analytics-daily"><summary>Daily figures</summary><div class="analytics-table-wrap"><table><thead><tr data-analytics-daily-head></tr></thead><tbody data-analytics-daily-body></tbody></table></div></details>
+  <section class="analytics-conversions" data-analytics-conversions hidden aria-labelledby="analytics-conversions-title"><h3 id="analytics-conversions-title">Inquiries &amp; contact</h3><dl>{conversionDefinitions.map(item=><div data-conversion-item={item.event}><dt>{item.label}</dt><dd data-conversion-count>—</dd></div>)}</dl><p class="analytics-note" data-conversions-note></p></section>
   <div data-analytics-acquisition-wrap hidden><h3>Where users come from</h3><p class="analytics-note">Traffic sources for visits during this period, ordered by users. “google / organic” means unpaid Google search. A user can appear under more than one source, so these counts should not be added together.</p><div class="analytics-table-wrap"><table><thead><tr data-analytics-acquisition-head></tr></thead><tbody data-analytics-acquisition-body></tbody></table></div></div>
   <div data-analytics-pages-wrap><h3>Top pages</h3><p class="analytics-note" data-analytics-pages-note></p><div class="analytics-table-wrap"><table><thead><tr data-analytics-pages-head></tr></thead><tbody data-analytics-pages-body></tbody></table></div></div>
   <div data-analytics-queries-wrap hidden><h3>Top search queries</h3><p class="analytics-note">Up to 100 reported queries. Privacy filtering means these rows may not add up to the total.</p><div class="analytics-table-wrap"><table><thead><tr data-analytics-queries-head></tr></thead><tbody data-analytics-queries-body></tbody></table></div></div></div>
